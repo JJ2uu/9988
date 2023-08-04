@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link href="resources/css/default.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="resources/favicon.ico">
+<title>99팔팔</title>
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">
+			<jsp:include page="default/header.jsp" flush="true">
+				<jsp:param name="mode" value="1"/>
+			</jsp:include>
+		</div>
+		<div id="content_wrap">
+			<div id="content">
+			
+			</div>
+		</div>
+		<jsp:include page="default/footer.jsp" flush="true"/>
+	</div>
+</body>
+</html>
