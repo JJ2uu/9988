@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 300;
+	color: #2C343D;
+}
+
+p {
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+#wrap {
+	display: flex;
+	min-height: 100%;
+	text-align: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+#header {
+	width: 100%;
+	border-bottom: 1px solid #E0E6EC;
+	position: fixed;
+	z-index: 3;
+	background-color: #fff;
+}
+
+#footer {
+	padding: 30px 0;
+	background-color: #204B73;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#headerContent {
+	display: flex;
+	flex-flow: column;
+	max-width: 1320px;
+	min-width: 460px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #fff;
+	padding: 24px 0 20px 0;
+	gap: 20px;
+}
+
+#logo {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#gnb_menu {
+	display: flex;
+	justify-content: space-between;
+}
+
+#gnb_menu_list {
+	list-style-type: none;
+	display: flex;
+	gap: 50px;
+	margin: 0;
+	padding: 0;
+	align-items: center;
+	justify-content: center;
+}
+
+#gnb_menu_list li {
+  	position: relative;
+  	font-weight: 400;
+}
+
+#gnb_menu_list li:hover {
+	transition: 0.2s;
+	color: #407FBA;
+}
+
+#gnb_menu_list li:after {
+	content: '';
+	width: 0%;
+	height: 2px;
+	position: absolute;
+	background: #407fba;
+    bottom: -97%;
+	left: 50%;
+	transform: translateX(-50%);
+  	transition: width 0.5s;
+}
+
+#gnb_menu_list li:hover:after,
+#gnb_menu_list li:focus:after {
+	width: 100%;
+}
+
+#gnb_menu_list li, #gnb_login_menu li {
+	cursor: pointer;
+}
+
+#gnb_login_menu {
+	list-style-type: none;
+	gap: 10px;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	align-items: center;
+	justify-content: center;
+}
+
+#gnb_login_menu li {
+	font-weight: 400;
+}
+
+#gnb_map {
+	display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #E5F3FF;
+    padding: 2px 20px;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+#main_banner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 100px;
+	height: 300px;
+	background-image: linear-gradient(to bottom right, #407fba, #24A6AE);
+	margin: 150px 0 0 0;
+}
+
+#banner_text {
+	display: flex;
+	flex-flow: column;
+	align-items: flex-start;
+	gap: 5px;
+}
+
+
+#content_wrap {
+	flex: 1;
+	margin: 0 auto;
+	padding: 240px 0 120px 0;
+}
+
+#content {
+	width: 1120px;
+	max-width: 1000px;
+	min-width: 460px;
+}
