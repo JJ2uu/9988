@@ -152,7 +152,7 @@ html, body {
 #content_wrap {
 	flex: 1;
 	margin: 0 auto;
-	padding: 90px 0 120px 0; /* 서브 페이지에서는 240px 0 120px 0 으로 변경 */
+	padding: 90px 0 120px 0;
 }
 
 #content {
