@@ -3,24 +3,26 @@
 <!DOCTYPE html>
 <div id="headerContent">
 	<div id="logo">
-		<img src="resources/img/logo.svg" width="160px">
+		<a href="${pageContext.request.contextPath}/9988_main.jsp">
+			<img src="${pageContext.request.contextPath}/resources/img/logo.svg" width="160px">
+		</a>
 	</div>
 	<div id="gnb_menu">
 		<div id="gnb_map">
-			<img src="resources/img/icon_map.svg" width="15px" id="map_icon">
-			<span style="color: #407FBA;">내 주변 시설찾기</span>
+			<img src="${pageContext.request.contextPath}/resources/img/icon_map.svg" width="15px" id="map_icon">
+			<a href="#"><span style="color: #407FBA;">내 주변 시설찾기</span></a>
 		</div>
 		<ul id="gnb_menu_list">
-			<li>질문있어요</li>
-			<li>응급이에요</li>
-			<li>오늘 떴어요</li>
-			<li>뭐 먹을까요?</li>
-			<li>운동해요</li>
+			<li><a href="#">질문있어요</a></li>
+			<li><a href="#">응급이에요</a></li>
+			<li><a href="#">오늘 떴어요</a></li>
+			<li><a href="#">뭐 먹을까요?</a></li>
+			<li><a href="#">운동해요</a></li>
 		</ul>
 		<ul id="gnb_login_menu">
-			<li>로그인</li>
+			<li><a href="${pageContext.request.contextPath}/register/9988_login.jsp">로그인</a></li>
 			<li style="cursor: context-menu;">|</li>
-			<li>회원가입</li>
+			<li><a href="#">회원가입</a></li>
 		</ul>
 	</div>
 </div>
