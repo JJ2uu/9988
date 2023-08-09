@@ -6,6 +6,10 @@
 	color: #2C343D;
 }
 
+a {
+	text-decoration: none;
+}
+
 p {
 	margin: 0;
 }
@@ -77,7 +81,10 @@ html, body {
 }
 
 #gnb_menu_list li {
-  	position: relative;
+	position: relative;
+}
+
+#gnb_menu_list li a {
   	font-weight: 400;
 }
 
@@ -117,7 +124,7 @@ html, body {
 	justify-content: center;
 }
 
-#gnb_login_menu li {
+#gnb_login_menu li a {
 	font-weight: 400;
 }
 
