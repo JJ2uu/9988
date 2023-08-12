@@ -8,6 +8,111 @@
 <link href="${pageContext.request.contextPath}/resources/css/default_sub.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/account.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+	$(function() {
+		step1();
+		
+		const acDiv = document.getElementById("ac_content");
+		
+		function step1() {
+			$.ajax({
+				url: '../member/account/agreement',
+				success: function(result) {
+					acDiv.innerHTML = result;
+					
+					const allAgreeCheckbox = document.getElementById("all_agree");
+			        const otherCheckboxes = document.querySelectorAll(".checkbox:not(#reception_agree)");
+
+			        allAgreeCheckbox.addEventListener("change", () => {
+			            const isChecked = allAgreeCheckbox.checked;
+
+			            otherCheckboxes.forEach(checkbox => {
+			                checkbox.checked = isChecked;
+			            });
+			        });
+				}
+			})
+		}
+		
+		function step2() {
+			acDiv.innerHTML = null;
+			console.log("step2")
+		}
+		
+		function step3() {
+			acDiv.innerHTML = null;
+			console.log("step3")
+		}
+		
+		const progress = document.getElementById("progress");
+		const before = document.getElementById("before");
+		const next = document.getElementById("next");
+		const circles = document.querySelectorAll(".circle");
+		const steps = document.querySelectorAll(".stepText");
+		
+		let currentActive = 1;
+
+		next.addEventListener("click", () => {
+			currentActive++;
+
+			if (currentActive > circles.length) {
+				currentActive = circles.length;
+			}
+		  	update();
+		});
+		
+		before.addEventListener("click", () => {
+			currentActive--;
+
+			if (currentActive < 1) {
+				currentActive = 1;
+			}
+			update();
+		});
+		
+		function update() {
+			steps.forEach((stepText, idx) => {
+				if (idx < currentActive) {
+					stepText.classList.add("textActive");
+			    } else {
+			    	stepText.classList.remove("textActive");
+			    }
+			});
+			
+			circles.forEach((circle, idx) => {
+				if (idx < currentActive) {
+			    	circle.classList.add("active");
+			    } else {
+			    	circle.classList.remove("active");
+			    }
+			});
+
+			const actives = document.querySelectorAll(".active");
+
+			progress.style.width = ((actives.length - 1) / (circles.length - 1)) * 90 + "%";
+
+			if (currentActive === 1) {
+				step1();
+				before.disabled = true;
+			} else if (currentActive === circles.length) {
+				step3();
+				before.disabled = true;
+				next.textContent = "로그인";
+				next.style.width = "50%";
+				next.addEventListener("click", () => {
+			        window.location.href = "login.jsp";
+			    });
+			} else {
+				step2();
+				before.disabled = false;
+			    next.disabled = false;
+			}
+		}
+	})
+	
+</script>
 <title>99팔팔</title>
 </head>
 <body>
