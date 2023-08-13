@@ -8,9 +8,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <link href="resources/css/default.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="resources/favicon.ico">
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js">
+</script>
 <title>99팔팔</title>
+<style type="text/css">
+.menu{
+    font-size: x-large;
+    font-weight: 600;
+    padding-bottom: 30px;
+}
+#main_daily{
+	width: 1120px;
+	height: 400px;
+}
+#main_qna{
+	width: 510px;
+	height: 400px;
+}
+#main_emergency{
+	width: 510px;
+	height: 400px;
+}
+#main_food{
+	width: 1120px;
+	height: 400px;
+}
+#main_exercise{
+	width: 1120px;
+	height: 400px;
+}
+
+</style>
 </head>
+
 <body>
 	<div id="wrap">
 		<div id="header">
@@ -31,7 +61,21 @@
 		</div>
 		<div id="content_wrap">
 			<div id="content">
-				<!-- 이 content div 안에서  작업 시작-->
+				<div id="main_daily"><div class="menu">오늘떴어요</div>
+					<div style="display: flex; justify-content: space-around;">
+						<jsp:include page="WEB-INF/views/main/main_daily.jsp" flush="true">
+							<jsp:param name="mode" value="1"/>
+						</jsp:include></div></div>
+				<div style="display: flex; justify-content: space-around;width: 1120px;">
+					<div id="main_qna"><div class="menu">질문있어요</div>
+					<div>
+						<jsp:include page="WEB-INF/views/main/main_qna.jsp" flush="true">
+							<jsp:param name="mode" value="1"/>
+						</jsp:include></div></div>
+					<div id="main_emergency"><div class="menu">응급이에요</div></div></div>
+				<div id="main_food"><div class="menu">뭐먹을까요?</div></div>
+				<div id="main_exercise"><div class="menu">운동해요</div></div>
+				
 			</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true"/>
