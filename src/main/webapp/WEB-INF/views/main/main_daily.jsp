@@ -12,6 +12,10 @@
 .article{
 	align-content: center;
 }
+
+.articleImage {
+    border-radius: 5px;
+}
 .articleTitle {
     max-width: 250px; /* 원하는 최대 너비 설정 */
     white-space: nowrap; /* 글자 줄바꿈 방지 */
