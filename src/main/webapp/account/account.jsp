@@ -17,7 +17,6 @@
 		const next = document.getElementById("next");
 		const circles = document.querySelectorAll(".circle");
 		const steps = document.querySelectorAll(".stepText");
-		const acDiv = document.getElementById("ac_content");
 		
 		let currentActive = 1;
 		
@@ -26,12 +25,11 @@
 		function step1() {
 			$.ajax({
 				url: '../member/account/agreement',
-				success: function(result) {
-					acDiv.innerHTML = result;
+				success: function(step1) {
+					$('#ac_content').empty();
+					$('#ac_content').append(step1);
 					
 					const allAgreeCheckbox = document.getElementById("all_agree");
-					const serviceCheckbox = document.getElementById("service_agree");
-					const privacyCheckbox = document.getElementById("privacy_agree");
 			        const otherCheckboxes = document.querySelectorAll(".checkbox:not(#reception_agree)");
 
 			        allAgreeCheckbox.addEventListener("change", () => {
@@ -42,42 +40,121 @@
 			            });
 			        });
 			        
-			        next.addEventListener("click", () => {
-			        	console.log(currentActive);
-						if (serviceCheckbox.checked && privacyCheckbox.checked) {
-							currentActive++;
-						  	update();
-						  	step2();
-						} else {
-							alert('필수 항목을 동의해 주세요.')
-						}
-					});
-			        
+			        next.addEventListener("click", firstNext);
+
 				}
 			})
 		}
 		
-		function step2() {
-			acDiv.innerHTML = null;
-			next.addEventListener("click", step3);
-			
-			$(window).on("beforeunload", callback);
-			 
-			function callback(){
-			    return "changes will be lost!";
+        function firstNext() {
+			const serviceCheckbox = document.getElementById("service_agree");
+			const privacyCheckbox = document.getElementById("privacy_agree");
+        	
+			if (serviceCheckbox.checked && privacyCheckbox.checked) {
+				currentActive++;
+				update();
+				step2();
+			} else {
+				alert('필수 항목을 동의해 주세요.')
 			}
-			
-			before.addEventListener("click", () => {
-				const delConfirm = confirm("이전으로 돌아갈 시 입력 정보가 초기화됩니다.")
-				if (delConfirm) {
-					location.reload();
+		}
+		
+		function step2() {
+			$.ajax({
+				url: '../member/account/enter',
+				success: function(stpe2) {
+					$('#ac_content').empty();
+					$('#ac_content').append(stpe2);
+					window.scrollTo(0, 0);
+					
+					/* 출생연도 */
+					const birthYearEl = document.querySelector('#birth-year')
+					
+					isYearOptionExisted = false;
+					birthYearEl.addEventListener('focus', function () {
+					  
+					  if(!isYearOptionExisted) {
+					    isYearOptionExisted = true
+					    for(var i = 1940; i <= 2022; i++) {
+					      
+					      const YearOption = document.createElement('option')
+					      YearOption.setAttribute('value', i)
+					      YearOption.innerText = i
+					      
+					      this.appendChild(YearOption);
+					    }
+					  }
+					});
+					
+					/* 월 */
+					const birthMonthEl = document.querySelector('#birth-month')
+					
+					isMonthOptionExisted = false;
+					birthMonthEl.addEventListener('focus', function () {
+					  
+					  if(!isMonthOptionExisted) {
+						isMonthOptionExisted = true
+					    for(var i = 1; i <= 12; i++) {
+					      
+					      const monthOption = document.createElement('option')
+					      monthOption.setAttribute('value', i)
+					      monthOption.innerText = i
+					      
+					      this.appendChild(monthOption);
+					    }
+					  }
+					});
+					
+					/* 일 */
+					const birthDayEl = document.querySelector('#birth-day')
+					
+					isDayOptionExisted = false;
+					birthDayEl.addEventListener('focus', function () {
+					  
+					  if(!isDayOptionExisted) {
+						isDayOptionExisted = true
+					    for(var i = 1; i <= 31; i++) {
+					      
+					      const dayOption = document.createElement('option')
+					      dayOption.setAttribute('value', i)
+					      dayOption.innerText = i
+					      
+					      this.appendChild(dayOption);
+					    }
+					  }
+					});
+					
+					next.removeEventListener("click", firstNext);
+					next.addEventListener("click", step3);
+					
+					before.addEventListener("click", () => {
+						const delConfirm = confirm("이전으로 돌아갈 시 입력 정보가 초기화됩니다.")
+						if (delConfirm) {
+							location.reload();
+						}
+					});
 				}
-			});
+			})
 		}
 		
 		function step3() {
-			acDiv.innerHTML = null;
-			console.log("step3")
+			currentActive++;
+			update();
+			
+			$.ajax({
+				url: '../member/account/completed',
+				success: function(step3) {
+					$('#ac_content').empty();
+					$('#ac_content').append(step3)
+					window.scrollTo(0, 0);
+					
+					const btnLogin = document.getElementById("btn_login");
+					
+					btnLogin.addEventListener("click", () => {
+						location.href = "login.jsp";
+					})
+				}
+			})
 		}
 		
 		function update() {
@@ -105,11 +182,7 @@
 				before.disabled = true;
 			} else if (currentActive === circles.length) {
 				before.disabled = true;
-				next.textContent = "로그인";
-				next.style.width = "50%";
-				next.addEventListener("click", () => {
-			        window.location.href = "login.jsp";
-			    });
+				next.disabled = true;
 			} else {
 				before.disabled = false;
 			    next.disabled = false;
