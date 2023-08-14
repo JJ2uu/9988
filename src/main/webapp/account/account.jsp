@@ -12,9 +12,16 @@
 <script type="text/javascript">
 
 	$(function() {
-		step1();
-		
+		const progress = document.getElementById("progress");
+		const before = document.getElementById("before");
+		const next = document.getElementById("next");
+		const circles = document.querySelectorAll(".circle");
+		const steps = document.querySelectorAll(".stepText");
 		const acDiv = document.getElementById("ac_content");
+		
+		let currentActive = 1;
+		
+		step1();
 		
 		function step1() {
 			$.ajax({
@@ -23,6 +30,8 @@
 					acDiv.innerHTML = result;
 					
 					const allAgreeCheckbox = document.getElementById("all_agree");
+					const serviceCheckbox = document.getElementById("service_agree");
+					const privacyCheckbox = document.getElementById("privacy_agree");
 			        const otherCheckboxes = document.querySelectorAll(".checkbox:not(#reception_agree)");
 
 			        allAgreeCheckbox.addEventListener("change", () => {
@@ -32,45 +41,44 @@
 			                checkbox.checked = isChecked;
 			            });
 			        });
+			        
+			        next.addEventListener("click", () => {
+			        	console.log(currentActive);
+						if (serviceCheckbox.checked && privacyCheckbox.checked) {
+							currentActive++;
+						  	update();
+						  	step2();
+						} else {
+							alert('필수 항목을 동의해 주세요.')
+						}
+					});
+			        
 				}
 			})
 		}
 		
 		function step2() {
 			acDiv.innerHTML = null;
-			console.log("step2")
+			next.addEventListener("click", step3);
+			
+			$(window).on("beforeunload", callback);
+			 
+			function callback(){
+			    return "changes will be lost!";
+			}
+			
+			before.addEventListener("click", () => {
+				const delConfirm = confirm("이전으로 돌아갈 시 입력 정보가 초기화됩니다.")
+				if (delConfirm) {
+					location.reload();
+				}
+			});
 		}
 		
 		function step3() {
 			acDiv.innerHTML = null;
 			console.log("step3")
 		}
-		
-		const progress = document.getElementById("progress");
-		const before = document.getElementById("before");
-		const next = document.getElementById("next");
-		const circles = document.querySelectorAll(".circle");
-		const steps = document.querySelectorAll(".stepText");
-		
-		let currentActive = 1;
-
-		next.addEventListener("click", () => {
-			currentActive++;
-
-			if (currentActive > circles.length) {
-				currentActive = circles.length;
-			}
-		  	update();
-		});
-		
-		before.addEventListener("click", () => {
-			currentActive--;
-
-			if (currentActive < 1) {
-				currentActive = 1;
-			}
-			update();
-		});
 		
 		function update() {
 			steps.forEach((stepText, idx) => {
@@ -94,10 +102,8 @@
 			progress.style.width = ((actives.length - 1) / (circles.length - 1)) * 90 + "%";
 
 			if (currentActive === 1) {
-				step1();
 				before.disabled = true;
 			} else if (currentActive === circles.length) {
-				step3();
 				before.disabled = true;
 				next.textContent = "로그인";
 				next.style.width = "50%";
@@ -105,13 +111,11 @@
 			        window.location.href = "login.jsp";
 			    });
 			} else {
-				step2();
 				before.disabled = false;
 			    next.disabled = false;
 			}
 		}
 	})
-	
 </script>
 <title>99팔팔</title>
 </head>
