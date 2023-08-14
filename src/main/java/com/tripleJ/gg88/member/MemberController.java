@@ -11,4 +11,14 @@ public class MemberController {
 		return "account/agreement";
 	}
 	
+	@RequestMapping("member/account/enter")
+	public String enter() {
+		return "account/enter";
+	}
+	
+	@RequestMapping("member/account/completed")
+	public String completed() {
+		return "account/completed";
+	}
+	
 }
