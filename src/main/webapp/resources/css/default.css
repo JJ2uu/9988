@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+input::placeholder {color:#B5C2CF;}
+input::-webkit-input-placeholder {color:#B5C2CF;}
+input:-ms-input-placeholder {color:#B5C2CF;}
+
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-weight: 300;
