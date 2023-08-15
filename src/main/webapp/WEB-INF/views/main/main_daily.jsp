@@ -29,11 +29,18 @@
     overflow: hidden; /* 넘치는 내용 감춤 */
     text-overflow: ellipsis; /* 생략 부호 표시 */
 }
+.articleCompany {
+    color: #407FBA;
+    font-weight: 500;
+    text-align: left;
+    padding-bottom: 5px;
+}
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <c:forEach var="i" begin="1" end="4">
 	<div class="article">
-		<img class="articleImage" alt="기사썸네일" src="${pageContext.request.contextPath}/resources/img/articleimg.jpg" width="200px" height="200px">
+		<img class="articleImage" alt="기사썸네일" src="${pageContext.request.contextPath}/resources/img/articleimg.jpg" width="250px" height="200px">
+		<div class="articleCompany">한국경제 TV</div>
 		<div class="articleTitle">열나면서 고개 숙이기 어렵다면? 감기 아닌 '뇌수막염'</div>
 		<div class="articleContent">38도 이상의 고열, 두통, 오한 증상이 나타나면 대부분의 사람들은 ...</div>
 	</div>

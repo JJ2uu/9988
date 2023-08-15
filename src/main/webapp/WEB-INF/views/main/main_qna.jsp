@@ -32,8 +32,8 @@ th, td{
 	</tr>
 	<c:forEach var="i" begin="1" end="5">
 		<tr>
-		    <td>병원</td>
-		    <td>당뇨 병원 추천해주세요.</td>
+		    <td style="color: #717A84">병원</td>
+		    <td style="font-weight: 400">당뇨 병원 추천해주세요.</td>
 		  	<td>2023.08.13</td>
 	  	</tr>
 	</c:forEach>
