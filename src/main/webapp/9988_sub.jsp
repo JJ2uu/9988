@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-<link href="resources/css/default_sub.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/default_sub.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>99팔팔</title>
