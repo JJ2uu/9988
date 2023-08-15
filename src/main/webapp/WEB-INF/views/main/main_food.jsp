@@ -1,28 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 <style type="text/css">
 .food {
     position: relative;
     display: inline-block;
     margin: 10px;
     cursor: pointer;
+    background: #000;
+    border-radius: 5px;
 }
 
 .foodImage {
     width: 250px;
-    height: 200px;
     border-radius: 5px;
 }
 
 .foodImage:hover {
-    filter: grayscale(60%);
+    opacity: 30%;
 }
 
 .textContainer {
@@ -44,11 +38,12 @@
     font-size: 16px;
 }
 </style>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <c:forEach var="i" begin="1" end="4">
 	<div class="food">
-		<img class="foodImage" src="${pageContext.request.contextPath}/resources/img/foodimg.png" width="250px" height="200px">
-		<div class="textContainer"><div class="foodText">행복한 주방</div><div class="foodText" style="font-weight: normal;">맛있는 떡볶이</div></div>
+		<img class="foodImage" src="${pageContext.request.contextPath}/resources/img/foodimg.png">
+		<div class="textContainer">
+			<div class="foodText">행복한 주방</div>
+			<div class="foodText" style="font-weight: normal;">맛있는 떡볶이</div>
+		</div>
 	</div>
 </c:forEach>
-</html>
