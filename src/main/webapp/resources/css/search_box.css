@@ -1,0 +1,22 @@
+@charset "UTF-8";
+.search{
+	position: relative; 
+	width: 600px; 
+	height: 55px;
+}
+
+.search input {
+	width: 100%;
+	height: 100%;
+	border: 1px solid #B5C2CF;
+	border-radius: 5px;
+	padding-left: 20px;
+}
+
+.search img {
+	position: absolute;
+	width: 21px;
+	top: 20px;
+	right: 20px;
+	margin: 0;
+}
