@@ -20,9 +20,9 @@
 			<li><a href="${pageContext.request.contextPath}/exercise/doExercise">운동해요</a></li>
 		</ul>
 		<ul id="gnb_login_menu">
-			<li><a href="${pageContext.request.contextPath}/register/9988_login.jsp">로그인</a></li>
+			<li><a href="${pageContext.request.contextPath}/account/login.jsp">로그인</a></li>
 			<li style="cursor: context-menu;">|</li>
-			<li><a href="#">회원가입</a></li>
+			<li><a href="${pageContext.request.contextPath}/account/account.jsp">회원가입</a></li>
 		</ul>
 	</div>
 </div>
