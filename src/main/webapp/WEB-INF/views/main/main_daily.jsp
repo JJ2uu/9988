@@ -1,12 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 <style type="text/css">
 .article{
 	align-content: center;
@@ -33,6 +26,7 @@
     font-weight: 500;
     text-align: left;
     padding-bottom: 5px;
+    padding-top: 5px;
 }
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -44,4 +38,3 @@
 		<div class="articleContent">38도 이상의 고열, 두통, 오한 증상이 나타나면 대부분의 사람들은 ...</div>
 	</div>
 </c:forEach>
-</html>
