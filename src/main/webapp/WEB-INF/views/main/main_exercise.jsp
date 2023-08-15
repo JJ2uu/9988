@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-<link href="resources/css/default_sub.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 <style type="text/css">
 .grid-container {
@@ -56,7 +55,6 @@
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <body>
-
 <div class="grid-container">
   <div class="grid-item item1 bigSize"><img class="exerciseImage bigImage" src="${pageContext.request.contextPath}/resources/img/exerciseimg.png" width="520px" height="380px">
 <div class="bigSizeText">[ENG]딱 20분 하루 운동 끝장내는 전신운동과 올인원루틴</div></div>
