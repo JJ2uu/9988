@@ -1,0 +1,292 @@
+@charset "UTF-8";
+
+input::placeholder {color:#B5C2CF;}
+input::-webkit-input-placeholder {color:#B5C2CF;}
+input:-ms-input-placeholder {color:#B5C2CF;}
+
+#ac_wrap {
+	width: 600px;
+}
+
+#step_wrap {
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	margin: 20px 0 30px 0;
+	width: 100%;
+}
+
+#step_wrap::before {
+	content: '';
+	background-color: #B5C2CF;
+	position: absolute;
+	top: 30%;
+	left: 15px;
+	transform: translateY(-50%);
+	height: 4px;
+	width: 90%;
+	z-index: -1;
+}
+
+.progressBar {
+	background-color: #407FBA;
+	position: absolute;
+	top: 30%;
+	left: 15px;
+	transform: translateY(-50%);
+	height: 4px;
+	width: 0%;
+	z-index: -1;
+	transition: 0.4s ease;
+}
+
+.step {
+	display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.circle {
+	width: 40px;
+	height: 40px;
+	border: 4px solid #B5C2CF;
+	background: #fff;
+	border-radius: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #B5C2CF;
+	font-weight: 400;
+}
+
+.active {
+	border-color: #407FBA;
+	color: #407FBA;
+	font-weight: 500;
+}
+
+.stepText {
+	color: #B5C2CF;
+	font-weight: 400;
+}
+
+.textActive {
+	color: #407FBA;
+	font-weight: 500;
+}
+#ac_content {
+	margin-bottom: 60px;
+	display: flex;
+	flex-flow: column;
+	gap: 40px;
+}
+
+/* 약관 동의 */
+.check_wrap {
+	display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+input[id="all_agree"] {
+	display: none;
+}
+
+input[id="all_agree"] + label {
+	display: inline-block;
+	width: 26px;
+	height: 26px;
+	background: #B5C2CF;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+input[id="service_agree"] {
+	display: none;
+}
+
+input[id="service_agree"] + label {
+	display: inline-block;
+	width: 26px;
+	height: 26px;
+	background: #B5C2CF;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+input[id="privacy_agree"] {
+	display: none;
+}
+
+input[id="privacy_agree"] + label {
+	display: inline-block;
+	width: 26px;
+	height: 26px;
+	background: #B5C2CF;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+input[id="reception_agree"] {
+	display: none;
+}
+
+input[id="reception_agree"] + label {
+	display: inline-block;
+	width: 26px;
+	height: 26px;
+	background: #B5C2CF;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.check_wrap input[type="checkbox"]:checked + .on {
+	background: #407FBA;
+}
+
+.check_wrap input[type="checkbox"]:checked + .on:after {
+	display: block;
+}
+
+.on:after {
+	content: "";
+	position: absolute;
+    width: 6px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+}
+
+.ac_detail {
+	text-align: left;
+	color: #626E7C;
+}
+
+
+.btn_wrap {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+.btn {
+	color: #fff;
+	font-size: 16px;
+	width: 100%;
+	height: 60px;
+	background: #407FBA;
+	border-radius: 5px;
+	border-style: none;
+	cursor: pointer;
+}
+
+.before {
+	background: #717A84;
+}
+
+.btn:disabled {
+	display: none;
+	background: #717A84;
+}
+
+.terms_box {
+	overflow: auto;
+    box-sizing: border-box;
+    max-height: 120px;
+    margin: 9px 0 0 32px;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #d6d6d6;
+}
+
+.terms_detail {
+	margin: 0 0 30px 0;
+}
+
+.terms_detail > h3, h4 {
+	margin: 0 0 10px 0;
+	font-weight: 500;
+}
+
+.terms_box::-webkit-scrollbar {
+	width: 20px;
+}
+
+.terms_box::-webkit-scrollbar-thumb {
+    height: 42px;
+    background: #B5C2CF;
+    border-radius: 10px;
+    border: 6px solid #fff;
+}
+
+/* 회원정보 입력 */
+.input_wrap {
+	text-align: left;
+}
+
+.input_title {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.input_content {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.input_field {
+	width: 100%;
+    height: 50px;
+    background: #F2F6FA;
+    border-style: none;
+    border-radius: 5px;
+    outline: none;
+    padding: 0 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.input_field:focus {
+	outline: none;
+	box-shadow: 0 0 0 1px #B5C2CF;
+}
+
+.btn_confirm {
+	width: 20%;
+	background: #2C343D;
+	border-radius: 5px;
+	color: #fff;
+	height: 52px;
+}
+
+select.box {
+	width: 100%;
+    height: 50px;
+    background: #F2F6FA;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+select.box:focus {
+	outline: none;
+	box-shadow: 0 0 0 1px #B5C2CF;
+}
+
+input[type=radio] {
+	accent-color: #407FBA;
+}
+
+#certification {
+	width: 50%;
+}
