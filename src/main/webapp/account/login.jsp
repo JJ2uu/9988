@@ -43,7 +43,7 @@
 						<button id="btn_login">로그인</button>
 					</form>
 					<div id="login_text_wrap">
-						<span><a href="#">아이디·비밀번호 찾기</a></span>
+						<span><a href="find.jsp">아이디·비밀번호 찾기</a></span>
 						<span><a href="account.jsp" id="btn_signUp">회원이 아니신가요?</a></span>
 					</div>
 				</div>
