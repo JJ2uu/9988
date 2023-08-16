@@ -21,4 +21,9 @@ public class MemberController {
 		return "account/completed";
 	}
 	
+	@RequestMapping("member/account/foundId")
+	public String foundId() {
+		return "account/foundId";
+	}
+	
 }
