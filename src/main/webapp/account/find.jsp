@@ -32,13 +32,62 @@
 	    }
 		
 		$("#btn_findId").click(function() {
-			$.ajax({
-				url: '../member/account/foundId',
-				success: function(foundId) {
-					$("#tab_1").empty();
-					$("#tab_1").append(foundId);
-				}
-			})
+			let delConfirm = confirm("아이디가 있나");
+			
+			if (delConfirm) {
+				$.ajax({
+					url: '../member/account/foundId',
+					success: function(foundId) {
+						$("#tab_1").empty();
+						$("#tab_1").append(foundId);
+						
+						$("#btn_login").click(function() {
+							location.href = "login.jsp"
+						})
+					}
+				})
+			} else {
+				$.ajax({
+					url: '../member/account/notFoundId',
+					success: function(notFoundId) {
+						$("#tab_1").empty();
+						$("#tab_1").append(notFoundId);
+					}
+				})
+			}
+		})
+		
+		$("#btn_next").click(function() {
+			let pwConfirm = confirm("존재하는 아이디인가?");
+			
+			if (pwConfirm) {
+				$.ajax({
+					url: '../member/account/resetPw',
+					success: function(resetPw) {
+						$("#tab_2").empty();
+						$("#tab_2").append(resetPw);
+						
+						$("#btn_changePw").click(function() {
+							$.ajax({
+								url: '../member/account/changePw',
+								success: function(changePw) {
+									$("#tab_2").empty();
+									$("#tab_2").append(changePw);
+									
+									$("#btn_completed").click(function() {
+										alert('비밀번호 변경이 완료되었습니다.')
+										location.reload();
+									})
+								}
+							})
+						})
+					}
+				})
+			} else {
+				const notIdSpan = document.getElementById("notExistId");
+				
+				notIdSpan.innerHTML = "존재하지 않는 아이디입니다. 다시 확인해 주세요."
+			}
 		})
 	})
 	
@@ -64,7 +113,7 @@
 						<div id="tab_1" class="tab_content current">
 							<div style="display: flex; flex-flow: column; gap: 10px;">
 								<span class="tab_title">아이디 찾기</span>
-								<span>가입 시 입력하신 이메일로 인증번호를 보내 드립니다.</span>
+								<span>이메일로 인증번호를 보내 드립니다.</span>
 							</div>
 							<div style="display: flex; flex-flow: column; gap: 10px; margin: 30px 0;">
 								<div class="input_wrap">
@@ -75,20 +124,16 @@
 							</div>
 							<button id="btn_findId" class="btn">확인</button>
 						</div>
-						<div id="tab_2" class="tab_content">
+						<div id="tab_2" class="tab_content ">
 							<div style="display: flex; flex-flow: column; gap: 10px;">
 								<span class="tab_title">비밀번호 찾기</span>
-								<span>가입 시 입력하신 이메일로 인증번호를 보내 드립니다.</span>
+								<span>비밀번호를 찾고자 하는 아이디를 입력해 주세요.</span>
 							</div>
-							<div style="display: flex; flex-flow: column; gap: 10px; margin: 30px 0;">
+							<div style="display: flex; flex-flow: column; margin: 30px 0;">
 								<input id="" class="input_field" placeholder="아이디">
-								<div class="input_wrap">
-									<input id="input_email" class="input_field" placeholder="이메일">
-									<button class="btn_confirm">인증번호 받기</button>
-								</div>
-								<input id="" class="input_field" placeholder="인증번호 입력">
+								<span id="notExistId" style="color: red;"></span>
 							</div>
-							<button id="btn_findPw" class="btn">확인</button>
+							<button id="btn_next" class="btn">다음</button>
 						</div>
 					</div>
 				</div>
