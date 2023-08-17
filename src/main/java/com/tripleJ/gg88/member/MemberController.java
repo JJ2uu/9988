@@ -26,4 +26,19 @@ public class MemberController {
 		return "account/foundId";
 	}
 	
+	@RequestMapping("member/account/notFoundId")
+	public String notFoundId() {
+		return "account/notFoundId";
+	}
+	
+	@RequestMapping("member/account/resetPw")
+	public String resetPw() {
+		return "account/resetPw";
+	}
+	
+	@RequestMapping("member/account/changePw")
+	public String changePw() {
+		return "account/changePw";
+	}
+	
 }
