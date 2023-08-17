@@ -107,10 +107,10 @@
 					<span style="font-size: 24px; font-weight: 700;">회원정보 찾기</span>
 					<div id="tab_wrap">
 						<ul class="tabs">
-							<li class="tab_menu current" data-tab="tab_1">아이디 찾기</li>
-							<li class="tab_menu" data-tab="tab_2">비밀번호 찾기</li>
+							<li class="tab_menu current" data-tab="tab_findId">아이디 찾기</li>
+							<li class="tab_menu" data-tab="tab_findPw">비밀번호 찾기</li>
 						</ul>
-						<div id="tab_1" class="tab_content current">
+						<div id="tab_findId" class="tab_content current">
 							<div style="display: flex; flex-flow: column; gap: 10px;">
 								<span class="tab_title">아이디 찾기</span>
 								<span>이메일로 인증번호를 보내 드립니다.</span>
@@ -124,7 +124,7 @@
 							</div>
 							<button id="btn_findId" class="btn">확인</button>
 						</div>
-						<div id="tab_2" class="tab_content ">
+						<div id="tab_findPw" class="tab_content">
 							<div style="display: flex; flex-flow: column; gap: 10px;">
 								<span class="tab_title">비밀번호 찾기</span>
 								<span>비밀번호를 찾고자 하는 아이디를 입력해 주세요.</span>
