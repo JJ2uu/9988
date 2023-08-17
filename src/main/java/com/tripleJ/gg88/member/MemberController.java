@@ -41,4 +41,14 @@ public class MemberController {
 		return "account/changePw";
 	}
 	
+	@RequestMapping("member/info/myInfo")
+	public String myInfo() {
+		return "info/myInfo";
+	}
+	
+	@RequestMapping("member/info/myHistory")
+	public String myHistory() {
+		return "info/myHistory";
+	}
+	
 }
