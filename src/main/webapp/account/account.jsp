@@ -22,6 +22,7 @@
 		
 		step1();
 		
+		/* 회원가입 - 약관 동의 */
 		function step1() {
 			$.ajax({
 				url: '../member/account/agreement',
@@ -46,6 +47,7 @@
 			})
 		}
 		
+		/* 필수 항목 동의 */
         function firstNext() {
 			const serviceCheckbox = document.getElementById("service_agree");
 			const privacyCheckbox = document.getElementById("privacy_agree");
@@ -59,6 +61,7 @@
 			}
 		}
 		
+		/* 회원가입 - 회원정보 입력 */
 		function step2() {
 			$.ajax({
 				url: '../member/account/enter',
@@ -127,6 +130,7 @@
 					next.removeEventListener("click", firstNext);
 					next.addEventListener("click", step3);
 					
+					/* [이전]버튼 클릭 시 안내 */
 					before.addEventListener("click", () => {
 						const delConfirm = confirm("이전으로 돌아갈 시 입력 정보가 초기화됩니다.")
 						if (delConfirm) {
@@ -137,6 +141,7 @@
 			})
 		}
 		
+		/* 마이페이지 - 가입 완료 */
 		function step3() {
 			currentActive++;
 			update();
@@ -157,6 +162,7 @@
 			})
 		}
 		
+		/* 회원가입 페이지 progress bar */
 		function update() {
 			steps.forEach((stepText, idx) => {
 				if (idx < currentActive) {

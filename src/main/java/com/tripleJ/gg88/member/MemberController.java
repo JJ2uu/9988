@@ -21,4 +21,34 @@ public class MemberController {
 		return "account/completed";
 	}
 	
+	@RequestMapping("member/account/foundId")
+	public String foundId() {
+		return "account/foundId";
+	}
+	
+	@RequestMapping("member/account/notFoundId")
+	public String notFoundId() {
+		return "account/notFoundId";
+	}
+	
+	@RequestMapping("member/account/resetPw")
+	public String resetPw() {
+		return "account/resetPw";
+	}
+	
+	@RequestMapping("member/account/changePw")
+	public String changePw() {
+		return "account/changePw";
+	}
+	
+	@RequestMapping("member/info/myInfo")
+	public String myInfo() {
+		return "info/myInfo";
+	}
+	
+	@RequestMapping("member/info/myHistory")
+	public String myHistory() {
+		return "info/myHistory";
+	}
+	
 }

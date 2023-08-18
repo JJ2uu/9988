@@ -4,6 +4,7 @@
 	width: 600px;
 }
 
+/* progress bar */
 #step_wrap {
 	display: flex;
 	justify-content: space-between;
