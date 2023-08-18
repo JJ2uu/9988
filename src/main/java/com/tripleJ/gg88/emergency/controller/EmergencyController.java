@@ -17,4 +17,9 @@ public class EmergencyController {
 	public void createBoard() {
 		
 	}
+	
+	@RequestMapping(value = "/board", method = RequestMethod.GET)
+	public void separateBoard() {
+		
+	}
 }
