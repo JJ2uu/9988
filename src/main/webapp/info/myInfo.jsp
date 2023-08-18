@@ -12,6 +12,7 @@
 <script type="text/javascript">
 
 	$(function() {
+		/* 마이페이지 탭 메뉴 이벤트 */
 		$("ul.tabs li").click(function() {
 			const tab_id = $(this).attr('data-tab');
 			
@@ -31,6 +32,7 @@
 	        $("#" + activeTab).addClass('current');
 	    }
 	    
+	    /* 마이페이지 - 내 정보 */
 	    $.ajax({
 	    	url: '../member/info/myInfo',
 	    	success: function(myInfo) {
@@ -38,6 +40,7 @@
 			}
 	    })
 	    
+	    /* 마이페이지 - 내 활동 이력 */
 	    $.ajax({
 	    	url: '../member/info/myHistory',
 	    	success: function(myHistory) {

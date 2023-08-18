@@ -7,6 +7,7 @@
 	gap: 40px;
 }
 
+/* 프로필 사진 */
 #profile_wrap {
 	display: flex;
     gap: 50px;
@@ -54,6 +55,7 @@
   display: none;
 }
 
+/* 마이페이지 탭 메뉴 */
 .tabs{
 	margin: 0px;
 	padding: 0px;
@@ -86,6 +88,7 @@
 	display: inherit;
 }
 
+/* 내 정보 */
 #tab1_wrap {
 	width: 400px;
 	margin: 0 auto;
@@ -161,6 +164,7 @@
     transform: rotate(45deg);
 }
 
+/* 내 활동 이력 */
 #tab2_wrap {
 	display: flex;
 	flex-flow: column;

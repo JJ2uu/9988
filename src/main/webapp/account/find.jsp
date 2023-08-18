@@ -12,6 +12,7 @@
 <script type="text/javascript">
 
 	$(function() {
+		/* 회원정보 찾기 탭 메뉴 이벤트 */
 		$("ul.tabs li").click(function() {
 			const tab_id = $(this).attr('data-tab');
 			
@@ -31,6 +32,7 @@
 	        $("#" + activeTab).addClass('current');
 	    }
 		
+	    /* 아이디 찾기 */
 		$("#btn_findId").click(function() {
 			let delConfirm = confirm("아이디가 있나");
 			
@@ -57,6 +59,7 @@
 			}
 		})
 		
+		/* 비밀번호 찾기 */
 		$("#btn_next").click(function() {
 			let pwConfirm = confirm("존재하는 아이디인가?");
 			
