@@ -42,6 +42,27 @@
 	    	url: '../member/info/myHistory',
 	    	success: function(myHistory) {
 				$("#tab_myHistory").append(myHistory);
+				
+				/* 페이징 버튼 css 클래스 추가 */
+				$(".btn_paging:first").addClass("current");
+				
+				$(".btn_paging").on("click", function () {
+	                $(this).addClass("current").siblings().removeClass("current");
+	            });
+				
+				/* 검색 엔터키 이벤트 테스트 */
+				$("#searchBar").keyup(function(event) {
+					if (event.which == 13) {
+						var search = $('#searchBar').val()
+						console.log(search);
+					}
+				})
+				
+				/* 검색 마우스 클릭 이벤트 테스트 */
+				$("#btn_search").click(function() {
+					var search = $('#searchBar').val()
+					console.log(search);
+				})
 			}
 	    })
 	})
