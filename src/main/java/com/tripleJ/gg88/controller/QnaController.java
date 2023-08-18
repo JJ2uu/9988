@@ -1,4 +1,4 @@
-package com.tripleJ.gg88.qna;
+package com.tripleJ.gg88.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
