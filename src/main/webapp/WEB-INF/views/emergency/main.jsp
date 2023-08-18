@@ -28,7 +28,7 @@
 			</jsp:include>
 		</div>
 		<div id="content_wrap">
-			<div id="content">
+			<div id="content" style="width: 1000px; display: flex; flex-direction: column; align-items: center;">
 				<!-- 이 content div 안에서  작업 시작-->
 				<div class="subheading" style="margin-bottom: 10px;">
 				<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
@@ -41,18 +41,62 @@
 					</a>
 				</div>
 
-				<div id="plus_content">
+				<div id="plus_content" style="display: flex; justify-content: flex-end;">
 					<form action="createBoard">
 						<button type="submit" class="contetn_btn">응급상황 추가하기</button>
 					</form>
 				</div>
-
+				
+				 <div style="width: 700px; display: flex; gap: 20px; justify-content: space-between; flex-wrap: wrap;">
+				<div class="img_box">
+					<a href="${pageContext.request.contextPath}/emergency/board"><img alt="응급상황 사진" align="left"
+							src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+					코피가 심하게 날때 대처법</a>
+				</div>
 				<div class="img_box">
 					<a href="#"><img alt="응급상황 사진" align="left"
 							src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
 					코피가 심하게 날때 대처법</a>
 				</div>
-				<div class="paging">
+				<div class="img_box">
+					<a href="#"><img alt="응급상황 사진" align="left"
+							src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+					코피가 심하게 날때 대처법</a>
+				</div>
+				<div class="img_box">
+					<a href="#"><img alt="응급상황 사진" align="left"
+							src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+					코피가 심하게 날때 대처법</a>
+				</div>
+				<div class="img_box">
+					<a href="#"><img alt="응급상황 사진" align="left"
+							src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+					코피가 심하게 날때 대처법</a>
+				</div>
+				<div class="img_box">
+					<a href="#"><img alt="응급상황 사진" align="left"
+							src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+					코피가 심하게 날때 대처법</a>
+				</div>
+				<div class="img_box">
+					<a href="#"><img alt="응급상황 사진" align="left"
+							src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+					코피가 심하게 날때 대처법</a>
+				</div>
+				<div class="img_box">
+					<a href="#"><img alt="응급상황 사진" align="left"
+							src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+					코피가 심하게 날때 대처법</a>
+				</div>
+				<div class="img_box">
+					<a href="#"><img alt="응급상황 사진" align="left"
+							src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+					코피가 심하게 날때 대처법</a>
+				</div>
+					
+				 </div>
+				 
+				<div class="paging" style="margin-top: 30px;">
 					<button type="button" style="">1</button>
 				</div>
 			</div> <!-- content div -->

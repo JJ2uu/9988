@@ -16,7 +16,7 @@
 #map {
 	width: 900px;
 	height: 307px;
-	margin-top: 20px;
+	margin-top: 40px;
 	border-radius: 10px;
 	overflow: hidden;
 	border: 2px solid #407FBA;
@@ -34,11 +34,11 @@
 		<div id="content_wrap">
 			<div id="content">
 				<!-- 이 content div 안에서  작업 시작-->
-				<div class="subheading" style="margin-bottom: 10px;">
+				<div class="subheading" style="margin-bottom: 10px; ">
 					<img
 						src="${pageContext.request.contextPath}/resources/img/icon_map.svg"
-						width="22px" id="map_icon"> <span
-						style="font-size: 24px; font-weight: bolder; margin-bottom: 20px">내
+						width="24px" id="map_icon"> <span
+						style="font-size: 24px; font-weight: 500; ">내
 						주변 시설</span>
 				</div>
 				<div class="search">

@@ -9,8 +9,6 @@
 #plus_content .contetn_btn{
 	width: 156px;
 	height: 32px;
-	position: absolute;
-	right: 250px;
 	background-color: #FFFFFF;
 	border: 1px solid #717A84;
 	border-radius: 5px;
@@ -18,12 +16,11 @@
 
 .img_box {
 	width: 210px;
-	height: 200px;
+	margin-bottom: 10px;
 }
 
 .img_box img {
 	width: 200px;
-	height: 110px;
 	border-radius: 10px;
 }
 

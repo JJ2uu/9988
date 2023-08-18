@@ -1,8 +1,8 @@
 @charset "UTF-8";
 .search{
 	position: relative; 
-	width: 600px; 
-	height: 55px;
+	width: 500px; 
+	height: 50px;
 }
 
 .search input {
