@@ -9,7 +9,7 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
    <typeAliases>
-      <typeAlias type="com.tripleJ.gg88.domain.DailyVO" alias="memberVO"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.DailyVO" alias="dailyVO"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.EmergencyCategoryVO" alias="emergencyCategoryVO"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.EmergencyReplyVO" alias="emergencyReplyVO"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.EmergencyVO" alias="emergencyVO"></typeAlias>
