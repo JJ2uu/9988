@@ -10,9 +10,11 @@ public class QnaController {
 		return "qna/qnaBoard";
 	}
 	@RequestMapping("qna/qnaCreate")
-	public void qnaCreate() {
+	public String qnaCreate() {
+		return "qna/qnaCreate";
 	}
 	@RequestMapping("qna/qnaContent")
-	public void qnaContent() {
+	public String qnaContent() {
+		return "qna/qnaContent";
 	}
 }
