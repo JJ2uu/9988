@@ -7,100 +7,33 @@
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/default_sub.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/qna.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>99팔팔</title>
 </head>
-<style>
-table {
-	border-collapse: collapse;
-	width: 100%;
-	font-size: large;
-}
-
-th, td {
-	padding: 8px;
-	text-align: center;
-	border-bottom: 1px solid #ddd;
-}
-
-#qnaWrite {
-	float: right;
-    margin: 15px;
-    font-size: 16px;
-    border-radius: 5px;
-    background-color: #407FBA;
-    cursor: pointer;
-    border: hidden;
-    width: 100px;
-    height: 38px;
-    color: white;
-    font-weight: bolder;
-    position: absolute;
-    right: 5px;
-}
-
-.paging button {
-	background-color: white;
-	color: #000000;
-	border: 1px solid;
-	width: 40px;
-	height: 40px;
-	margin-top: 70px;
-}
-
-.paging {
-	display: flex;
-	justify-content: center;
-}
-
-.category {
-	height: 30px;
-}
-select{
-	cursor: pointer;
-}
-.qnaContent{
-	cursor: pointer;
-}
-.btn_paging {
-	width: 30px;
-	height: 30px;
-	border: 1px solid #B5C2CF;
-	background: #fff;
-	color: #717A84;
-	font-weight: 400;
-	cursor: pointer;
-	margin: 5px;
-}
-#qnaBottomWrap{
-	position: relative;
-}
-</style>
 <script type="text/javascript">
-	$(function() {
-		$("#qnaWrite").click(function() {
-			$.ajax({
-				url: 'qnaCreate',
-				success: function(x) {
-					$('#content').empty();
-					$('#content').append(x);
-					console.log("qna글쓰기");
-				}
-			})
-		})
-		
-		$(".qnaContent").click(function() {
-			$.ajax({
-				url: 'qnaContent',
-				success: function(x) {
-					$('#content').empty();
-					$('#content').append(x);
-					console.log("qna글 내용");
-				}
-			})
-		})
-	})
+$(function() {
+    $("#qnaWrite").click(function() {
+        $.ajax({
+            url: 'qnaCreate',
+            success: function(x) {
+            	location.href = 'qnaCreate';
+                console.log("qna글쓰기");
+            }
+        });
+    });
+
+    $(".qnaContent").click(function() {
+        $.ajax({
+            url: 'qnaContent',
+            success: function(x) {
+            	location.href = 'qnaContent';
+                console.log("qna글 내용");
+            }
+        });
+    });
+});
 </script>
 
 <body>
@@ -119,7 +52,7 @@ select{
 							<img alt="돋보기 아이콘" style="position: absolute; right: 8px; margin-top: 4px; width: 18px;top: 2px;"
 								src="${pageContext.request.contextPath}/resources/img/Vector.png">
 							<input type="text" placeholder="검색어를 입력하세요." style="height: 25px; width: 220px;"> </div>
-						<select class="category" name="category">
+						<select class="board_category" name="category">
 							<option>카테고리</option>
 							<option value="병원">병원</option>
 							<option value="질병">질병</option>
