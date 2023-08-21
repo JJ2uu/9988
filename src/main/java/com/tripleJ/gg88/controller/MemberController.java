@@ -4,49 +4,50 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("member/*")
 public class MemberController {
 
-	@RequestMapping("member/account/agreement")
+	@RequestMapping("account/agreement")
 	public String agreement() {
 		return "account/agreement";
 	}
 	
-	@RequestMapping("member/account/enter")
+	@RequestMapping("account/enter")
 	public String enter() {
 		return "account/enter";
 	}
 	
-	@RequestMapping("member/account/completed")
+	@RequestMapping("account/completed")
 	public String completed() {
 		return "account/completed";
 	}
 	
-	@RequestMapping("member/account/foundId")
+	@RequestMapping("account/foundId")
 	public String foundId() {
 		return "account/foundId";
 	}
 	
-	@RequestMapping("member/account/notFoundId")
+	@RequestMapping("account/notFoundId")
 	public String notFoundId() {
 		return "account/notFoundId";
 	}
 	
-	@RequestMapping("member/account/resetPw")
+	@RequestMapping("account/resetPw")
 	public String resetPw() {
 		return "account/resetPw";
 	}
 	
-	@RequestMapping("member/account/changePw")
+	@RequestMapping("account/changePw")
 	public String changePw() {
 		return "account/changePw";
 	}
 	
-	@RequestMapping("member/info/myInfo")
+	@RequestMapping("info/myInfo")
 	public String myInfo() {
 		return "info/myInfo";
 	}
 	
-	@RequestMapping("member/info/myHistory")
+	@RequestMapping("info/myHistory")
 	public String myHistory() {
 		return "info/myHistory";
 	}
