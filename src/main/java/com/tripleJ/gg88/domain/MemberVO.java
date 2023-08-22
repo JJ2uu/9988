@@ -10,6 +10,8 @@ public class MemberVO {
 	private String pw;
 	private String name;
 	private Date birth;
+	private String gender;
+	private String email;
 	private String tel;
 	private String nickname;
 	private String profile;
@@ -56,6 +58,22 @@ public class MemberVO {
 		this.birth = birth;
 	}
 	
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getTel() {
 		return tel;
 	}
