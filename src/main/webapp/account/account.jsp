@@ -127,9 +127,6 @@
 					  }
 					});
 					
-					next.removeEventListener("click", firstNext);
-					next.addEventListener("click", step3);
-					
 					/* [이전]버튼 클릭 시 안내 */
 					before.addEventListener("click", () => {
 						const delConfirm = confirm("이전으로 돌아갈 시 입력 정보가 초기화됩니다.")
@@ -137,17 +134,245 @@
 							location.reload();
 						}
 					});
+					
+					const userId = document.getElementById("userId");
+					const userPw = document.getElementById("userPw");
+					const userPwCheck = document.getElementById("userPwCheck");
+					const userName = document.getElementById("userName");
+					const userNickname = document.getElementById("userNickname");
+					const birthYearSelect = document.getElementById("birth-year");
+					const birthMonthSelect = document.getElementById("birth-month");
+					const birthDaySelect = document.getElementById("birth-day");
+					const userEmail = document.getElementById("userEmail");
+					const userEmailAddressInput = document.getElementById("userEmailAddress");
+					const userPhone = document.getElementById("userPhone");
+					
+					/* 유효성 체크 */
+					let idCheck = false;
+					let pwCheck = false;
+					let nickCheck = false;
+					
+					/* 아이디 중복 확인 */
+					$("#confirm_id").click(function() {
+						event.preventDefault();
+						
+						const errorDiv = document.getElementById("id_error");
+						let id = userId.value;
+						
+					    if (id.length >= 6) {
+					    	errorDiv.style.display = "none";
+					    	
+					    	$.ajax({
+								url: '../member/account/searchId',
+								data: {
+									userId : id
+								},
+								success: function(result) {
+									if (result == 'notNull') {
+										errorDiv.style.display = "block";
+									} else {
+										errorDiv.style.display = "none";
+										idCheck = true;
+									}
+								}
+							})
+					    } else {
+					    	const errorDiv = document.getElementById("id_error");
+					    	errorDiv.innerHTML = "아이디는 6글자 이상이어야 합니다.";
+							errorDiv.style.display = "block";
+						}
+					})
+					
+					/* 패스워드 8글자, 특수문자 포함 확인 */
+					userPw.addEventListener("input", function() {
+						let pw = userPw.value;
+						let pwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+						const pwError = document.getElementById("pw_error");
+						
+				        if (!pwPattern.test(pw)) {
+				            pwError.style.display = "block";
+				        } else {
+				        	pwError.style.display = "none";
+						}
+					})
+					
+					/* 비밀번호 체크 */
+					userPwCheck.addEventListener("input", function() {
+						let pw = userPw.value;
+						if (pw === "") {
+							alert("비밀번호를 먼저 입력해주세요.")
+							userPw.focus();
+						} else {
+							let pwCheckInput = userPwCheck.value;
+							const pwError = document.getElementById("pwCheck");
+							
+							if (pw == pwCheckInput) {
+								pwError.style.color = "green";
+								pwError.style.display = "block";
+								pwError.innerHTML = "비밀번호가 일치합니다."
+								pwCheck = true;
+							} else {
+								pwError.style.display = "block";
+								pwError.innerHTML = "비밀번호가 일치하지 않습니다. 다시 입력해 주세요."
+							}
+						}
+					})
+					
+					/* 생년월일 */
+					let year = null;
+					let month = null;
+					let day = null;
+					let userBirth = null;
+					
+					birthYearSelect.addEventListener("change", function() {
+						let selectedYear = birthYearSelect.value;
+						year = selectedYear
+						birth();
+					})
+					
+					birthMonthSelect.addEventListener("change", function() {
+						let selectedMonth = birthMonthSelect.value;
+						month = selectedMonth
+						birth();
+					})
+					
+					birthDaySelect.addEventListener("change", function() {
+						let selectedDay = birthDaySelect.value;
+						day = selectedDay
+						birth();
+					})
+					
+					function birth() {
+						userBirth = year + "-" + month + "-" + day;
+						console.log(userBirth)
+					}
+					
+					/* 성별 */
+					const radioButtons = document.querySelectorAll('input[name="gender"]');
+					let gender = null;
+
+					radioButtons.forEach(function(radioButton) {
+					    radioButton.addEventListener('change', function() {
+					        if (this.checked) {
+					            gender = this.value;
+					        }
+					    });
+					});
+					
+					/* 이메일 */
+					const domainListSelect = document.getElementById("domain_list");
+					let email = null;
+
+					domainListSelect.addEventListener("change", function() {
+					    const selectedDomain = domainListSelect.value;
+					    userEmailAddressInput.value = selectedDomain;
+					    email = userEmail.value + "@" + selectedDomain;
+					});
+					
+					/* 닉네임 띄어쓰기, 특수문자 포함 확인 */
+					$("#confirm_nickname").click(function() {
+						event.preventDefault();
+						let nick = userNickname.value;
+						let nickPattern = /^[^\s!@#$%^&*()_+{}\[\]:;<>,.?~\\|=]{1,8}$/;
+						const nickError = document.getElementById("nick_error");
+						
+				        if (!nickPattern.test(nick)) {
+				        	nickError.innerHTML = "유효하지 않은 닉네임입니다."
+				        	nickError.style.display = "block";
+				        } else {
+				        	nickError.style.display = "none";
+				        	$.ajax({
+				        		url: '../member/account/searchNick',
+				        		data: {
+				        			nickname : nick
+				        		},
+				        		success: function(result) {
+									if (result == 'notNull') {
+										nickError.innerHTML = "이미 존재하는 닉네임입니다."
+										nickError.style.display = "block";
+									} else {
+										nickError.style.display = "none";
+										nickCheck = true;
+									}
+								}
+				        	})
+						}
+					})
+
+					next.removeEventListener("click", firstNext);
+					next.addEventListener("click", function() {
+						const requiredFields = document.querySelectorAll(".required");
+						let isEmptyFieldFound = false;
+						let isEmptyBirth = false;
+
+						requiredFields.forEach(function(field) {
+						    if (field.value.trim() === "") {
+						        isEmptyFieldFound = true;
+						        field.focus(); // 비어 있는 입력란에 포커스 설정
+						        return;
+						    }
+						});
+						
+						if (year == null || month == null || day == null) {
+							isEmptyBirth = true;
+						}
+						
+						if (isEmptyFieldFound || isEmptyBirth) {
+						    alert("필수항목을 모두 입력해주세요.");
+						    
+						    if (!isEmptyFieldFound && isEmptyBirth) {
+								if (year == null) {
+									birthYearSelect.focus();
+								} else if (month == null) {
+									birthMonthSelect.focus();
+								} else {
+									birthDaySelect.focus();
+								}
+							}
+						} else {
+							if (idCheck && pwCheck && nickCheck) {
+								$.ajax({
+									url: '../member/account/signUp',
+									type: 'post',
+									data: {
+										id : userId.value,
+										pw : userPw.value,
+										name : userName.value,
+										userbirth : userBirth,
+										gender : gender,
+										email : email,
+										tel : userPhone.value,
+										nickname : userNickname.value
+									},
+									success : function() {
+										step3(userNickname.value);
+									}
+								})
+							} else {
+								if (!idCheck) {
+									alert("아이디 중복을 확인해 주세요.")
+								} else if (!pwCheck) {
+									alert("비밀번호를 확인해 주세요.")
+								} else {
+									alert("닉네임을 확인해 주세요.")
+								}
+							}
+						}
+					});
 				}
 			})
 		}
 		
 		/* 마이페이지 - 가입 완료 */
-		function step3() {
+		function step3(nickname) {
 			currentActive++;
 			update();
 			
 			$.ajax({
 				url: '../member/account/completed',
+				data: {
+					nickname : nickname
+				},
 				success: function(step3) {
 					$('#ac_content').empty();
 					$('#ac_content').append(step3)
