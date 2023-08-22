@@ -287,3 +287,10 @@ input[type=radio] {
 #certification {
 	width: 50%;
 }
+
+.error_message {
+	color: red;
+    font-size: 14px;
+    padding-left: 20px;
+    padding-top: 5px;
+}
