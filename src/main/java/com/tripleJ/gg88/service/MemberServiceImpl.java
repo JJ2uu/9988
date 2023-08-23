@@ -4,6 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -75,6 +79,28 @@ public class MemberServiceImpl implements MemberService {
 		}
 		int result = memberDao.signUp(memberVO);
 		return result;
+	}
+	
+	public String signIn(String id, String pw, boolean loginKeep, HttpServletRequest request, HttpServletResponse response) {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId(id);
+		MemberVO result = memberDao.searchId(id);
+		if (result != null) {
+			if (result.getPw().equals(pw)) {
+				request.getSession().setAttribute("userId", result.getId());
+				request.getSession().setAttribute("userNick", result.getNickname());
+				return "success";
+			} else {
+				return "failure";
+			}
+		} else {
+			return "notExist";
+		}
+	}
+	
+	public String signOut(HttpSession session) {
+		session.invalidate();
+		return "redirect:../9988_main.jsp";
 	}
 	
 	public String myInfo() {

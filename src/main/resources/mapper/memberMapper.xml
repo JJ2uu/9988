@@ -3,7 +3,7 @@
 <mapper namespace="member">
 
 	<select id="searchId" parameterType="String" resultType="memberVO">
-		select id from member where id = #{id}
+		select * from member where id = #{id}
 	</select>
 	
 	<select id="searchNick" parameterType="String" resultType="memberVO">
@@ -13,6 +13,10 @@
 	<insert id="signUp" parameterType="memberVO">
 		insert into member values (null, #{id}, #{pw}, #{name}, #{birth}, #{gender}, #{email}, #{tel}, #{nickname}, null, current_timestamp, 1)
 	</insert>
+	
+	<select id="signIn" parameterType="memberVO" resultType="memberVO">
+		select * from member where id = #{id} and pw = #{pw}
+	</select>
 	
 </mapper>
 

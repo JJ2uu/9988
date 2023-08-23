@@ -1,5 +1,9 @@
 package com.tripleJ.gg88.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,6 +71,17 @@ public class MemberController {
 	@ResponseBody
 	public int signUp(MemberVO memberVO, String userbirth) {
 		return memberService.signUp(memberVO, userbirth);
+	}
+	
+	@RequestMapping("signIn")
+	@ResponseBody
+	public String signIn(String id, String pw, boolean loginKeep, HttpServletRequest request, HttpServletResponse response) {
+		return memberService.signIn(id, pw, loginKeep, request, response);
+	}
+	
+	@RequestMapping("signOut")
+	public String signOut(HttpSession session) {
+		return memberService.signOut(session);
 	}
 	
 	@RequestMapping("info/myInfo")
