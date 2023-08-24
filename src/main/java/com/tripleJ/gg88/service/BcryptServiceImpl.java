@@ -16,7 +16,7 @@ public class BcryptServiceImpl implements BcryptService {
 		return pwBcrypt;
 	}
 	
-	/* 비밀번호 암호호 매칭 */
+	/* 비밀번호 암호화 매칭 */
 	public boolean match(String rawPassword, String encodedPassword) {
 		boolean match = encoder.matches(rawPassword, encodedPassword);
 		return match;
