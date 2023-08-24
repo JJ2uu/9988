@@ -9,7 +9,7 @@
 			<input id="userId" placeholder="6글자 이상 입력하세요." class="input_field required" autocomplete="username">
 			<button id="confirm_id" class="btn_confirm">중복 확인</button>
 		</div>
-		<div id="id_error" class="error_message" style="display: none;">이미 존재하는 아이디입니다.</div>
+		<div id="id_error" class="error_message" style="display: none;"></div>
 	</div>
 	<div class="input_wrap">
 		<div class="input_title">

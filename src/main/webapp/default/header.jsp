@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%
+	String nickname = (String)request.getSession().getAttribute("userNick");
+%>
 <div id="headerContent">
 	<div id="logo">
 		<a href="${pageContext.request.contextPath}/9988_main.jsp">
@@ -20,9 +22,21 @@
 			<li><a href="${pageContext.request.contextPath}/exercise/doExercise">운동해요</a></li>
 		</ul>
 		<ul id="gnb_login_menu">
-			<li><a href="${pageContext.request.contextPath}/account/login.jsp">로그인</a></li>
-			<li style="cursor: context-menu;">|</li>
-			<li><a href="${pageContext.request.contextPath}/account/account.jsp">회원가입</a></li>
+			<%
+				if (nickname != null) {
+			%>
+				<li><a href="${pageContext.request.contextPath}/info/myInfo.jsp"><strong style="color: #407FBA;"><%=nickname%></strong> 님</a></li>
+				<li style="cursor: context-menu;">|</li>
+				<li><a href="${pageContext.request.contextPath}/member/signOut">로그아웃</a></li>
+			<%
+				} else {
+			%>
+				<li><a href="${pageContext.request.contextPath}/account/login.jsp">로그인</a></li>
+				<li style="cursor: context-menu;">|</li>
+				<li><a href="${pageContext.request.contextPath}/account/account.jsp">회원가입</a></li>
+			<%
+				}
+			%>
 		</ul>
 	</div>
 </div>
