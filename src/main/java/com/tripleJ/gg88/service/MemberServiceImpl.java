@@ -20,6 +20,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberDAO memberDao;
+	
+	@Autowired
+	BcryptService bcrypt;
 
 	
 	public String agreement() {
@@ -77,6 +80,8 @@ public class MemberServiceImpl implements MemberService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		String pwBcrypt = bcrypt.encode(memberVO.getPw());
+		memberVO.setPw(pwBcrypt);
 		int result = memberDao.signUp(memberVO);
 		return result;
 	}
@@ -86,7 +91,7 @@ public class MemberServiceImpl implements MemberService {
 		memberVO.setId(id);
 		MemberVO result = memberDao.searchId(id);
 		if (result != null) {
-			if (result.getPw().equals(pw)) {
+			if (bcrypt.match(pw, result.getPw())) {
 				request.getSession().setAttribute("userId", result.getId());
 				request.getSession().setAttribute("userNick", result.getNickname());
 				return "success";
