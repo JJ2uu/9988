@@ -169,9 +169,12 @@
 								},
 								success: function(result) {
 									if (result == 'notNull') {
+										errorDiv.innerHTML = "이미 사용중인 아이디입니다."
 										errorDiv.style.display = "block";
 									} else {
-										errorDiv.style.display = "none";
+										errorDiv.innerHTML = "사용 가능한 아이디입니다."
+										errorDiv.style.display = "block";
+										errorDiv.style.color = "green";
 										idCheck = true;
 									}
 								}
@@ -291,7 +294,9 @@
 										nickError.innerHTML = "이미 존재하는 닉네임입니다."
 										nickError.style.display = "block";
 									} else {
-										nickError.style.display = "none";
+										nickError.innerHTML = "사용 가능한 닉네임입니다."
+										nickError.style.display = "block";
+										nickError.style.color = "green";
 										nickCheck = true;
 									}
 								}
