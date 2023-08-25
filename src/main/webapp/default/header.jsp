@@ -1,8 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String nickname = (String)request.getSession().getAttribute("userNick");
-%>
+<%@ page import="javax.servlet.http.Cookie" %>
+<%@ page import="org.springframework.web.util.WebUtils" %>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	
+	$(function() {
+		let cookieName = "loginCookie";
+		let cookieString = document.cookie;
+		let cookieArray = cookieString.split(';');
+		
+		for (var i = 0; i < cookieArray.length; i++) {
+		    let cookie = cookieArray[i].trim();
+		    if (cookie.indexOf(cookieName + '=') === 0) {
+		        let cookieValue = cookie.substring(cookieName.length + 1);
+		        $.ajax({
+					url: '${pageContext.request.contextPath}/member/autoSignIn',
+					data: {
+						sessionId : cookieValue
+					},
+					contentType : "application/text; charset:UTF-8",
+					success: function(nickname) {
+						console.log(nickname)
+						const nicknameDiv = document.getElementById("nickname");
+						nicknameDiv.innerHTML = nickname;
+					}
+				})
+		        break;
+		    }
+		}
+	})
+
+</script>
 <div id="headerContent">
 	<div id="logo">
 		<a href="${pageContext.request.contextPath}/9988_main.jsp">
@@ -23,18 +52,28 @@
 		</ul>
 		<ul id="gnb_login_menu">
 			<%
-				if (nickname != null) {
+				Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+				if (loginCookie != null) {
 			%>
-				<li><a href="${pageContext.request.contextPath}/info/myInfo.jsp"><strong style="color: #407FBA;"><%=nickname%></strong> 님</a></li>
+				<li><a href="${pageContext.request.contextPath}/info/myInfo.jsp"><strong style="color: #407FBA;" id="nickname"></strong> 님</a></li>
 				<li style="cursor: context-menu;">|</li>
 				<li><a href="${pageContext.request.contextPath}/member/signOut">로그아웃</a></li>
 			<%
 				} else {
+					String sessionNick = (String)request.getSession().getAttribute("userNick");
+					if(sessionNick != null) {
 			%>
-				<li><a href="${pageContext.request.contextPath}/account/login.jsp">로그인</a></li>
-				<li style="cursor: context-menu;">|</li>
-				<li><a href="${pageContext.request.contextPath}/account/account.jsp">회원가입</a></li>
+					<li><a href="${pageContext.request.contextPath}/info/myInfo.jsp"><strong style="color: #407FBA;" id="nickname"><%=sessionNick %></strong> 님</a></li>
+					<li style="cursor: context-menu;">|</li>
+					<li><a href="${pageContext.request.contextPath}/member/signOut">로그아웃</a></li>
 			<%
+					} else {
+			%>
+					<li><a href="${pageContext.request.contextPath}/account/login.jsp">로그인</a></li>
+					<li style="cursor: context-menu;">|</li>
+					<li><a href="${pageContext.request.contextPath}/account/account.jsp">회원가입</a></li>
+			<%
+					}
 				}
 			%>
 		</ul>
