@@ -20,15 +20,18 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		HttpSession session = request.getSession();
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Expires", "0");
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 		if (loginCookie != null) {
             MemberVO memberVO = memberService.checkSessionKey(loginCookie.getValue());
             if (memberVO != null) {
-            	session.setAttribute("userId", memberVO.getId());
-            	session.setAttribute("userNick", memberVO.getNickname());
+            	request.getSession().setAttribute("userId", memberVO.getId());
+            	request.getSession().setAttribute("userNick", memberVO.getNickname());
             }
         }
+		
 		return true;
 	}
 	

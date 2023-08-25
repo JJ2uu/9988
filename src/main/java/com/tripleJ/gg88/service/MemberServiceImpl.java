@@ -105,10 +105,9 @@ public class MemberServiceImpl implements MemberService {
 					long expiredDate = System.currentTimeMillis()+(limitTime*1000);
 					Date sessionLimit = new Date(expiredDate);
 					keepLogin(id, request.getSession().getId(), sessionLimit);
-				} else {
-					request.getSession().setAttribute("userId", result.getId());
-					request.getSession().setAttribute("userNick", result.getNickname());
 				}
+				request.getSession().setAttribute("userId", result.getId());
+				request.getSession().setAttribute("userNick", result.getNickname());
 				return "success";
 			} else {
 				return "failure";
