@@ -3,7 +3,10 @@ package com.tripleJ.gg88.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.util.WebUtils;
 
 import com.tripleJ.gg88.domain.MemberVO;
 import com.tripleJ.gg88.repository.MemberDAO;
@@ -92,8 +96,19 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO result = memberDao.searchId(id);
 		if (result != null) {
 			if (bcrypt.match(pw, result.getPw())) {
-				request.getSession().setAttribute("userId", result.getId());
-				request.getSession().setAttribute("userNick", result.getNickname());
+				if (loginKeep) {
+					int limitTime = 60 * 60 * 24 * 7;
+					Cookie cookie = new Cookie("loginCookie", request.getSession().getId());
+					cookie.setPath("/");
+					cookie.setMaxAge(limitTime);
+					response.addCookie(cookie);
+					long expiredDate = System.currentTimeMillis()+(limitTime*1000);
+					Date sessionLimit = new Date(expiredDate);
+					keepLogin(id, request.getSession().getId(), sessionLimit);
+				} else {
+					request.getSession().setAttribute("userId", result.getId());
+					request.getSession().setAttribute("userNick", result.getNickname());
+				}
 				return "success";
 			} else {
 				return "failure";
@@ -103,8 +118,38 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
-	public String signOut(HttpSession session) {
-		session.invalidate();
+	public String autoSignIn(String sessionId) {
+		MemberVO memberVO = checkSessionKey(sessionId);
+		if (memberVO != null) {
+		    return memberVO.getNickname(); 
+		} else {
+			return "notValid";
+		}
+	}
+	
+	public void keepLogin(String userId, String sessionId, Date sessionLimit) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", userId);
+		map.put("sessionId", sessionId);
+		map.put("sessionLimit", sessionLimit);
+		memberDao.keepLogin(map);
+	}
+	
+	public MemberVO checkSessionKey(String sessionId) {
+		return memberDao.checkSessionKey(sessionId);
+	}
+	
+	public String signOut(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+        if (loginCookie != null){
+            loginCookie.setPath("/");
+            loginCookie.setMaxAge(0);
+            response.addCookie(loginCookie);
+             
+            Date date = new Date(System.currentTimeMillis());
+            keepLogin((String)session.getAttribute("userId"), "none", date);
+        }
+        session.invalidate();
 		return "redirect:../9988_main.jsp";
 	}
 	

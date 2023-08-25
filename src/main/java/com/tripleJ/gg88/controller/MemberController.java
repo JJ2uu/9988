@@ -79,9 +79,15 @@ public class MemberController {
 		return memberService.signIn(id, pw, loginKeep, request, response);
 	}
 	
+	@RequestMapping(value ="autoSignIn", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String autoSignIn(String sessionId) {
+		return memberService.autoSignIn(sessionId);
+	}
+	
 	@RequestMapping("signOut")
-	public String signOut(HttpSession session) {
-		return memberService.signOut(session);
+	public String signOut(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		return memberService.signOut(session, request, response);
 	}
 	
 	@RequestMapping("info/myInfo")

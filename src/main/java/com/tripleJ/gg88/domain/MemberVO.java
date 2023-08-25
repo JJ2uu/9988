@@ -17,6 +17,8 @@ public class MemberVO {
 	private String profile;
 	private Timestamp subscription;
 	private int level;
+	private String sessionId;
+	private Date sessionLimit;
 	
 	public int getMemberNo() {
 		return memberNo;
@@ -112,6 +114,22 @@ public class MemberVO {
 	
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+
+	public Date getSessionLimit() {
+		return sessionLimit;
+	}
+
+	public void setSessionLimit(Date sessionLimit) {
+		this.sessionLimit = sessionLimit;
 	}
 	
 }

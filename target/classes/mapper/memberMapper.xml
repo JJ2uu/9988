@@ -11,11 +11,19 @@
 	</select>
 	
 	<insert id="signUp" parameterType="memberVO">
-		insert into member values (null, #{id}, #{pw}, #{name}, #{birth}, #{gender}, #{email}, #{tel}, #{nickname}, null, current_timestamp, 1)
+		insert into member values (null, #{id}, #{pw}, #{name}, #{birth}, #{gender}, #{email}, #{tel}, #{nickname}, null, current_timestamp, 1, #{sessionId}, #{sessionLimit})
 	</insert>
 	
 	<select id="signIn" parameterType="memberVO" resultType="memberVO">
 		select * from member where id = #{id} and pw = #{pw}
+	</select>
+	
+	<update id="keepLogin">
+		update member set session_id = #{sessionId}, session_limit = #{sessionLimit} where id = #{id}
+	</update>
+	
+	<select id="checkSession" resultType="memberVO">
+		select * from member where session_id = #{sessionId}
 	</select>
 	
 </mapper>
