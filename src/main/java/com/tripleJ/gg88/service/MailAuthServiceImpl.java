@@ -22,11 +22,18 @@ public class MailAuthServiceImpl implements MailAuthService {
         return checkNum;
 	}
 	
-	public String joinEmail(String email) {
+	public String joinEmail(String email, String type) {
 		int authNumber = makeRandomNumber();
 		
 		String toMail = email;
-		String title = "회원가입을 위한 인증메일입니다.";
+		String title = "";
+		if (type.equals("findId")) {
+			title = "9988 계정 - 아이디 찾기 인증번호";
+		} else if (type.equals("findPw")) {
+			title = "내 9988 비밀번호";
+		} else {
+			title = "9988 회원가입 인증번호";
+		}
 		String message =
                 "홈페이지를 방문해주셔서 감사합니다." +
                 "<br><br>" +

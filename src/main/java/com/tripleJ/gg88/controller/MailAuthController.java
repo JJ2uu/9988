@@ -16,7 +16,7 @@ public class MailAuthController {
 
 	@RequestMapping("joinEmail")
 	@ResponseBody
-	public String joinEmail(String email) {
-		return authService.joinEmail(email);
+	public String joinEmail(String email, String type) {
+		return authService.joinEmail(email, type);
 	}
 }

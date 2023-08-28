@@ -4,7 +4,7 @@ public interface MailAuthService {
 
 	int makeRandomNumber();
 	
-	String joinEmail(String email);
+	String joinEmail(String email, String type);
 	
 	void mailSend(String message, String email, String title);
 }
