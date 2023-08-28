@@ -31,31 +31,76 @@
 	        $("ul.tabs li[data-tab=" + activeTab + "]").addClass('current');
 	        $("#" + activeTab).addClass('current');
 	    }
+	    
+	    /* 이메일 */
+		const domainListSelect = document.getElementById("domain_list");
+		const userEmail = document.getElementById("input_email");
+		const userEmailAddressInput = document.getElementById("userEmailAddress");
+		const inputAuthNumber = document.getElementById("input_authNumber");
+		const authError = document.getElementById("auth_error");
+
+		domainListSelect.addEventListener("change", function() {
+			const selectedDomain = domainListSelect.value;
+			userEmailAddressInput.value = selectedDomain;
+		});
+		
+		let authNumber;
+		let email;
+	    
+	    /* 아이디 찾기 - 인증번호 받기 */
+	    $("#btn_authNumber").click(function() {
+	    	if (userEmail.value != '' && userEmailAddressInput.value != '') {
+	    		email = userEmail.value + "@" + userEmailAddressInput.value;
+		    	
+		    	$.ajax({
+		    		url: '../auth/joinEmail',
+		    		data: {
+		    			email : email,
+		    			type : 'findId'
+		    		},
+		    		success: function(result) {
+		    			authNumber = result;
+		    			alert('인증번호가 전송되었습니다.')
+		    			inputAuthNumber.value = authNumber;
+					},
+					error : function(e) {
+						console.log(e)
+					}
+		    	})
+			} else {
+				alert('이메일을 입력해 주세요.')
+				userEmail.focus();
+			}
+		})
 		
 	    /* 아이디 찾기 */
 		$("#btn_findId").click(function() {
-			let delConfirm = confirm("아이디가 있나");
-			
-			if (delConfirm) {
-				$.ajax({
-					url: '../member/account/foundId',
-					success: function(foundId) {
-						$("#tab_1").empty();
-						$("#tab_1").append(foundId);
-						
-						$("#btn_login").click(function() {
-							location.href = "login.jsp"
-						})
-					}
-				})
+			if (authNumber != null && inputAuthNumber.value != '') {
+				if (authNumber == inputAuthNumber.value) {
+					$.ajax({
+						url: '../member/account/foundId',
+						data: {
+							email : email
+						},
+						success: function(foundId) {
+							$("#tab_findId").empty();
+							$("#tab_findId").append(foundId);
+							
+							$("#btn_login").click(function() {
+								location.href = "login.jsp"
+							})
+							
+							$("#btn_login").click(function() {
+								location.href = "account.jsp"
+							})
+						}
+					})
+				} else {
+					authError.innerHTML = "인증번호가 일치하지 않습니다."
+					authError.style.display = "block";
+				}
 			} else {
-				$.ajax({
-					url: '../member/account/notFoundId',
-					success: function(notFoundId) {
-						$("#tab_1").empty();
-						$("#tab_1").append(notFoundId);
-					}
-				})
+				alert('이메일 인증이 필요합니다.')
 			}
 		})
 		
@@ -116,14 +161,24 @@
 						<div id="tab_findId" class="tab_content current">
 							<div style="display: flex; flex-flow: column; gap: 10px;">
 								<span class="tab_title">아이디 찾기</span>
-								<span>이메일로 인증번호를 보내 드립니다.</span>
+								<span>회원가입시 입력하신 이메일로 인증번호를 보내 드립니다.</span>
 							</div>
 							<div style="display: flex; flex-flow: column; gap: 10px; margin: 30px 0;">
 								<div class="input_wrap">
 									<input id="input_email" class="input_field" placeholder="이메일">
-									<button class="btn_confirm">인증번호 받기</button>
+									@
+									<input id="userEmailAddress" class="input_field required">
+									<select class="box" id="domain_list">
+										<option value="">직접 입력</option>
+										<option value="naver.com">naver.com</option>
+										<option value="gmail.com">gmail.com</option>
+										<option value="hanmail.net">hanmail.net</option>
+										<option value="daum.net">nate.com</option>
+									</select>
+									<button class="btn_confirm" id="btn_authNumber">인증번호 받기</button>
 								</div>
-								<input id="" class="input_field" placeholder="인증번호 입력">
+								<input id="input_authNumber" class="input_field" placeholder="인증번호 입력">
+								<div id="auth_error" class="error_message" style="display: none;"></div>
 							</div>
 							<button id="btn_findId" class="btn">확인</button>
 						</div>
