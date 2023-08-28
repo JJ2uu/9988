@@ -26,6 +26,10 @@
 		select * from member where session_id = #{sessionId}
 	</select>
 	
+	<select id="searchEmail" parameterType="String" resultType="memberVO">
+		select * from member where email = #{email}
+	</select>
+	
 </mapper>
 
 

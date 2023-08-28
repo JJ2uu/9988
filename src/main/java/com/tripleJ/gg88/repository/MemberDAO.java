@@ -42,4 +42,9 @@ public class MemberDAO {
 		MemberVO result = my.selectOne("member.checkSession", sessionId);
 		return result;
 	}
+	
+	public MemberVO searchEmail(String email) {
+		MemberVO result = my.selectOne("member.searchEmail", email);
+		return result;
+	}
 }

@@ -42,8 +42,23 @@ public class MemberServiceImpl implements MemberService {
 		return "account/completed";
 	}
 	
-	public String foundId() {
-		return "account/foundId";
+	public String foundId(String email, Model model) {
+		MemberVO memberVO = memberDao.searchEmail(email);
+		if (memberVO != null) {
+			StringBuilder userIdSb = new StringBuilder();
+			int len = memberVO.getId().length()/2;
+			userIdSb.append(memberVO.getId().substring(0, len));
+			for (int i = len+1; i < memberVO.getId().length(); i++) {
+				userIdSb.append("*");
+			}
+			SimpleDateFormat format = new SimpleDateFormat("yyyy. MM. dd");
+			String formattedDate = format.format(memberVO.getSubscription());
+			model.addAttribute("userId", userIdSb.toString());
+			model.addAttribute("subscription", formattedDate);
+			return "account/foundId";
+		} else {
+			return "account/notFoundId";
+		}
 	}
 	
 	public String notFoundId() {

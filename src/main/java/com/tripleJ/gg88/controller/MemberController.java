@@ -36,8 +36,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("account/foundId")
-	public String foundId() {
-		return memberService.foundId();
+	public String foundId(String email, Model model) {
+		return memberService.foundId(email, model);
 	}
 	
 	@RequestMapping("account/notFoundId")

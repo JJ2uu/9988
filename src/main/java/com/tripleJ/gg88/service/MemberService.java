@@ -18,7 +18,7 @@ public interface MemberService {
 
 	String completed(String nickname, Model model);
 	
-	String foundId();
+	String foundId(String email, Model model);
 	
 	String notFoundId();
 	
