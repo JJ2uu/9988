@@ -16,7 +16,7 @@
 	outline: none;
 	padding: 0 20px;
 	box-sizing: border-box;
-	cursor: pointer;
+	cursor: auto;
 	font-size: 14px;
 	font-weight: 400;
 }
