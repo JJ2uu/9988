@@ -90,7 +90,7 @@
 								location.href = "login.jsp"
 							})
 							
-							$("#btn_login").click(function() {
+							$("#btn_signUp").click(function() {
 								location.href = "account.jsp"
 							})
 						}
