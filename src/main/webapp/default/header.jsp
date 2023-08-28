@@ -7,7 +7,6 @@
 		
 		const userNick = '<%= session.getAttribute("userNick") %>';
 		const nicknameDiv = document.getElementById("nickname");
-		console.log()
 		if (userNick != 'null') {
 			$(".gnb_login_menu.current").removeClass("current");
 			$(".gnb_login_menu:first").addClass("current");
