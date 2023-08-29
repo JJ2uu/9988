@@ -1,0 +1,173 @@
+@charset "UTF-8";
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	font-size: large;
+}
+
+th, td {
+	padding: 8px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+}
+
+#qnaWrite {
+	float: right;
+    margin: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #407FBA;
+    cursor: pointer;
+    border: hidden;
+    width: 100px;
+    height: 38px;
+    color: white;
+    font-weight: bolder;
+    position: absolute;
+    right: 5px;
+}
+
+.paging button {
+	background-color: white;
+	color: #000000;
+	border: 1px solid;
+	width: 40px;
+	height: 40px;
+	margin-top: 70px;
+}
+
+.paging {
+	display: flex;
+	justify-content: center;
+}
+
+.board_category {
+	height: 30px;
+}
+select{
+	cursor: pointer;
+}
+.qnaContent{
+	cursor: pointer;
+}
+.btn_paging {
+	width: 30px;
+	height: 30px;
+	border: 1px solid #B5C2CF;
+	background: #fff;
+	color: #717A84;
+	font-weight: 400;
+	cursor: pointer;
+	margin: 5px;
+}
+#qnaBottomWrap{
+	position: relative;
+}
+
+#qnaCreate_wrap{
+	width: 1000px;
+}
+#title{
+    width: 530px;
+    height: 40px;
+}
+
+.qnaContent{
+	width: 912px;
+	height: 500px;
+}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+.create_tbody{
+	display: flex;
+    flex-direction: column;
+}
+.create_category {
+    height: 40px;
+    width: 280px
+}
+#qnaInsert{
+	background-color: #407FBA;
+    color: white;
+    border: hidden;
+    width: 970px;
+    height: 50px;
+    font-size: medium;
+    cursor: pointer;
+}
+
+#qnaContentTop{
+	display: flex;
+    justify-content: space-between;
+}
+#qnaContentReal{
+    height: 400px;
+    display: flex;
+    align-items: center;
+    max-width: 990px;
+    white-space: normal;
+}
+#qnaWriter{
+	display: flex;
+    align-items: center;
+    gap: 20px;
+}
+#onlyWriter{
+	display: flex;
+}
+.qnaTitle{
+	font-weight: 600;
+	font-size: larger;
+}
+#qnaDelete{
+	background-color: #E0E6EC;
+    border: hidden;
+    width: 97px;
+    height: 34px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#qnaUpdate{
+	background-color: #407FBA;
+    border: hidden;
+    color: white;
+    width: 97px;
+    height: 34px;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+}
+#replyWrite{
+	display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    align-items: center;
+}
+#replySpace{
+	display: flex;
+    gap: 10px;
+}
+#reReply{
+	cursor: pointer;
+}
+#reply{
+	width: 900px;
+    background-color: #F2F6FA;
+    border: hidden;
+    height: 30px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+#enter{
+	position: absolute;
+    right: 12px;
+    cursor: pointer;
+    top: 6px;
+}
+
