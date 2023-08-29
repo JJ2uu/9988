@@ -36,8 +36,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("account/foundId")
-	public String foundId() {
-		return memberService.foundId();
+	public String foundId(String email, Model model) {
+		return memberService.foundId(email, model);
 	}
 	
 	@RequestMapping("account/notFoundId")
@@ -79,9 +79,15 @@ public class MemberController {
 		return memberService.signIn(id, pw, loginKeep, request, response);
 	}
 	
+	@RequestMapping(value ="autoSignIn", produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String autoSignIn(String sessionId) {
+		return memberService.autoSignIn(sessionId);
+	}
+	
 	@RequestMapping("signOut")
-	public String signOut(HttpSession session) {
-		return memberService.signOut(session);
+	public String signOut(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		return memberService.signOut(session, request, response);
 	}
 	
 	@RequestMapping("info/myInfo")

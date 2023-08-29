@@ -248,7 +248,7 @@ input[id="reception_agree"] + label {
     outline: none;
     padding: 0 20px;
     box-sizing: border-box;
-    cursor: pointer;
+    cursor: auto;
     font-size: 14px;
     font-weight: 400;
 }
@@ -264,6 +264,7 @@ input[id="reception_agree"] + label {
 	border-radius: 5px;
 	color: #fff;
 	height: 52px;
+	cursor: pointer;
 }
 
 select.box {
@@ -273,6 +274,7 @@ select.box {
     border: none;
     border-radius: 5px;
     padding: 0 5px;
+    cursor: pointer;
 }
 
 select.box:focus {

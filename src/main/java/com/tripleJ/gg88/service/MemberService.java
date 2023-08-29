@@ -1,5 +1,7 @@
 package com.tripleJ.gg88.service;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +18,7 @@ public interface MemberService {
 
 	String completed(String nickname, Model model);
 	
-	String foundId();
+	String foundId(String email, Model model);
 	
 	String notFoundId();
 	
@@ -32,7 +34,13 @@ public interface MemberService {
 	
 	String signIn(String id, String pw, boolean loginKeep, HttpServletRequest request, HttpServletResponse response);
 	
-	String signOut(HttpSession session);
+	String autoSignIn(String sessionId);
+	
+	void keepLogin(String userId, String sessionId, Date sessionLimit);
+	
+	MemberVO checkSessionKey(String sessionId);
+	
+	String signOut(HttpSession session, HttpServletRequest request, HttpServletResponse response);
 	
 	String myInfo();
 	

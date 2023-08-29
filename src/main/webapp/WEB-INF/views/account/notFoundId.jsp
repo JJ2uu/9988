@@ -5,5 +5,5 @@
 		회원 가입 정보가<br>
 		존재하지 않습니다.
 	</div>
-	<button class="btn" style="width: 60%;" id="btn_login">회원가입</button>
+	<button class="btn" style="width: 60%;" id="btn_signUp">회원가입</button>
 </div>
