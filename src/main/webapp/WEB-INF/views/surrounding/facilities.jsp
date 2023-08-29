@@ -34,17 +34,14 @@
 		<div id="content_wrap">
 			<div id="content">
 				<!-- 이 content div 안에서  작업 시작-->
-				<div class="subheading" style="margin-bottom: 10px; ">
-					<img
-						src="${pageContext.request.contextPath}/resources/img/icon_map.svg"
-						width="24px" id="map_icon"> <span
-						style="font-size: 24px; font-weight: 500; ">내
-						주변 시설</span>
+				<div class="subheading" style="margin-bottom: 10px; display: flex; gap: 5px; align-content: center; justify-content: center;">
+					<img src="${pageContext.request.contextPath}/resources/img/icon_map.svg" width="24px" id="map_icon"> 
+					<span style="font-size: 24px; font-weight: 500; ">내 주변 시설</span>
 				</div>
 				<div class="search">
-					<input type="text" placeholder="건물명, 도로명 또는 지번 검색."> <a
-						href="#"> <img alt="돋보기 아이콘"
-						src="${pageContext.request.contextPath}/resources/img/Vector.png">
+					<input type="text" placeholder="건물명, 도로명 또는 지번 검색."> 
+					<a href="#"> 
+					<img alt="돋보기 아이콘" src="${pageContext.request.contextPath}/resources/img/Vector.png">
 					</a>
 				</div>
 

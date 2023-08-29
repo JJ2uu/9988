@@ -45,12 +45,14 @@
 }
 
 .complete_btn button{
-	width: 100%;
+	width: 45%;
 	height: 100%;
 	background-color: #407FBA;
 	color: #FFFFFF;
 	border-radius: 5px;
 	font-size: 18px;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 </style>
 <title>99팔팔</title>
@@ -69,7 +71,6 @@
 				<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
 				</div>
 				<!-- form태그는 컨트롤러랑 연결 -->
-				<form action="">
 				<div class="symptom">
 					증상 <input placeholder="응급상황을 적어주세요.">
 				</div>
@@ -77,9 +78,13 @@
 					대처방안 <input placeholder="응급 상황 시 대처방안을 적어주세요.">
 				</div>
 				<div class="complete_btn">
-					<button>글 작성 완료</button>
+					<a href="${pageContext.request.contextPath}/emergency/temporarySave">
+					<button id="temSave" type="button">글 임시 저장</button>
+					</a>
+					<a href="${pageContext.request.contextPath}/emergency/saveBoard">
+					<button id="sava" type="submit">글 작성 완료</button>
+					</a>
 				</div>
-				</form>
 			</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true" />
