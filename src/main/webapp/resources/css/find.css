@@ -33,7 +33,7 @@
 
 .tab_content{
 	display: none;
-	padding: 40px 50px 0 50px;
+	padding: 40px 0 0 0;
 }
 
 .tab_content.current{
@@ -60,7 +60,7 @@
     outline: none;
     padding: 0 20px;
     box-sizing: border-box;
-    cursor: pointer;
+    cursor: auto;
     font-size: 14px;
     font-weight: 400;
 }
@@ -71,11 +71,16 @@
 }
 
 .btn_confirm {
-	width: 30%;
+	width: 100px;
 	background: #2C343D;
 	border-radius: 5px;
 	color: #fff;
 	height: 52px;
+	cursor: pointer;
+}
+
+#input_email, #userEmailAddress {
+	width: 150px;
 }
 
 .btn {
@@ -87,4 +92,25 @@
     border-radius: 5px;
     border-style: none;
     cursor: pointer;
+}
+
+select.box {
+	width: 150px;
+    height: 50px;
+    background: #F2F6FA;
+    border: none;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+select.box:focus {
+	outline: none;
+	box-shadow: 0 0 0 1px #B5C2CF;
+}
+
+.error_message {
+	color: red;
+    font-size: 14px;
+    padding-left: 20px;
+    padding-top: 5px;
 }

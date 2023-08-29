@@ -10,11 +10,15 @@ public class MemberVO {
 	private String pw;
 	private String name;
 	private Date birth;
+	private String gender;
+	private String email;
 	private String tel;
 	private String nickname;
 	private String profile;
 	private Timestamp subscription;
 	private int level;
+	private String sessionId;
+	private Date sessionLimit;
 	
 	public int getMemberNo() {
 		return memberNo;
@@ -56,6 +60,22 @@ public class MemberVO {
 		this.birth = birth;
 	}
 	
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getTel() {
 		return tel;
 	}
@@ -94,6 +114,22 @@ public class MemberVO {
 	
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+
+	public Date getSessionLimit() {
+		return sessionLimit;
+	}
+
+	public void setSessionLimit(Date sessionLimit) {
+		this.sessionLimit = sessionLimit;
 	}
 	
 }

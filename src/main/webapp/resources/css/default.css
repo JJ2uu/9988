@@ -114,21 +114,25 @@ html, body {
 	width: 100%;
 }
 
-#gnb_menu_list li, #gnb_login_menu li {
+#gnb_menu_list li, .gnb_login_menu li {
 	cursor: pointer;
 }
 
-#gnb_login_menu {
+.gnb_login_menu {
 	list-style-type: none;
 	gap: 10px;
-	display: flex;
+	display: none;
 	margin: 0;
 	padding: 0;
+}
+
+.gnb_login_menu.current {
+	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-#gnb_login_menu li a {
+.gnb_login_menu li a {
 	font-weight: 400;
 }
 
