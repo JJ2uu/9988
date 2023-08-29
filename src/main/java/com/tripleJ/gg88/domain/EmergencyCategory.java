@@ -1,6 +1,6 @@
 package com.tripleJ.gg88.domain;
 
-public class EmergencyCategoryVO {
+public class EmergencyCategory {
 
 	private int idx;
 	private String situation;

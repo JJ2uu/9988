@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="emergency">
+	<!-- 게시판 글 작성 -->
+	<insert id="saveBoard" parameterType="emergency"> 
+		insert into 
+		gg88.emergency(memberNo, title, content, commend_count, regdate, isYn) 
+		values (#{memberNo}, #{title}, #{content}, 0, NOW(), #{isYn})
+	</insert>
+	
+	<!-- 게시판 글 임시작성 -->
+	<insert id="temSaveBoard" parameterType="emergency"> 
+		insert into gg88.emergency(memberNo, title, content, isYn) 
+		values (#{memberNo}, #{title}, #{content}, #{isYn})
+	</insert>
+	
+	<!-- 작성자 글 조회 -->
+	<select id="findById" parameterType="emergency" resultType="emergency">
+		select count(*) from gg88.emergency 
+		where memberNo = #{memberNo}
+	</select>
+
+	<!-- 전체 글 조회 -->
+	<select id="findAllBoard" parameterType="emergency" resultType="emergency">
+		select count(*) from gg88.emergency
+	</select>
+	
+	<!-- 글 수정 -->
+	<update id="updateBoard"  parameterType="emergency">
+		update gg88.emergency set 
+			title = #{title}, 
+			content = #{content},
+			updatedate = #{updatedate}, 
+		where member_no = #{memberNo} and emergency_id = #{emergencyId}
+	</update>
+	
+	<!-- 추천수 증가 -->
+	<update id="incrementPhotoViewCount" parameterType="int">
+        update gg88.emergency set 
+        commend_count = commend_count + 1
+        where emergency_id = #{emergencyId}
+    </update>
+    
+    <!-- 게시판 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM gg88.emergency
+		WHERE emergency_id = #{emergencyId}
+	</delete>
 
 </mapper>
 

@@ -2,16 +2,16 @@ package com.tripleJ.gg88.domain;
 
 import java.util.Date;
 
-public class EmergencyVO {
+public class Emergency {
 
 	private int emergencyId;
-	private int memberNo;
-	private String title;
-	private String content;
-	private int commendCount;
-	private Date regdate;
-	private Date updatedate;
-	private int isYn;
+	private int memberNo; //멤버 아이디
+	private String title; //게시판 제목
+	private String content; //내용
+	private int commendCount; //추천수
+	private Date regdate; //작성일자
+	private Date updatedate; //수정일자
+	private int isYn; //임시저장 여부
 	
 	public int getEmergencyId() {
 		return emergencyId;

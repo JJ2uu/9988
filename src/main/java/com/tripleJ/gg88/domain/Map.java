@@ -1,6 +1,6 @@
 package com.tripleJ.gg88.domain;
 
-public class MapVO {
+public class Map {
 
 	private int mapNo;
 	private String name;

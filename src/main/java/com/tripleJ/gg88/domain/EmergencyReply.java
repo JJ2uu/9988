@@ -2,7 +2,7 @@ package com.tripleJ.gg88.domain;
 
 import java.util.Date;
 
-public class EmergencyReplyVO {
+public class EmergencyReply {
 
 	private int replyId;
 	private int emergencyId;
