@@ -17,18 +17,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.util.WebUtils;
 
 import com.tripleJ.gg88.domain.MemberVO;
-import com.tripleJ.gg88.repository.MemberDAO;
+import com.tripleJ.gg88.repository.MemberRepository;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
-	MemberDAO memberDao;
+	MemberRepository memberRepo;
 	
 	@Autowired
 	BcryptService bcrypt;
 
-	
 	public String agreement() {
 		return "account/agreement";
 	}
@@ -43,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	public String foundId(String email, Model model) {
-		MemberVO memberVO = memberDao.searchEmail(email);
+		MemberVO memberVO = memberRepo.searchEmail(email);
 		if (memberVO != null) {
 			StringBuilder userIdSb = new StringBuilder();
 			int len = memberVO.getId().length()/2;
@@ -61,20 +60,41 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
-	public String notFoundId() {
-		return "account/notFoundId";
+	public String findPw(String userId, Model model) {
+		String result = searchId(userId);
+		if (result.equals(null)) {
+			return "account/notFoundId";
+		} else {
+			model.addAttribute("userId", userId);
+			return "account/resetPw";
+		}
 	}
 	
-	public String resetPw() {
-		return "account/resetPw";
+	public String checkEmail(String userId, String email) {
+		Map<String, Object> userDataMap = new HashMap<String, Object>();
+		userDataMap.put("userId", userId);
+		userDataMap.put("email", email);
+		MemberVO result = memberRepo.checkEmail(userDataMap);
+		if (result == null) {
+			return "null";
+		} else {
+			return "notNull";
+		}
 	}
 	
 	public String changePw() {
 		return "account/changePw";
 	}
 	
+	public void updatePw(String email, String newPw) {
+		Map<String, Object> userDataMap = new HashMap<String, Object>();
+		userDataMap.put("email", email);
+		userDataMap.put("pw", bcrypt.encode(newPw));
+		memberRepo.updatePw(userDataMap);
+	}
+	
 	public String searchId(String userId) {
-		MemberVO result = memberDao.searchId(userId);
+		MemberVO result = memberRepo.searchId(userId);
 		if (result == null) {
 			return "null";
 		} else {
@@ -83,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	public String searchNick(String nickname) {
-		MemberVO result = memberDao.searchNick(nickname);
+		MemberVO result = memberRepo.searchNick(nickname);
 		if (result == null) {
 			return "null";
 		} else {
@@ -101,14 +121,14 @@ public class MemberServiceImpl implements MemberService {
 		}
 		String pwBcrypt = bcrypt.encode(memberVO.getPw());
 		memberVO.setPw(pwBcrypt);
-		int result = memberDao.signUp(memberVO);
+		int result = memberRepo.signUp(memberVO);
 		return result;
 	}
 	
 	public String signIn(String id, String pw, boolean loginKeep, HttpServletRequest request, HttpServletResponse response) {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId(id);
-		MemberVO result = memberDao.searchId(id);
+		MemberVO result = memberRepo.searchId(id);
 		if (result != null) {
 			if (bcrypt.match(pw, result.getPw())) {
 				if (loginKeep) {
@@ -146,11 +166,11 @@ public class MemberServiceImpl implements MemberService {
 		map.put("id", userId);
 		map.put("sessionId", sessionId);
 		map.put("sessionLimit", sessionLimit);
-		memberDao.keepLogin(map);
+		memberRepo.keepLogin(map);
 	}
 	
 	public MemberVO checkSessionKey(String sessionId) {
-		return memberDao.checkSessionKey(sessionId);
+		return memberRepo.checkSessionKey(sessionId);
 	}
 	
 	public String signOut(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
