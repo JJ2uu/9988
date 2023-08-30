@@ -149,6 +149,7 @@
 					
 					/* 유효성 체크 */
 					let idCheck = false;
+					let pwPatternCheck = false;
 					let pwCheck = false;
 					let nickCheck = false;
 					
@@ -196,6 +197,7 @@
 				            pwError.style.display = "block";
 				        } else {
 				        	pwError.style.display = "none";
+				        	pwPatternCheck = true;
 						}
 					})
 					
@@ -209,7 +211,7 @@
 							let pwCheckInput = userPwCheck.value;
 							const pwError = document.getElementById("pwCheck");
 							
-							if (pw == pwCheckInput) {
+							if (pw == pwCheckInput && pwPatternCheck) {
 								pwError.style.color = "green";
 								pwError.style.display = "block";
 								pwError.innerHTML = "비밀번호가 일치합니다."
