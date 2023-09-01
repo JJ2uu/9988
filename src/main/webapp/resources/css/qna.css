@@ -98,7 +98,23 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     font-size: medium;
     cursor: pointer;
 }
-
+#btn_qnaUpdate{
+	background-color: #407FBA;
+    color: white;
+    border: hidden;
+    height: 50px;
+    width: 450px;
+    font-size: medium;
+    cursor: pointer;
+}
+#btn_preView{
+	background-color: #E0E6EC;
+    border: hidden;
+    height: 50px;
+    width: 450px;
+    font-size: medium;
+    cursor: pointer;
+}
 #qnaContentTop{
 	display: flex;
     justify-content: space-between;
