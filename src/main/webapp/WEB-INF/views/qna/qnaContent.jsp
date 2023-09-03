@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+
+#reReplyWrite.toggle {
+    display: none;
+}
+
+</style>
 <script type="text/javascript">
 $(function() {
 	console.log(${qnaVO.qnaId});
@@ -29,6 +38,26 @@ $(function() {
          }
 		
     });
+	
+	var memberNo = 3;
+	$("#enter").click(function() {
+		var replyContent = $('#replyInput').val();
+     	$.ajax({
+			url : "qnaReplyInsert",
+			data : {
+				memberNo : memberNo,
+				qnaId : ${qnaVO.qnaId},
+				content : replyContent
+			},
+			success : function(x) {
+				location.reload();
+			}
+		}) 	 
+   });
+	
+	$("#reReply").click(function() {
+	    $("#reReplyWrite").toggleClass("toggle");
+	});
 });
 </script>
 <div id="qnaContent_wrap" style="width: 1000px;">
@@ -56,24 +85,35 @@ $(function() {
 		</div>
 	</div>
 	<hr>
+	<c:forEach var="i" begin="1" end="${fn:length(qnaReplyList)}">
 	<div id="replySpace">
 		<div style="font-weight: 600;">초이초이</div>
-		<div style="display: flex; flex-direction: column;">
+		<div style="display: flex; flex-direction: column; gap: 10px;">
 			<div style="display: flex; justify-content: space-between; width: 910px;">
-				<div style="max-width: 870px; text-align: left;">ㅇㅇ동에 있는 김ㅇㅇ교수님이 잘 봐주십니다!!!! 어머니도 여기서 치료하셨어요!!</div>
+				<div style="max-width: 870px; text-align: left;">${qnaReplyList[i-1].content}
+					<span id="replyDate">${qnaReplyList[i-1].date}</span>
+				</div>
 				<div id="reReply">댓글</div>
 			</div>
-			<div style="display: flex; gap: 10px; margin-top: 10px;">
+			<div id="reReplyWrite" class="toggle">
+				<div>댓글달기</div>
+				<div style="position: relative;">
+					<input id="reReplyInput">
+					<div id="reReplyEnter" class="enter">등록</div>
+				</div>
+			</div>
+			<!-- <div style="display: flex; gap: 10px; margin-top: 10px;">
 				<div style="font-weight: initial;">↳</div><div style="font-weight:600;">홍홍홍홍</div>
 				<div>감사합니다!!</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
+	</c:forEach>	
 	<div id="replyWrite">
 		<div>댓글달기</div>
 		<div style="position: relative;">
-			<input id="reply">
-			<div id="enter">등록</div>
+			<input id="replyInput">
+			<div id="enter" class="enter">등록</div>
 		</div>
 	</div>
 </div>

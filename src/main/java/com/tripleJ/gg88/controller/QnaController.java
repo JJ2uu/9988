@@ -15,14 +15,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tripleJ.gg88.domain.QnaReplyVO;
 import com.tripleJ.gg88.domain.QnaVO;
 import com.tripleJ.gg88.repository.QnaDAO;
+import com.tripleJ.gg88.repository.QnaReplyDAO;
 
 @Controller
 public class QnaController {
 	
 	@Autowired
 	QnaDAO qnaDAO;
+	
+	@Autowired
+	QnaReplyDAO qnaReplyDAO;
 	
 	@RequestMapping("qna/qnaBoard")
 	public String qnaBoard(Model model) {
@@ -46,7 +51,9 @@ public class QnaController {
 	@RequestMapping("qna/qnaContent")
 	public void qnaContent(HttpSession session, int qnaId, Model model) {
 		QnaVO qnaVO = qnaDAO.qnaDetail(qnaId);
+		List<QnaReplyVO> qnaReplyList = qnaReplyDAO.qnaReplyList(qnaId);
 		model.addAttribute("qnaVO", qnaVO);
+		model.addAttribute("qnaReplyList", qnaReplyList);
 	}
 	
 	@RequestMapping("qna/qnaInsert")
