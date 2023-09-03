@@ -163,14 +163,26 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     margin-top: 30px;
     align-items: center;
 }
+#reReplyWrite{
+	display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    align-items: center;
+}
 #replySpace{
 	display: flex;
     gap: 10px;
+    margin-bottom: 10px;
 }
 #reReply{
 	cursor: pointer;
 }
-#reply{
+#replyDate{
+	font-size: small;
+    color: gainsboro;
+    margin-left: 20px;
+}
+#replyInput{
 	width: 900px;
     background-color: #F2F6FA;
     border: hidden;
@@ -180,10 +192,21 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     cursor: pointer;
     font-size: 14px;
 }
-#enter{
+#reReplyInput{
+	width: 830px;
+    background-color: #F2F6FA;
+    border: hidden;
+    height: 30px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.enter{
 	position: absolute;
     right: 12px;
     cursor: pointer;
     top: 6px;
 }
+
 
