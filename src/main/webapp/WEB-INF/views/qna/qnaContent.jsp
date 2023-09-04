@@ -2,13 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<style>
 
-#reReplyWrite.toggle {
-    display: none;
-}
-
-</style>
 <script type="text/javascript">
 $(function() {
 	console.log(${qnaVO.qnaId});
@@ -40,8 +34,8 @@ $(function() {
     });
 	
 	var memberNo = 3;
-	$("#enter").click(function() {
-		var replyContent = $('#replyInput').val();
+	$(".qnaReplyEnter").click(function() {
+		var replyContent = $('.qnaReplyInput').val();
      	$.ajax({
 			url : "qnaReplyInsert",
 			data : {
@@ -55,9 +49,28 @@ $(function() {
 		}) 	 
    });
 	
-	$("#reReply").click(function() {
-	    $("#reReplyWrite").toggleClass("toggle");
-	});
+    
+	$(".reReplyEnter").click(function() {
+		var replyContent = $('.reReplyInput').val();
+		var groupId = $(this).closest('.replySpace').find('.replyId').text();
+		
+     	$.ajax({
+			url : "reReplyInsert",
+			data : {
+				memberNo : memberNo,
+				qnaId : ${qnaVO.qnaId},
+				content : replyContent,
+				groupId : groupId
+			},
+			success : function(x) {
+				location.reload();
+			}
+		}) 	 
+   });
+	
+	$(".reReply").click(function() {
+		 $(this).closest('.replySpace').find(".reReplyWrite").toggleClass("toggle");
+    });
 });
 </script>
 <div id="qnaContent_wrap" style="width: 1000px;">
@@ -86,34 +99,39 @@ $(function() {
 	</div>
 	<hr>
 	<c:forEach var="i" begin="1" end="${fn:length(qnaReplyList)}">
-	<div id="replySpace">
+	<div class="replySpace">
 		<div style="font-weight: 600;">초이초이</div>
 		<div style="display: flex; flex-direction: column; gap: 10px;">
 			<div style="display: flex; justify-content: space-between; width: 910px;">
 				<div style="max-width: 870px; text-align: left;">${qnaReplyList[i-1].content}
-					<span id="replyDate">${qnaReplyList[i-1].date}</span>
+					<span class="replyDate">${qnaReplyList[i-1].date}</span>
+					<span class="replyId" style="display: none;">${qnaReplyList[i-1].replyId}</span> 
 				</div>
-				<div id="reReply">댓글</div>
+				<div class="reReply">댓글</div>
 			</div>
-			<div id="reReplyWrite" class="toggle">
+			<div class="reReplyWrite toggle">
 				<div>댓글달기</div>
 				<div style="position: relative;">
-					<input id="reReplyInput">
-					<div id="reReplyEnter" class="enter">등록</div>
+					<input class="reReplyInput">
+					<div class="reReplyEnter enter">등록</div>
 				</div>
 			</div>
-			<!-- <div style="display: flex; gap: 10px; margin-top: 10px;">
-				<div style="font-weight: initial;">↳</div><div style="font-weight:600;">홍홍홍홍</div>
-				<div>감사합니다!!</div>
-			</div> -->
+			<%-- <c:forEach var="i" begin="1" end="${fn:length(reReplyList)}">
+			<div style="display: flex; gap: 10px; margin-top: 10px;">
+				<div style="font-weight: initial;">↳</div><div style="font-weight:600;">${reReplyList[i-1].memberNo}</div>
+				<div>${reReplyList[i-1].content}
+					<span class="replyDate">${qnaReplyList[i-1].date}</span>
+				</div>
+			</div>
+			</c:forEach> --%>
 		</div>
 	</div>
 	</c:forEach>	
 	<div id="replyWrite">
 		<div>댓글달기</div>
 		<div style="position: relative;">
-			<input id="replyInput">
-			<div id="enter" class="enter">등록</div>
+			<input class="qnaReplyInput">
+			<div class="qnaReplyEnter enter">등록</div> 
 		</div>
 	</div>
 </div>

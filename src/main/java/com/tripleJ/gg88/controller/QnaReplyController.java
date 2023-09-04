@@ -21,5 +21,11 @@ public class QnaReplyController {
 	public void qnaInsert(HttpSession session, QnaReplyVO qnaReplyVO) {
 		qnaReplyDAO.qnaReplyInsert(qnaReplyVO);
 	}
+	
+	@RequestMapping("qna/reReplyInsert")
+	@ResponseBody
+	public void reReplyInsert(HttpSession session, QnaReplyVO qnaReplyVO) {
+		qnaReplyDAO.reReplyInsert(qnaReplyVO);
+	}
 
 }

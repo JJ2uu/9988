@@ -23,5 +23,17 @@ public class QnaReplyDAO {
 		List<QnaReplyVO> QnaReplyList = my.selectList("qnaReply.qnaReplyList", qnaId);
 		return QnaReplyList;
 	}
+	
+	public int reReplyInsert(QnaReplyVO qnaReplyVO) {
+		int result = my.insert("qnaReply.reReplyInsert", qnaReplyVO);
+		return result;
+	}
+	
+	public List<QnaReplyVO> reReplyList(int groupId){
+		List<QnaReplyVO> QnaReplyList = my.selectList("qnaReply.reReplyList", groupId);
+		return QnaReplyList;
+	}
+	
+	
 
 }

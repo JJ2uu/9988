@@ -49,11 +49,13 @@ public class QnaController {
 		return "qna/qnaCreate";
 	}
 	@RequestMapping("qna/qnaContent")
-	public void qnaContent(HttpSession session, int qnaId, Model model) {
+	public void qnaContent(HttpSession session, int qnaId, int groupId, Model model) {
 		QnaVO qnaVO = qnaDAO.qnaDetail(qnaId);
 		List<QnaReplyVO> qnaReplyList = qnaReplyDAO.qnaReplyList(qnaId);
+		List<QnaReplyVO> reReplyList = qnaReplyDAO.reReplyList(groupId);
 		model.addAttribute("qnaVO", qnaVO);
 		model.addAttribute("qnaReplyList", qnaReplyList);
+		model.addAttribute("reReplyList", reReplyList);
 	}
 	
 	@RequestMapping("qna/qnaInsert")

@@ -125,6 +125,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     align-items: center;
     max-width: 990px;
     white-space: normal;
+    text-align: left;
 }
 #qnaWriter{
 	display: flex;
@@ -163,26 +164,26 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     margin-top: 30px;
     align-items: center;
 }
-#reReplyWrite{
+.reReplyWrite{
 	display: flex;
     gap: 15px;
     margin-top: 10px;
     align-items: center;
 }
-#replySpace{
+.replySpace{
 	display: flex;
     gap: 10px;
     margin-bottom: 10px;
 }
-#reReply{
+.reReply{
 	cursor: pointer;
 }
-#replyDate{
+.replyDate{
 	font-size: small;
     color: gainsboro;
     margin-left: 20px;
 }
-#replyInput{
+.qnaReplyInput{
 	width: 900px;
     background-color: #F2F6FA;
     border: hidden;
@@ -192,7 +193,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     cursor: pointer;
     font-size: 14px;
 }
-#reReplyInput{
+.reReplyInput{
 	width: 830px;
     background-color: #F2F6FA;
     border: hidden;
@@ -208,5 +209,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     cursor: pointer;
     top: 6px;
 }
+
+.reReplyWrite.toggle {
+    display: none;
+}
+
 
 
