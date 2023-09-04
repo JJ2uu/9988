@@ -146,12 +146,15 @@
 					const userEmail = document.getElementById("userEmail");
 					const userEmailAddressInput = document.getElementById("userEmailAddress");
 					const userPhone = document.getElementById("userPhone");
+					const certification = document.getElementById("certification");
+					const authNum = document.getElementById("input_authNum");
 					
 					/* 유효성 체크 */
 					let idCheck = false;
 					let pwPatternCheck = false;
 					let pwCheck = false;
 					let nickCheck = false;
+					let phoneAuthCheck = false;
 					
 					/* 아이디 중복 확인 */
 					$("#confirm_id").click(function() {
@@ -274,6 +277,30 @@
 					    email = userEmail.value + "@" + selectedDomain;
 					});
 					
+					/* 휴대폰 문자메세지 인증 */
+					$("#certification").click(function() {
+						event.preventDefault();
+						toNum = userPhone.value;
+						$.ajax({
+							url: '../message/sendTo',
+							data: {
+								phoneNumber : toNum
+							},
+							success: function(response) {
+								alert('인증번호가 발송되었습니다.')
+								let responseNum = response;
+								authNum.value = response;
+								
+								if (responseNum == authNum.value) {
+									phoneAuthCheck = true;
+								}
+							},
+							error: function(e) {
+								console.log(e)
+							}
+						})
+					})
+					
 					/* 닉네임 띄어쓰기, 특수문자 포함 확인 */
 					$("#confirm_nickname").click(function() {
 						event.preventDefault();
@@ -307,6 +334,7 @@
 					})
 
 					next.removeEventListener("click", firstNext);
+					/* 가입 진행 */
 					next.addEventListener("click", function() {
 						const requiredFields = document.querySelectorAll(".required");
 						let isEmptyFieldFound = false;
@@ -337,7 +365,7 @@
 								}
 							}
 						} else {
-							if (idCheck && pwCheck && nickCheck) {
+							if (idCheck && pwCheck && nickCheck && phoneAuthCheck) {
 								$.ajax({
 									url: '../member/account/signUp',
 									type: 'post',
@@ -358,10 +386,16 @@
 							} else {
 								if (!idCheck) {
 									alert("아이디 중복을 확인해 주세요.")
+									userId.focus();
 								} else if (!pwCheck) {
 									alert("비밀번호를 확인해 주세요.")
+									userPw.focus();
+								} else if (!phoneAuthCheck) {
+									alert("휴대폰 인증을 진행해 주세요.")
+									userPhone.focus();
 								} else {
 									alert("닉네임을 확인해 주세요.")
+									userNickname.focus();
 								}
 							}
 						}
