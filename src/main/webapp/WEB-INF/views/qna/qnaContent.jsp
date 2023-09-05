@@ -5,10 +5,11 @@
 
 <script type="text/javascript">
 $(function() {
+	/*대댓글 불러오기*/
 	$(".replySpace").each(function() {
-	    var $this = $(this); // 현재 .replySpace 요소를 저장
+	    var $this = $(this);
 
-	    var groupId = $this.find(".replyId").text(); // 현재 replySpace의 groupId 가져오기
+	    var groupId = $this.find(".replyId").text();
 	    console.log(groupId);
 
 	    $.ajax({
@@ -17,8 +18,6 @@ $(function() {
 	            groupId: groupId
 	        },
 	        success: function(response) {
-	            // AJAX 요청에 대한 응답을 처리하는 코드
-	            // response 데이터를 사용하여 reReplySpace에 내용 추가
 	            $this.find(".reReplySpace").append(response);
 	        },
 	        error: function() {
@@ -26,8 +25,7 @@ $(function() {
 	        }
 	    });
 	});
-	
-	console.log(${qnaVO.qnaId});
+	/* 수정하기 */
 	$("#qnaUpdate").click(function() {
 		$.ajax({
 			url : "qnaIdCheck",
@@ -39,7 +37,7 @@ $(function() {
 			}
 		})  
     });
-	
+	/* 삭제하기 */
 	$("#qnaDelete").click(function() {
          if (confirm('정말로 삭제하시겠습니까?')) {
        	 	$.ajax({
@@ -54,7 +52,7 @@ $(function() {
          }
 		
     });
-	
+	/* 댓글쓰기 member구현 아직 안함 */
 	var memberNo = 3;
 	$(".qnaReplyEnter").click(function() {
 		var replyContent = $('.qnaReplyInput').val();
@@ -69,9 +67,9 @@ $(function() {
 				location.reload();
 			}
 		}) 	 
-   });
+    });
 	
-    
+	/* 대댓글 쓰기 */
 	$(document).on("click", ".reReplyEnter", function() {
 	    var reReplyContent = $(this).closest('.replySpace').find('.reReplyInput').val();
 	    var groupId = $(this).closest('.replySpace').find('.replyId').text();
@@ -90,7 +88,7 @@ $(function() {
 	    });
 	});
 	
-	
+	/* 대댓글 토글 */
 	$(".reReply").click(function() {
 		 $(this).closest('.replySpace').find(".reReplyWrite").toggleClass("toggle");
     });
