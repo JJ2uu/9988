@@ -2,30 +2,30 @@ package com.tripleJ.gg88.domain;
 
 import java.sql.Timestamp;
 
-public class DailyVO {
+public class Qna {
 
-	private int dailyNo;
-	private String company;
+	private int qnaId;
+	private int memberNo;
 	private String title;
 	private String content;
 	private Timestamp date;
 	private int view;
-	private String img;
+	private String category;
 	
-	public int getDailyNo() {
-		return dailyNo;
+	public int getQnaId() {
+		return qnaId;
 	}
 	
-	public void setDailyNo(int dailyNo) {
-		this.dailyNo = dailyNo;
+	public void setQnaId(int qnaId) {
+		this.qnaId = qnaId;
 	}
 	
-	public String getCompany() {
-		return company;
+	public int getMemberNo() {
+		return memberNo;
 	}
 	
-	public void setCompany(String company) {
-		this.company = company;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 	
 	public String getTitle() {
@@ -60,12 +60,12 @@ public class DailyVO {
 		this.view = view;
 	}
 	
-	public String getImg() {
-		return img;
+	public String getCategory() {
+		return category;
 	}
 	
-	public void setImg(String img) {
-		this.img = img;
+	public void setCategory(String category) {
+		this.category = category;
 	}
-	
+
 }

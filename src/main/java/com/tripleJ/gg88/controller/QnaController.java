@@ -15,8 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tripleJ.gg88.domain.QnaReplyVO;
-import com.tripleJ.gg88.domain.QnaVO;
+import com.tripleJ.gg88.domain.QnaReply;
+import com.tripleJ.gg88.domain.Qna;
 import com.tripleJ.gg88.repository.QnaDAO;
 import com.tripleJ.gg88.repository.QnaReplyDAO;
 
@@ -31,11 +31,11 @@ public class QnaController {
 	
 	@RequestMapping("qna/qnaBoard")
 	public String qnaBoard(Model model) {
-		List<QnaVO> qnaList = qnaDAO.qnaList();
+		List<Qna> qnaList = qnaDAO.qnaList();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> formattedDates = new ArrayList<>();
 		
-		for (QnaVO qnaVO : qnaList) {
+		for (Qna qnaVO : qnaList) {
 	        Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
 	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
 	        formattedDates.add(formattedDate);
@@ -50,8 +50,8 @@ public class QnaController {
 	}
 	@RequestMapping("qna/qnaContent")
 	public void qnaContent(HttpSession session, int qnaId, Model model) {
-		QnaVO qnaVO = qnaDAO.qnaDetail(qnaId);
-		List<QnaReplyVO> qnaReplyList = qnaReplyDAO.qnaReplyList(qnaId);
+		Qna qnaVO = qnaDAO.qnaDetail(qnaId);
+		List<QnaReply> qnaReplyList = qnaReplyDAO.qnaReplyList(qnaId);
 		model.addAttribute("qnaVO", qnaVO);
 		model.addAttribute("qnaReplyList", qnaReplyList);
 		
@@ -59,25 +59,25 @@ public class QnaController {
 	
 	@RequestMapping("qna/qnaInsert")
 	@ResponseBody
-	public void qnaInsert(HttpSession session, QnaVO qnaVO) {
+	public void qnaInsert(HttpSession session, Qna qnaVO) {
 		qnaDAO.qnaInsert(qnaVO);
 	}
 	
 	@RequestMapping("qna/qnaIdCheck")
 	public void qnaIdCheck(HttpSession session, int qnaId, Model model) {
-		QnaVO qnaVO = qnaDAO.qnaDetail(qnaId);
+		Qna qnaVO = qnaDAO.qnaDetail(qnaId);
 		model.addAttribute("qnaVO", qnaVO);
 	}
 	
 	@RequestMapping("qna/qnaUpdate")
 	@ResponseBody
-	public void qnaUpdate(HttpSession session, QnaVO qnaVO) {
+	public void qnaUpdate(HttpSession session, Qna qnaVO) {
 		qnaDAO.qnaUpdate(qnaVO);
 	}
 	
 	@RequestMapping("qna/qnaDelete")
 	@ResponseBody
-	public void qnaDelecte(HttpSession session, QnaVO qnaVO) {
+	public void qnaDelecte(HttpSession session, Qna qnaVO) {
 		qnaDAO.qnaDelete(qnaVO);
 	}
 	
