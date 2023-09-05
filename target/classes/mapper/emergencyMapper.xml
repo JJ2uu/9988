@@ -30,12 +30,12 @@
 		update gg88.emergency set 
 			title = #{title}, 
 			content = #{content},
-			updatedate = #{updatedate}, 
+			updatedate = #{updatedate} 
 		where member_no = #{memberNo} and emergency_id = #{emergencyId}
 	</update>
 	
 	<!-- 추천수 증가 -->
-	<update id="incrementPhotoViewCount" parameterType="int">
+	<update id="incrementCommendCount" parameterType="int">
         update gg88.emergency set 
         commend_count = commend_count + 1
         where emergency_id = #{emergencyId}
