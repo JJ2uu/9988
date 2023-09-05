@@ -89,7 +89,7 @@
 			<input id="userPhone" class="input_field required" placeholder="전화번호 입력">
 			<button class="btn_confirm" id="certification">인증번호 받기</button>
 		</div>
-		<input class="input_field" placeholder="인증번호 입력" style="margin-top: 10px;">
+		<input id="input_authNum" class="input_field" placeholder="인증번호 입력" style="margin-top: 10px;">
 	</div>
 	<div class="input_wrap">
 		<div class="input_title">

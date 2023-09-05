@@ -20,11 +20,13 @@ public interface MemberService {
 	
 	String foundId(String email, Model model);
 	
-	String notFoundId();
+	String findPw(String userId, Model model);
 	
-	String resetPw();
+	String checkEmail(String userId, String email);
 	
 	String changePw();
+	
+	void updatePw(String email, String newPw);
 	
 	String searchId(String userId);
 	

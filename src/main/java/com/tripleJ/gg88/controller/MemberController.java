@@ -40,19 +40,26 @@ public class MemberController {
 		return memberService.foundId(email, model);
 	}
 	
-	@RequestMapping("account/notFoundId")
-	public String notFoundId() {
-		return memberService.notFoundId();
+	@RequestMapping("account/findPw")
+	public String findPw(String userId, Model model) {
+		return memberService.findPw(userId, model);
 	}
 	
-	@RequestMapping("account/resetPw")
-	public String resetPw() {
-		return memberService.resetPw();
+	@RequestMapping("account/checkEmail")
+	@ResponseBody
+	public String checkEmail(String userId, String email) {
+		return memberService.checkEmail(userId, email);
 	}
 	
 	@RequestMapping("account/changePw")
 	public String changePw() {
 		return "account/changePw";
+	}
+	
+	@RequestMapping("account/updatePw")
+	@ResponseBody
+	public void updatePw(String email, String newPw) {
+		memberService.updatePw(email, newPw);
 	}
 	
 	@RequestMapping("account/searchId")

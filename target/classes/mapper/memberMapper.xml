@@ -30,6 +30,14 @@
 		select * from member where email = #{email}
 	</select>
 	
+	<select id="checkEmail" resultType="memberVO">
+		select * from member where id = #{userId} and email = #{email}
+	</select>
+	
+	<update id="updatePw">
+		update member set pw = #{pw} where email = #{email}
+	</update>
+	
 </mapper>
 
 
