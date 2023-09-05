@@ -56,36 +56,45 @@ $(function() {
 	var memberNo = 3;
 	$(".qnaReplyEnter").click(function() {
 		var replyContent = $('.qnaReplyInput').val();
-     	$.ajax({
-			url : "qnaReplyInsert",
-			data : {
-				memberNo : memberNo,
-				qnaId : ${qnaVO.qnaId},
-				content : replyContent
-			},
-			success : function(x) {
-				location.reload();
-			}
-		}) 	 
+		if(replyContent === ""){
+			alert("내용을 입력해주세요")
+		}else{
+			$.ajax({
+				url : "qnaReplyInsert",
+				data : {
+					memberNo : memberNo,
+					qnaId : ${qnaVO.qnaId},
+					content : replyContent
+				},
+				success : function(x) {
+					location.reload();
+				}
+			}) 	
+		}
+     	 
     });
 	
 	/* 대댓글 쓰기 */
 	$(document).on("click", ".reReplyEnter", function() {
 	    var reReplyContent = $(this).closest('.replySpace').find('.reReplyInput').val();
 	    var groupId = $(this).closest('.replySpace').find('.replyId').text();
+	    if(reReplyContent === ""){
+			alert("내용을 입력해주세요")
+		}else{
+			$.ajax({
+		        url: "reReplyInsert",
+		        data: {
+		            memberNo: memberNo,
+		            qnaId: ${qnaVO.qnaId},
+		            content: reReplyContent,
+		            groupId: groupId
+		        },
+		        success: function(x) {
+		            location.reload();
+		        }
+		    });
+		}
 	    
-	    $.ajax({
-	        url: "reReplyInsert",
-	        data: {
-	            memberNo: memberNo,
-	            qnaId: ${qnaVO.qnaId},
-	            content: reReplyContent,
-	            groupId: groupId
-	        },
-	        success: function(x) {
-	            location.reload();
-	        }
-	    });
 	});
 	
 	/* 대댓글 토글 */
