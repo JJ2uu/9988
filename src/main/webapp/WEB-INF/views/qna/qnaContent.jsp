@@ -5,6 +5,28 @@
 
 <script type="text/javascript">
 $(function() {
+	$(".replySpace").each(function() {
+	    var $this = $(this); // 현재 .replySpace 요소를 저장
+
+	    var groupId = $this.find(".replyId").text(); // 현재 replySpace의 groupId 가져오기
+	    console.log(groupId);
+
+	    $.ajax({
+	        url: "reReplyList",
+	        data: {
+	            groupId: groupId
+	        },
+	        success: function(response) {
+	            // AJAX 요청에 대한 응답을 처리하는 코드
+	            // response 데이터를 사용하여 reReplySpace에 내용 추가
+	            $this.find(".reReplySpace").append(response);
+	        },
+	        error: function() {
+	            console.error("AJAX 요청에 실패했습니다.");
+	        }
+	    });
+	});
+	
 	console.log(${qnaVO.qnaId});
 	$("#qnaUpdate").click(function() {
 		$.ajax({
@@ -50,23 +72,24 @@ $(function() {
    });
 	
     
-	$(".reReplyEnter").click(function() {
-		var replyContent = $('.reReplyInput').val();
-		var groupId = $(this).closest('.replySpace').find('.replyId').text();
-		
-     	$.ajax({
-			url : "reReplyInsert",
-			data : {
-				memberNo : memberNo,
-				qnaId : ${qnaVO.qnaId},
-				content : replyContent,
-				groupId : groupId
-			},
-			success : function(x) {
-				location.reload();
-			}
-		}) 	 
-   });
+	$(document).on("click", ".reReplyEnter", function() {
+	    var reReplyContent = $(this).closest('.replySpace').find('.reReplyInput').val();
+	    var groupId = $(this).closest('.replySpace').find('.replyId').text();
+	    
+	    $.ajax({
+	        url: "reReplyInsert",
+	        data: {
+	            memberNo: memberNo,
+	            qnaId: ${qnaVO.qnaId},
+	            content: reReplyContent,
+	            groupId: groupId
+	        },
+	        success: function(x) {
+	            location.reload();
+	        }
+	    });
+	});
+	
 	
 	$(".reReply").click(function() {
 		 $(this).closest('.replySpace').find(".reReplyWrite").toggleClass("toggle");
@@ -101,7 +124,7 @@ $(function() {
 	<c:forEach var="i" begin="1" end="${fn:length(qnaReplyList)}">
 	<div class="replySpace">
 		<div style="font-weight: 600;">초이초이</div>
-		<div style="display: flex; flex-direction: column; gap: 10px;">
+		<div style="display: flex; flex-direction: column;">
 			<div style="display: flex; justify-content: space-between; width: 910px;">
 				<div style="max-width: 870px; text-align: left;">${qnaReplyList[i-1].content}
 					<span class="replyDate">${qnaReplyList[i-1].date}</span>
@@ -109,6 +132,7 @@ $(function() {
 				</div>
 				<div class="reReply">댓글</div>
 			</div>
+			<div class="reReplySpace"></div>
 			<div class="reReplyWrite toggle">
 				<div>댓글달기</div>
 				<div style="position: relative;">
@@ -116,14 +140,7 @@ $(function() {
 					<div class="reReplyEnter enter">등록</div>
 				</div>
 			</div>
-			<%-- <c:forEach var="i" begin="1" end="${fn:length(reReplyList)}">
-			<div style="display: flex; gap: 10px; margin-top: 10px;">
-				<div style="font-weight: initial;">↳</div><div style="font-weight:600;">${reReplyList[i-1].memberNo}</div>
-				<div>${reReplyList[i-1].content}
-					<span class="replyDate">${qnaReplyList[i-1].date}</span>
-				</div>
-			</div>
-			</c:forEach> --%>
+			
 		</div>
 	</div>
 	</c:forEach>	

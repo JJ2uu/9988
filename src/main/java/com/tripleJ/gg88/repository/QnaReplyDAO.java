@@ -30,8 +30,8 @@ public class QnaReplyDAO {
 	}
 	
 	public List<QnaReplyVO> reReplyList(int groupId){
-		List<QnaReplyVO> QnaReplyList = my.selectList("qnaReply.reReplyList", groupId);
-		return QnaReplyList;
+		List<QnaReplyVO> reReplyList = my.selectList("qnaReply.reReplyList", groupId);
+		return reReplyList;
 	}
 	
 	
