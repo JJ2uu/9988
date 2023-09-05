@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.util.WebUtils;
 
-import com.tripleJ.gg88.domain.MemberVO;
+import com.tripleJ.gg88.domain.Member;
 import com.tripleJ.gg88.repository.MemberRepository;
 
 @Service
@@ -42,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	public String foundId(String email, Model model) {
-		MemberVO memberVO = memberRepo.searchEmail(email);
+		Member memberVO = memberRepo.searchEmail(email);
 		if (memberVO != null) {
 			StringBuilder userIdSb = new StringBuilder();
 			int len = memberVO.getId().length()/2;
@@ -74,7 +74,7 @@ public class MemberServiceImpl implements MemberService {
 		Map<String, Object> userDataMap = new HashMap<String, Object>();
 		userDataMap.put("userId", userId);
 		userDataMap.put("email", email);
-		MemberVO result = memberRepo.checkEmail(userDataMap);
+		Member result = memberRepo.checkEmail(userDataMap);
 		if (result == null) {
 			return "null";
 		} else {
@@ -94,7 +94,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	public String searchId(String userId) {
-		MemberVO result = memberRepo.searchId(userId);
+		Member result = memberRepo.searchId(userId);
 		if (result == null) {
 			return "null";
 		} else {
@@ -103,7 +103,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	public String searchNick(String nickname) {
-		MemberVO result = memberRepo.searchNick(nickname);
+		Member result = memberRepo.searchNick(nickname);
 		if (result == null) {
 			return "null";
 		} else {
@@ -111,7 +111,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
-	public int signUp(MemberVO memberVO, String userbirth) {
+	public int signUp(Member memberVO, String userbirth) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date birth = dateFormat.parse(userbirth);
@@ -126,9 +126,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	public String signIn(String id, String pw, boolean loginKeep, HttpServletRequest request, HttpServletResponse response) {
-		MemberVO memberVO = new MemberVO();
+		Member memberVO = new Member();
 		memberVO.setId(id);
-		MemberVO result = memberRepo.searchId(id);
+		Member result = memberRepo.searchId(id);
 		if (result != null) {
 			if (bcrypt.match(pw, result.getPw())) {
 				if (loginKeep) {
@@ -153,7 +153,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	public String autoSignIn(String sessionId) {
-		MemberVO memberVO = checkSessionKey(sessionId);
+		Member memberVO = checkSessionKey(sessionId);
 		if (memberVO != null) {
 		    return memberVO.getNickname(); 
 		} else {
@@ -169,7 +169,7 @@ public class MemberServiceImpl implements MemberService {
 		memberRepo.keepLogin(map);
 	}
 	
-	public MemberVO checkSessionKey(String sessionId) {
+	public Member checkSessionKey(String sessionId) {
 		return memberRepo.checkSessionKey(sessionId);
 	}
 	

@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tripleJ.gg88.domain.QnaReplyVO;
+import com.tripleJ.gg88.domain.QnaReply;
 import com.tripleJ.gg88.repository.QnaReplyDAO;
 
 @Controller
@@ -21,19 +21,19 @@ public class QnaReplyController {
 	
 	@RequestMapping("qna/qnaReplyInsert")
 	@ResponseBody
-	public void qnaInsert(HttpSession session, QnaReplyVO qnaReplyVO) {
+	public void qnaInsert(HttpSession session, QnaReply qnaReplyVO) {
 		qnaReplyDAO.qnaReplyInsert(qnaReplyVO);
 	}
 	
 	@RequestMapping("qna/reReplyInsert")
 	@ResponseBody
-	public void reReplyInsert(HttpSession session, QnaReplyVO qnaReplyVO) {
+	public void reReplyInsert(HttpSession session, QnaReply qnaReplyVO) {
 		qnaReplyDAO.reReplyInsert(qnaReplyVO);
 	}
 	
 	@RequestMapping("qna/reReplyList")
 	public void reReplyList(HttpSession session,int groupId, Model model) {
-		List<QnaReplyVO> reReplyList = qnaReplyDAO.reReplyList(groupId);
+		List<QnaReply> reReplyList = qnaReplyDAO.reReplyList(groupId);
 		model.addAttribute("reReplyList", reReplyList);
 	}
 

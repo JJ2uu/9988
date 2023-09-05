@@ -2,30 +2,22 @@ package com.tripleJ.gg88.domain;
 
 import java.sql.Timestamp;
 
-public class QnaVO {
+public class Food {
 
-	private int qnaId;
-	private int memberNo;
+	private int foodId;
 	private String title;
 	private String content;
 	private Timestamp date;
 	private int view;
 	private String category;
+	private String link;
 	
-	public int getQnaId() {
-		return qnaId;
+	public int getFoodId() {
+		return foodId;
 	}
 	
-	public void setQnaId(int qnaId) {
-		this.qnaId = qnaId;
-	}
-	
-	public int getMemberNo() {
-		return memberNo;
-	}
-	
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
+	public void setFoodId(int foodId) {
+		this.foodId = foodId;
 	}
 	
 	public String getTitle() {
@@ -66,6 +58,14 @@ public class QnaVO {
 	
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	public String getLink() {
+		return link;
+	}
+	
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 }

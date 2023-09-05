@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tripleJ.gg88.domain.MemberVO;
+import com.tripleJ.gg88.domain.Member;
 import com.tripleJ.gg88.service.MemberService;
 
 @Controller
@@ -76,7 +76,7 @@ public class MemberController {
 	
 	@RequestMapping("account/signUp")
 	@ResponseBody
-	public int signUp(MemberVO memberVO, String userbirth) {
+	public int signUp(Member memberVO, String userbirth) {
 		return memberService.signUp(memberVO, userbirth);
 	}
 	

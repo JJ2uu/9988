@@ -2,25 +2,25 @@ package com.tripleJ.gg88.repository;
 
 import java.util.Map;
 
-import com.tripleJ.gg88.domain.MemberVO;
+import com.tripleJ.gg88.domain.Member;
 
 public interface MemberRepository {
 	
-	MemberVO searchId(String id);
+	Member searchId(String id);
 	
-	MemberVO searchNick(String nickname);
+	Member searchNick(String nickname);
 	
-	int signUp(MemberVO memberVO);
+	int signUp(Member memberVO);
 	
-	MemberVO signIn(MemberVO memberVO);
+	Member signIn(Member memberVO);
 	
-	MemberVO checkEmail(Map<String, Object> userDataMap);
+	Member checkEmail(Map<String, Object> userDataMap);
 	
 	void keepLogin(Map<String, Object> userDataMap);
 	
-	MemberVO checkSessionKey(String sessionId);
+	Member checkSessionKey(String sessionId);
 	
-	MemberVO searchEmail(String email);
+	Member searchEmail(String email);
 	
 	void updatePw(Map<String, Object> userDataMap);
 

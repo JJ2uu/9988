@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.WebUtils;
 
-import com.tripleJ.gg88.domain.MemberVO;
+import com.tripleJ.gg88.domain.Member;
 import com.tripleJ.gg88.service.MemberService;
 
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
@@ -24,7 +24,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 		response.setHeader("Expires", "0");
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 		if (loginCookie != null) {
-            MemberVO memberVO = memberService.checkSessionKey(loginCookie.getValue());
+            Member memberVO = memberService.checkSessionKey(loginCookie.getValue());
             if (memberVO != null) {
             	request.getSession().setAttribute("userId", memberVO.getId());
             	request.getSession().setAttribute("userNick", memberVO.getNickname());

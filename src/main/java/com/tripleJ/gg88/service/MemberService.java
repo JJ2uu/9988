@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
-import com.tripleJ.gg88.domain.MemberVO;
+import com.tripleJ.gg88.domain.Member;
 
 public interface MemberService {
 
@@ -32,7 +32,7 @@ public interface MemberService {
 	
 	String searchNick(String nickname);
 	
-	int signUp(MemberVO memberVO, String userbirth);
+	int signUp(Member memberVO, String userbirth);
 	
 	String signIn(String id, String pw, boolean loginKeep, HttpServletRequest request, HttpServletResponse response);
 	
@@ -40,7 +40,7 @@ public interface MemberService {
 	
 	void keepLogin(String userId, String sessionId, Date sessionLimit);
 	
-	MemberVO checkSessionKey(String sessionId);
+	Member checkSessionKey(String sessionId);
 	
 	String signOut(HttpSession session, HttpServletRequest request, HttpServletResponse response);
 	

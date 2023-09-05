@@ -2,25 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qna">
 
-	<insert id="qnaInsert" parameterType="qnaVO">
+	<insert id="qnaInsert" parameterType="qna">
 		insert into qna
 		(member_no, title, content, category)
 		values(#{memberNo}, #{title}, #{content}, #{category});
 	</insert>
 	
-	<select id="qnaList" resultType="qnaVO">
+	<select id="qnaList" resultType="qna">
 		select * from qna order by `date` desc
 	</select>
 	
-	<select id="qnaDetail" resultType="qnaVO" parameterType="Integer" >
+	<select id="qnaDetail" resultType="qna" parameterType="Integer" >
 		select * from qna where qna_id = #{qnaId}
 	</select>
 	
-	<update id="qnaUpdate" parameterType="qnaVO">
+	<update id="qnaUpdate" parameterType="qna">
 		update qna set title = #{title}, content = #{content}, category = #{category} where qna_id = #{qnaId}
 	</update>
 	
-	<delete id="qnaDelete" parameterType="qnaVO">
+	<delete id="qnaDelete" parameterType="qna">
 		delete from qna where qna_id = #{qnaId}
 	</delete>
 

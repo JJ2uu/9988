@@ -2,7 +2,7 @@ package com.tripleJ.gg88.domain;
 
 import java.sql.Timestamp;
 
-public class QnaReplyVO {
+public class QnaReply {
 
 	private int replyId;
 	private int memberNo;

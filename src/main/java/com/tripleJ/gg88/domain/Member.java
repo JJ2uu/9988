@@ -3,7 +3,7 @@ package com.tripleJ.gg88.domain;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class MemberVO {
+public class Member {
 
 	private int memberNo;
 	private String id;
