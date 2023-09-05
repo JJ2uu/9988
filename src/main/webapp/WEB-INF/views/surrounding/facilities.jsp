@@ -34,7 +34,7 @@
 		<div id="content_wrap">
 			<div id="content">
 				<!-- 이 content div 안에서  작업 시작-->
-				<div class="subheading" style="margin-bottom: 10px; display: flex; gap: 5px; align-content: center; justify-content: center;">
+				<div class="subheading" style="margin-bottom: 30px; display: flex; gap: 5px; align-content: center; justify-content: center;">
 					<img src="${pageContext.request.contextPath}/resources/img/icon_map.svg" width="24px" id="map_icon"> 
 					<span style="font-size: 24px; font-weight: 500; ">내 주변 시설</span>
 				</div>

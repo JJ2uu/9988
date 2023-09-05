@@ -15,27 +15,34 @@
 }
 
 .symptom input {
-	width: 904px;
+	width: 850px;
 	height: 100%;
 	border-radius: 10px;
 	border: 1px solid #000000;
 	padding-left: 20px;
-	margin-left: 30px;
+	margin-left: 15px;
+	margin-bottom: 10px;
 }
 
 .solution {
 	width: 1001px;
-	height: 444px;
-	margin-top: 20px;
+	height: 400px;
+	margin-top: 35px;
+	margin-bottom: 30px;
 }
 
 .solution input {
-	width: 904px;
+	width: 850px;
 	height: 100%;
 	border-radius: 10px;
 	border: 1px solid #000000;
 	padding-left: 20px;
-	margin-left: 5px;
+}
+
+.solution input::placeholder{
+	text-align: left;
+	display: flex;
+	align-content: flex-start;
 }
 .complete_btn{
 	width: 904px;
@@ -45,7 +52,7 @@
 }
 
 .complete_btn button{
-	width: 45%;
+	width: 120px;
 	height: 100%;
 	background-color: #407FBA;
 	color: #FFFFFF;
@@ -53,6 +60,8 @@
 	font-size: 18px;
 	margin-left: 20px;
 	margin-right: 20px;
+	border-style: none;
+	cursor: pointer;
 }
 </style>
 <title>99팔팔</title>
@@ -72,14 +81,16 @@
 				</div>
 				<!-- form태그는 컨트롤러랑 연결 -->
 				<div class="symptom">
-					증상 <input placeholder="응급상황을 적어주세요.">
+					<span style="margin-left: 15px;">증상</span>
+					<input placeholder="응급상황을 적어주세요.">
 				</div>
 				<div class="solution">
-					대처방안 <input placeholder="응급 상황 시 대처방안을 적어주세요.">
+					<span style="padding-right: 0px;">대처방안</span>
+					<input placeholder="응급 상황 시 대처방안을 적어주세요.">
 				</div>
 				<div class="complete_btn">
 					<a href="${pageContext.request.contextPath}/emergency/temporarySave">
-					<button id="temSave" type="button">글 임시 저장</button>
+					<button id="temSave" type="button" style="background-color: #E0E6EC; color: #2C343D;">글 임시 저장</button>
 					</a>
 					<a href="${pageContext.request.contextPath}/emergency/saveBoard">
 					<button id="sava" type="submit">글 작성 완료</button>

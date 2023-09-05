@@ -26,7 +26,7 @@
 		<div id="content_wrap">
 			<div id="content">
 				<!-- 이 content div 안에서  작업 시작-->
-				<div class="subheading" style="margin-bottom: 10px;">
+				<div class="subheading" style="margin-bottom: 30px;">
 					<span style="font-size: 24px; font-weight: bolder; margin-bottom: 20px">운동해요</span>
 					<img src="${pageContext.request.contextPath}/resources/img/stretching.png" width="16px">
 				</div>
