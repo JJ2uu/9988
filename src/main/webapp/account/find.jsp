@@ -58,8 +58,8 @@
 		    			email : email,
 		    			type : 'findId'
 		    		},
-		    		success: function(result) {
-		    			authNumber = result;
+		    		success: function(response) {
+		    			authNumber = response;
 		    			alert('인증번호가 전송되었습니다.')
 		    			inputAuthNumber.value = authNumber;
 					},
@@ -82,9 +82,9 @@
 						data: {
 							email : email
 						},
-						success: function(foundId) {
+						success: function(response) {
 							$("#tab_findId").empty();
-							$("#tab_findId").append(foundId);
+							$("#tab_findId").append(response);
 							
 							$("#btn_login").click(function() {
 								location.href = "login.jsp"
@@ -106,35 +106,154 @@
 		
 		/* 비밀번호 찾기 */
 		$("#btn_next").click(function() {
-			let pwConfirm = confirm("존재하는 아이디인가?");
+			const inputId = document.getElementById("input_id");
+			const notExistId = document.getElementById("notExistId");
 			
-			if (pwConfirm) {
+			if (inputId.value != '') {
 				$.ajax({
-					url: '../member/account/resetPw',
-					success: function(resetPw) {
-						$("#tab_2").empty();
-						$("#tab_2").append(resetPw);
+					url: '../member/account/findPw',
+					data: {
+						userId : inputId.value
+					},
+					success: function(response) {
+						$("#tab_findPw").empty();
+						$("#tab_findPw").append(response);
 						
-						$("#btn_changePw").click(function() {
-							$.ajax({
-								url: '../member/account/changePw',
-								success: function(changePw) {
-									$("#tab_2").empty();
-									$("#tab_2").append(changePw);
-									
-									$("#btn_completed").click(function() {
-										alert('비밀번호 변경이 완료되었습니다.')
-										location.reload();
-									})
-								}
-							})
+						const domainListSelect2 = document.getElementById("domain_list2");
+						const userEmail2 = document.getElementById("input_email2");
+						const userEmailAddressInput2 = document.getElementById("userEmailAddress2");
+						const inputAuthNumber2 = document.getElementById("input_authNumber2");
+						const authError2 = document.getElementById("auth_error2");
+						const userId = document.getElementById("userId");
+
+						domainListSelect2.addEventListener("change", function() {
+							const selectedDomain = domainListSelect2.value;
+							userEmailAddressInput2.value = selectedDomain;
+						});
+						
+						let authNumber2;
+						let email2;
+					    
+					    /* 비밀번호 찾기 - 인증번호 받기 */
+					    $("#btn_authNumber2").click(function() {
+					    	if (userEmail2.value != '' && userEmailAddressInput2.value != '') {
+					    		email2 = userEmail2.value + "@" + userEmailAddressInput2.value;
+						    	$.ajax({
+						    		url: '../member/account/checkEmail',
+						    		data: {
+						    			userId : userId.value,
+						    			email : email2
+						    		},
+						    		success: function(response) {
+						    			authError2.style.display = "none";
+						    			if (response == 'notNull') {
+						    				$.ajax({
+									    		url: '../auth/joinEmail',
+									    		data: {
+									    			email : email2,
+									    			type : 'findPw'
+									    		},
+									    		success: function(response) {
+									    			authNumber2 = response;
+									    			alert('인증번호가 전송되었습니다.')
+									    			inputAuthNumber2.value = authNumber2;
+									    			
+													$("#btn_changePw").click(function() {
+														if (authNumber2 == inputAuthNumber2.value) {
+															$.ajax({
+																url: '../member/account/changePw',
+																success: function(response) {
+																	$("#tab_findPw").empty();
+																	$("#tab_findPw").append(response);
+																	
+																	const inputPw = document.getElementById("input_pw");
+																	const inputPwCheck = document.getElementById("input_pw_check");
+																	
+																	let pwPatternCheck = false;
+																	let pwCheck = false;
+																	
+																	/* 패스워드 8글자, 특수문자 포함 확인 */
+																	inputPw.addEventListener("input", function() {
+																		let pw = inputPw.value;
+																		let pwPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+																		const pwError = document.getElementById("pw_error");
+																		
+																        if (!pwPattern.test(pw)) {
+																            pwError.style.display = "block";
+																        } else {
+																        	pwError.style.display = "none";
+																        	pwPatternCheck = true;
+																		}
+																	})
+																	
+																	/* 비밀번호 체크 */
+																	inputPwCheck.addEventListener("input", function() {
+																		let pw = inputPw.value;
+																		if (pw === "") {
+																			alert("비밀번호를 먼저 입력해주세요.")
+																			inputPw.focus();
+																		} else {
+																			let pwCheckInput = inputPwCheck.value;
+																			const pwError = document.getElementById("pwCheck");
+																			
+																			if (pw == pwCheckInput && pwPatternCheck) {
+																				pwError.style.color = "green";
+																				pwError.style.display = "block";
+																				pwError.innerHTML = "비밀번호가 일치합니다."
+																				pwCheck = true;
+																			} else {
+																				pwError.style.display = "block";
+																				pwError.innerHTML = "비밀번호가 일치하지 않습니다. 다시 입력해 주세요."
+																			}
+																		}
+																	})
+																	
+																	$("#btn_completed").click(function() {
+																		if (pwPatternCheck && pwCheck) {
+																			$.ajax({
+																				url: '../member/account/updatePw',
+																				data: {
+																					email : email2,
+																					newPw : inputPw.value
+																				},
+																				success : function(response) {
+																					alert('비밀번호 변경이 완료되었습니다.')
+																					location.reload();
+																				}
+																			})
+																		} else {
+																			alert('비밀번호를 다시 확인해 주세요.')
+																		}
+																	})
+																}
+															})
+														} else {
+															authError2.innerHTML = "인증번호가 일치하지 않습니다."
+															authError2.style.display = "block";
+														}
+													})
+												},
+												error : function(e) {
+													console.log(e)
+												}
+									    	})
+										} else {
+											authError2.innerHTML = "가입시 입력하신 이메일 인증만 가능합니다."
+											authError2.style.display = "block";
+										}
+									}
+						    	})
+							} else {
+								alert('이메일을 입력해 주세요.')
+								userEmail2.focus();
+							}
 						})
 					}
 				})
 			} else {
-				const notIdSpan = document.getElementById("notExistId");
-				
-				notIdSpan.innerHTML = "존재하지 않는 아이디입니다. 다시 확인해 주세요."
+				notExistId.innerHTML = "아이디를 입력해주세요."
+				notExistId.style.display = "block";
+				inputId.focus();
 			}
 		})
 	})
@@ -188,8 +307,8 @@
 								<span>비밀번호를 찾고자 하는 아이디를 입력해 주세요.</span>
 							</div>
 							<div style="display: flex; flex-flow: column; margin: 30px 0;">
-								<input id="" class="input_field" placeholder="아이디">
-								<span id="notExistId" style="color: red;"></span>
+								<input id="input_id" class="input_field" placeholder="아이디">
+								<div id="notExistId" class="error_message" style="display: none;"></div>
 							</div>
 							<button id="btn_next" class="btn">다음</button>
 						</div>
