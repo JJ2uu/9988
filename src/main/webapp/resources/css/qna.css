@@ -98,7 +98,23 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     font-size: medium;
     cursor: pointer;
 }
-
+#btn_qnaUpdate{
+	background-color: #407FBA;
+    color: white;
+    border: hidden;
+    height: 50px;
+    width: 450px;
+    font-size: medium;
+    cursor: pointer;
+}
+#btn_preView{
+	background-color: #E0E6EC;
+    border: hidden;
+    height: 50px;
+    width: 450px;
+    font-size: medium;
+    cursor: pointer;
+}
 #qnaContentTop{
 	display: flex;
     justify-content: space-between;
@@ -109,6 +125,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     align-items: center;
     max-width: 990px;
     white-space: normal;
+    text-align: left;
 }
 #qnaWriter{
 	display: flex;
@@ -147,14 +164,26 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     margin-top: 30px;
     align-items: center;
 }
-#replySpace{
+.reReplyWrite{
+	display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    align-items: center;
+}
+.replySpace{
 	display: flex;
     gap: 10px;
+    margin-bottom: 10px;
 }
-#reReply{
+.reReply{
 	cursor: pointer;
 }
-#reply{
+.replyDate{
+	font-size: small;
+    color: gainsboro;
+    margin-left: 20px;
+}
+.qnaReplyInput{
 	width: 900px;
     background-color: #F2F6FA;
     border: hidden;
@@ -164,10 +193,26 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     cursor: pointer;
     font-size: 14px;
 }
-#enter{
+.reReplyInput{
+	width: 830px;
+    background-color: #F2F6FA;
+    border: hidden;
+    height: 30px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.enter{
 	position: absolute;
     right: 12px;
     cursor: pointer;
     top: 6px;
 }
+
+.reReplyWrite.toggle {
+    display: none;
+}
+
+
 

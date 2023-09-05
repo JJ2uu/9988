@@ -9,11 +9,29 @@ public class QnaReplyVO {
 	private int qnaId;
 	private String content;
 	private Timestamp date;
+	private int replyClass;
+	private int groupId;
 	
 	public int getReplyId() {
 		return replyId;
 	}
 	
+	public int getReplyClass() {
+		return replyClass;
+	}
+
+	public void setReplyClass(int replyClass) {
+		this.replyClass = replyClass;
+	}
+
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
+
 	public void setReplyId(int replyId) {
 		this.replyId = replyId;
 	}
