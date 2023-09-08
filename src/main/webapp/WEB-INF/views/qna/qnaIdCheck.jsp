@@ -26,7 +26,7 @@ $(function() {
 				success : function(x) {
 					console.log(title,content,category);
 					alert("질문글을 수정했습니다.")
-					location.href = "${pageContext.request.contextPath}/qna/qnaBoard";
+					location.href = "${pageContext.request.contextPath}/qna/qnaPost.jsp?qnaId="+qnaId;
 				}
 			})
 		}
