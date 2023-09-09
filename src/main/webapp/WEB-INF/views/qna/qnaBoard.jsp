@@ -14,7 +14,19 @@
 <title>99팔팔</title>
 </head>
 <script type="text/javascript">
+function highlightButton(button) {
+    // 모든 버튼에서 'current' 클래스를 제거
+    var buttons = document.querySelectorAll('.btn_paging');
+    buttons.forEach(function(btn) {
+        btn.classList.remove('current');
+    });
+
+    // 클릭한 버튼에만 'current' 클래스 추가
+    button.classList.add('current');
+}
 $(function() {
+	highlightButton(document.querySelector('.btn_paging'));
+	
     $("#qnaWrite").click(function() {
         $.ajax({
             url: 'qnaCreate',
@@ -31,6 +43,24 @@ $(function() {
     	
         location.href = "qnaPost.jsp?qnaId="+qnaId;
     });
+    
+    $('.btn_paging').click(function() {
+    	console.log($(this).text())
+		$.ajax({
+			url : "qnaPage", 
+			data : {
+				page : $(this).text()
+			},
+			success : function(result) { //결과가 담겨진 table부분코드
+				
+				$('#qnaTable').html(result)
+			},
+			error : function() {
+				alert('실패.@@@')
+			}
+		})
+	})
+	
                 
 });
 </script>
@@ -59,7 +89,7 @@ $(function() {
 							<option value="건강상식">건강상식</option>
 						</select>
 					</div>
-					<div>
+					<div id="qnaTable">
 						<table>
 							<tr>
 								<th class="num">번호</th>
@@ -87,9 +117,16 @@ $(function() {
 					<div id="qnaBottomWrap">
 						<button id="qnaWrite">글쓰기</button>
 						<div class="paging">
-							<c:forEach var="i" begin="1" end="5">
-								<button type="button" class="btn_paging">${i}</button>
-							</c:forEach>
+							<%
+								int pages = (int) request.getAttribute("pages");
+								for (int p = 1; p <= pages; p++) {
+							%>
+							<button type="button" class="btn_paging" onclick="highlightButton(this)"><%=p%></button>
+							<%
+								}
+							%>
+							
+							
 						</div>
 					</div>
 				</div>
