@@ -16,6 +16,7 @@
       <typeAlias type="com.tripleJ.gg88.domain.Food" alias="food"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.Map" alias="DomainMap"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.Member" alias="member"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.Page" alias="page"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.QnaReply" alias="qnaReply"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.Qna" alias="qna"></typeAlias>
    </typeAliases>
