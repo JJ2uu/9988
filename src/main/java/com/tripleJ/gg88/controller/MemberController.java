@@ -98,13 +98,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping("info/myInfo")
-	public String myInfo() {
-		return memberService.myInfo();
+	public String myInfo(String nickname, Model model) {
+		return memberService.myInfo(nickname, model);
 	}
 	
 	@RequestMapping("info/myHistory")
 	public String myHistory() {
 		return memberService.myHistory();
+	}
+	
+	@RequestMapping("info/profile")
+	@ResponseBody
+	public String profile(String nickname) {
+		return memberService.profile(nickname);
 	}
 	
 }

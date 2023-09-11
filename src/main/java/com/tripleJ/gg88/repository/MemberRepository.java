@@ -23,5 +23,6 @@ public interface MemberRepository {
 	Member searchEmail(String email);
 	
 	void updatePw(Map<String, Object> userDataMap);
-
+	
+	void profileUpload(Map<String, Object> userDataMap);
 }

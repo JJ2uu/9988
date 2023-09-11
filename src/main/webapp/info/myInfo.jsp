@@ -32,9 +32,50 @@
 	        $("#" + activeTab).addClass('current');
 	    }
 	    
+	    /* 유저 닉네임 */
+	    let userNick = '<%= session.getAttribute("userNick") %>';
+		if (userNick == 'null') {
+			let cookieName = "loginCookie";
+			let cookieString = document.cookie;
+			let cookieArray = cookieString.split(';');
+			
+			for (var i = 0; i < cookieArray.length; i++) {
+			    var cookie = cookieArray[i].trim();
+			    if (cookie.indexOf(cookieName + '=') === 0) {
+			        let cookieValue = cookie.substring(cookieName.length + 1);
+			        $.ajax({
+			        	url: '${pageContext.request.contextPath}/member/autoSignIn',
+			        	data: {
+			        		sessionId : cookieValue
+			        	},
+			        	contentType : "application/text; charset:UTF-8",
+			        	success: function(nickname) {
+			    			userNick = nickname;
+						}
+			        })
+			        break;
+			    }
+			}
+		}
+		
+		/* 마이페이지 - 프로필 사진 */
+		$.ajax({
+			url: '../member/info/profile',
+			data: {
+				nickname: userNick
+			},
+			success: function(response) {
+				let profile = "http://figveoefijyo19505068.cdn.ntruss.com/" + response + "?type=f&w=150&h=150";
+				$("#img").attr("src", profile);
+			}
+		})
+	    
 	    /* 마이페이지 - 내 정보 */
 	    $.ajax({
 	    	url: '../member/info/myInfo',
+	    	data: {
+	    		nickname : userNick
+	    	},
 	    	success: function(myInfo) {
 				$("#tab_myInfo").append(myInfo);
 			}
@@ -68,6 +109,30 @@
 				})
 			}
 	    })
+	    
+	    /* 마이페이지 - 프로필 사진 변경 */
+	    $("#file").change(function() {
+	    	
+	    	var formData = new FormData();
+	    	formData.append("file", $("#file")[0].files[0]);
+	    	
+			$.ajax({
+				url: '../amazonS3/profileUpload',
+				type: 'post',
+				data: formData,
+				contentType: false,
+			    processData: false,
+				enctype: 'multipart/form-data',
+				success: function(response) {
+					if (response != "fail") {
+						let profile = "http://figveoefijyo19505068.cdn.ntruss.com/" + response + "?type=f&w=150&h=150";
+						$("#img").attr("src", profile);
+					} else {
+						console.log("fail")
+					}
+				}
+			})
+		})
 	})
 	
 </script>
@@ -85,7 +150,7 @@
 				<div id="myInfo_wrap">
 					<div id="profile_wrap">
 						<div id="profile_img">
-							<img src="${pageContext.request.contextPath}/resources/img/test_profile.jpg" id="img" style="height: 100%;">
+							<img id="img" style="height: 100%;">
 						</div>
 						<div id="profile_info">
 							<span style="font-size: 24px; font-weight: 500;">홍홍홍홍 님 반갑습니다.</span>

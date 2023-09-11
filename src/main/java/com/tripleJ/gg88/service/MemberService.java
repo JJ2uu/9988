@@ -44,7 +44,9 @@ public interface MemberService {
 	
 	String signOut(HttpSession session, HttpServletRequest request, HttpServletResponse response);
 	
-	String myInfo();
+	String myInfo(String nickname, Model model);
 	
 	String myHistory();
+	
+	String profile(String nickname);
 }

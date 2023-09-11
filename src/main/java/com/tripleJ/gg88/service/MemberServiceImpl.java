@@ -187,11 +187,33 @@ public class MemberServiceImpl implements MemberService {
 		return "redirect:../9988_main.jsp";
 	}
 	
-	public String myInfo() {
+	public String myInfo(String nickname, Model model) {
+		Member memberVO = memberRepo.searchNick(nickname);
+		StringBuilder userIdSb = new StringBuilder();
+		int len = memberVO.getId().length()/2;
+		userIdSb.append(memberVO.getId().substring(0, len));
+		for (int i = len+1; i < memberVO.getId().length(); i++) {
+			userIdSb.append("*");
+		}
+		
+		String originalPhone = memberVO.getTel();
+		StringBuilder phoneSb = new StringBuilder();
+		phoneSb.append(originalPhone.substring(0, 3));
+		phoneSb.append("-****-**");
+		phoneSb.append(originalPhone.substring(9, 11));
+
+		model.addAttribute("userPhone", phoneSb.toString());
+		model.addAttribute("userId", userIdSb.toString());
+		model.addAttribute("member", memberVO);
 		return "info/myInfo";
 	}
 	
 	public String myHistory() {
 		return "info/myHistory";
+	}
+	
+	public String profile(String nickname) {
+		Member memberVO = memberRepo.searchNick(nickname);
+		return memberVO.getProfile();
 	}
 }
