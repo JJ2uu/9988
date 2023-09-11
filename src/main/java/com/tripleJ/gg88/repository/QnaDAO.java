@@ -42,5 +42,9 @@ public class QnaDAO {
 		return my.selectOne("qna.count");
 	}
 	
+	public int qnaViews(int qnaId) {
+		return my.update("qna.qnaViews", qnaId);
+	}
+	
 
 }

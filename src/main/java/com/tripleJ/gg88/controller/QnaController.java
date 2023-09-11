@@ -104,11 +104,17 @@ public class QnaController {
 	}
 	
 	@RequestMapping("qna/qnaDelete")
-	@ResponseBody
+	
 	public void qnaDelecte(HttpSession session, Qna qnaVO, QnaReply qnaReplyVO) {
 		qnaReplyDAO.qnaDeleteReply(qnaReplyVO);
 		qnaDAO.qnaDelete(qnaVO);
 		
+	}
+	
+	@RequestMapping("qna/qnaViews")
+	@ResponseBody
+	public void qnaViews(int qnaId) {
+		qnaDAO.qnaViews(qnaId);
 	}
 	
 	
