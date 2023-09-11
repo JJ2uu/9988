@@ -104,7 +104,7 @@ public class QnaController {
 	}
 	
 	@RequestMapping("qna/qnaDelete")
-	
+	@ResponseBody
 	public void qnaDelecte(HttpSession session, Qna qnaVO, QnaReply qnaReplyVO) {
 		qnaReplyDAO.qnaDeleteReply(qnaReplyVO);
 		qnaDAO.qnaDelete(qnaVO);
