@@ -38,6 +38,5 @@ public class QnaReplyDAO {
 		my.delete("qnaReply.qnaDeleteReply", qnaReplyVO);
 	}
 	
-	
 
 }

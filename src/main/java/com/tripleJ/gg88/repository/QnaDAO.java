@@ -46,5 +46,9 @@ public class QnaDAO {
 		return my.update("qna.qnaViews", qnaId);
 	}
 	
+	public int replyCount(int qnaId) {
+		return my.update("qna.replyCount", qnaId);
+	}
+	
 
 }

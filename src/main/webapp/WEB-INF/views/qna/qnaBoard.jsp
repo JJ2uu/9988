@@ -105,7 +105,7 @@ $(function() {
 										<a> <span class="category" style="color: #717A84">[${qnaList[i-1].category}]</span>
 												<span class="qnaContent">${qnaList[i-1].title}</span> 
 												<span class="qnaId" style="display: none;">${qnaList[i-1].qnaId}</span> 
-												<span class="reply" style="color: #FF0000; font-size: smaller;">[2]</span>
+												<span class="reply" style="color: #FF0000; font-size: smaller;">[${qnaList[i-1].replyCount}]</span>
 										</a></td>
 									<td class="writer">홍홍홍홍</td>
 									<td>${formattedDates[i-1]}</td>

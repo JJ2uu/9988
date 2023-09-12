@@ -4,6 +4,43 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <script type="text/javascript">
+//댓글 등록 함수
+function submitReply() {
+	var replyContent = $('.qnaReplyInput').val();
+	if(replyContent === ""){
+		alert("내용을 입력해주세요")
+	}else{
+		$.ajax({
+			url : "qnaReplyInsert",
+			data : {
+				memberNo : 3,
+				qnaId : ${qnaVO.qnaId},
+				content : replyContent
+			},
+			success : function(x) {
+				location.reload();
+			}
+		}) 	
+		
+	}
+}
+//대댓글 등록 함수
+function submitReReply(reReplyContent, groupId) {
+    var memberNo = 3;
+    $.ajax({
+        url: "reReplyInsert",
+        data: {
+            memberNo: memberNo,
+            qnaId: ${qnaVO.qnaId},
+            content: reReplyContent,
+            groupId: groupId
+        },
+        success: function(x) {
+            location.reload();
+        }
+    });
+}
+
 $(function() {
 	/*대댓글 불러오기*/
 	$(".replySpace").each(function() {
@@ -52,49 +89,40 @@ $(function() {
          }
 		
     });
-	/* 댓글쓰기 member구현 아직 안함 */
-	var memberNo = 3;
+	// "등록" 버튼 클릭 이벤트 핸들러
 	$(".qnaReplyEnter").click(function() {
-		var replyContent = $('.qnaReplyInput').val();
-		if(replyContent === ""){
-			alert("내용을 입력해주세요")
-		}else{
-			$.ajax({
-				url : "qnaReplyInsert",
-				data : {
-					memberNo : memberNo,
-					qnaId : ${qnaVO.qnaId},
-					content : replyContent
-				},
-				success : function(x) {
-					location.reload();
-				}
-			}) 	
-		}
-     	 
-    });
+	    submitReply();
+	});
+
+	// Enter 키 눌림 이벤트 핸들러
+	$(".qnaReplyInput").on("keyup", function(event) {
+	    if (event.keyCode === 13) { // Enter 키의 keyCode는 13
+	        submitReply();
+	    }
+	});
 	
-	/* 대댓글 쓰기 */
+	/* 대댓글 쓰기 "등록" 버튼 클릭 이벤트 핸들러*/
 	$(document).on("click", ".reReplyEnter", function() {
 	    var reReplyContent = $(this).closest('.replySpace').find('.reReplyInput').val();
 	    var groupId = $(this).closest('.replySpace').find('.replyId').text();
-	    if(reReplyContent === ""){
-			alert("내용을 입력해주세요")
-		}else{
-			$.ajax({
-		        url: "reReplyInsert",
-		        data: {
-		            memberNo: memberNo,
-		            qnaId: ${qnaVO.qnaId},
-		            content: reReplyContent,
-		            groupId: groupId
-		        },
-		        success: function(x) {
-		            location.reload();
-		        }
-		    });
-		}
-	    
+	    if (reReplyContent === "") {
+	        alert("내용을 입력해주세요");
+	    } else {
+	        submitReReply(reReplyContent, groupId);
+	    }
+	});
+
+	// Enter 키 눌림 이벤트 핸들러
+	$(".reReplyInput").on("keyup", function(event) {
+	    if (event.keyCode === 13) { // Enter 키의 keyCode는 13
+	        var reReplyContent = $(this).val();
+	        var groupId = $(this).closest('.replySpace').find('.replyId').text();
+	        if (reReplyContent === "") {
+	            alert("내용을 입력해주세요");
+	        } else {
+	            submitReReply(reReplyContent, groupId);
+	        }
+	    }
 	});
 	
 	/* 대댓글 토글 */
