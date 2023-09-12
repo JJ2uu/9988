@@ -41,7 +41,37 @@ function submitReReply(reReplyContent, groupId) {
     });
 }
 
+function formatRelativeDate(timestamp) {
+    const currentDate = new Date();
+    const date = new Date(timestamp);
+
+    // 보정: 9시간을 빼기
+    date.setHours(date.getHours() - 9);
+
+    const elapsed = currentDate - date;
+    
+    const seconds = Math.floor(elapsed / 1000);
+    
+    if (seconds < 60) {
+        return "방금";
+    } else if (seconds < 3600) {
+        const minutes = Math.floor(seconds / 60);
+        return minutes + "분 전";
+    } else if (seconds < 86400) {
+        const hours = Math.floor(seconds / 3600);
+        return hours + "시간 전";
+    } else {
+        return timestamp;
+    }
+}
+
 $(function() {
+	
+	$(".replyDate").each(function() {
+        const timestamp = $(this).text();
+        const formattedDate = formatRelativeDate(timestamp);
+        $(this).text(formattedDate);
+    });
 	/*대댓글 불러오기*/
 	$(".replySpace").each(function() {
 	    var $this = $(this);
