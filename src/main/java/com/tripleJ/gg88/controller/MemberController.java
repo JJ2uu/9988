@@ -1,5 +1,7 @@
 package com.tripleJ.gg88.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -102,10 +104,17 @@ public class MemberController {
 		return memberService.myInfo(nickname, model);
 	}
 	
-	@RequestMapping("info/myHistory")
-	public String myHistory() {
-		return memberService.myHistory();
+	@RequestMapping("info/totalCnt")
+	@ResponseBody
+	public Map<String, Integer> totalCnt(String nickname) {
+		return memberService.totalCnt(nickname);
 	}
+	
+	@RequestMapping("info/myQna")
+	public String myQna(String nickname, int page, int pageSize, Model model) {
+		return memberService.myQna(nickname, page, pageSize, model);
+	}
+	
 	
 	@RequestMapping("info/profile")
 	@ResponseBody

@@ -1,9 +1,12 @@
 package com.tripleJ.gg88.service;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -17,13 +20,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.util.WebUtils;
 
 import com.tripleJ.gg88.domain.Member;
+import com.tripleJ.gg88.domain.Qna;
 import com.tripleJ.gg88.repository.MemberRepository;
+import com.tripleJ.gg88.repository.QnaDAO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberRepository memberRepo;
+	
+	@Autowired
+	QnaDAO qnaDao;
 	
 	@Autowired
 	BcryptService bcrypt;
@@ -50,8 +58,7 @@ public class MemberServiceImpl implements MemberService {
 			for (int i = len+1; i < memberVO.getId().length(); i++) {
 				userIdSb.append("*");
 			}
-			SimpleDateFormat format = new SimpleDateFormat("yyyy. MM. dd");
-			String formattedDate = format.format(memberVO.getSubscription());
+			String formattedDate = formattedDate(memberVO.getSubscription());
 			model.addAttribute("userId", userIdSb.toString());
 			model.addAttribute("subscription", formattedDate);
 			return "account/foundId";
@@ -208,12 +215,50 @@ public class MemberServiceImpl implements MemberService {
 		return "info/myInfo";
 	}
 	
-	public String myHistory() {
-		return "info/myHistory";
+	public Map<String, Integer> totalCnt(String nickname) {
+		Member memberVO = memberRepo.searchNick(nickname);
+		List<Qna> userQnaList = qnaDao.userQnaList(memberVO.getMemberNo());
+		Map<String, Integer> totalCnt = new HashMap<>();
+		totalCnt.put("myQna", userQnaList.size());
+		totalCnt.put("myReply", 0);
+		totalCnt.put("myLike", 0);
+		return totalCnt;
+	}
+	
+	public String myQna(String nickname, int page, int pageSize, Model model) {
+		Member memberVO = memberRepo.searchNick(nickname);
+		List<Qna> userQnaList = qnaDao.userQnaList(memberVO.getMemberNo());
+		
+		for (Qna qna : userQnaList) {
+		    Timestamp originalTimestamp = qna.getDate();
+		    long timestampMillis = originalTimestamp.getTime();
+		    long adjustedTimestampMillis = timestampMillis - (9 * 60 * 60 * 1000);
+		    Timestamp adjustedTimestamp = new Timestamp(adjustedTimestampMillis);
+		    qna.setDate(adjustedTimestamp);
+		}
+		
+		int startIndex = (page - 1) * pageSize;
+	    int endIndex = Math.min(startIndex + pageSize, userQnaList.size());
+	    List<Qna> pageData = userQnaList.subList(startIndex, endIndex);
+
+		model.addAttribute("userQnaList", pageData);
+		model.addAttribute("userNick", nickname);
+		
+		return "info/myQna";
 	}
 	
 	public String profile(String nickname) {
 		Member memberVO = memberRepo.searchNick(nickname);
 		return memberVO.getProfile();
+	}
+	
+	public String formattedDate(Timestamp originalDate) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(originalDate);
+		calendar.add(Calendar.HOUR, -9);
+		Date adjustedDate = calendar.getTime();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy. MM. dd");
+		String formattedDate = format.format(adjustedDate);
+		return formattedDate;
 	}
 }

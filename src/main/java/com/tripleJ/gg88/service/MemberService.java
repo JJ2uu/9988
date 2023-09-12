@@ -1,6 +1,7 @@
 package com.tripleJ.gg88.service;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +47,9 @@ public interface MemberService {
 	
 	String myInfo(String nickname, Model model);
 	
-	String myHistory();
+	Map<String, Integer> totalCnt(String nickname);
+	
+	String myQna(String nickname, int page, int pageSize, Model model);
 	
 	String profile(String nickname);
 }

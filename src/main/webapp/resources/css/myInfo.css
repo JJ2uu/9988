@@ -275,6 +275,9 @@ a > span {
 #paging_wrap {
 	margin-top: 30px;
 	margin-bottom: 50px;
+	display: flex;
+    gap: 5px;
+    justify-content: center;
 }
 
 .btn_paging {
@@ -310,7 +313,6 @@ a > span {
     outline: none;
     padding: 0 20px;
     box-sizing: border-box;
-    cursor: pointer;
     font-size: 14px;
     font-weight: 400;
 }
