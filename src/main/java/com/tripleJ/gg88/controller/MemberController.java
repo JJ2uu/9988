@@ -115,6 +115,11 @@ public class MemberController {
 		return memberService.myQna(nickname, page, pageSize, model);
 	}
 	
+	@RequestMapping("info/myReply")
+	public String myReply(String nickname, int page, int pageSize, Model model) {
+		return memberService.myReply(nickname, page, pageSize, model);
+	}
+	
 	
 	@RequestMapping("info/profile")
 	@ResponseBody

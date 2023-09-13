@@ -21,8 +21,10 @@ import org.springframework.web.util.WebUtils;
 
 import com.tripleJ.gg88.domain.Member;
 import com.tripleJ.gg88.domain.Qna;
+import com.tripleJ.gg88.domain.QnaReply;
 import com.tripleJ.gg88.repository.MemberRepository;
 import com.tripleJ.gg88.repository.QnaDAO;
+import com.tripleJ.gg88.repository.QnaReplyDAO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -32,6 +34,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	QnaDAO qnaDao;
+	
+	@Autowired
+	QnaReplyDAO replyDao;
 	
 	@Autowired
 	BcryptService bcrypt;
@@ -218,9 +223,10 @@ public class MemberServiceImpl implements MemberService {
 	public Map<String, Integer> totalCnt(String nickname) {
 		Member memberVO = memberRepo.searchNick(nickname);
 		List<Qna> userQnaList = qnaDao.userQnaList(memberVO.getMemberNo());
+		List<QnaReply> userReplyList = replyDao.userReplyList(memberVO.getMemberNo());
 		Map<String, Integer> totalCnt = new HashMap<>();
 		totalCnt.put("myQna", userQnaList.size());
-		totalCnt.put("myReply", 0);
+		totalCnt.put("myReply", userReplyList.size());
 		totalCnt.put("myLike", 0);
 		return totalCnt;
 	}
@@ -245,6 +251,28 @@ public class MemberServiceImpl implements MemberService {
 		model.addAttribute("userNick", nickname);
 		
 		return "info/myQna";
+	}
+	
+	public String myReply(String nickname, int page, int pageSize, Model model) {
+		Member memberVO = memberRepo.searchNick(nickname);
+		List<QnaReply> userReplyList = replyDao.userReplyList(memberVO.getMemberNo());
+		
+		for (QnaReply reply : userReplyList) {
+			Timestamp originalTimestamp = reply.getDate();
+			long timestampMillis = originalTimestamp.getTime();
+			long adjustedTimestampMillis = timestampMillis - (9 * 60 * 60 * 1000);
+			Timestamp adjustedTimestamp = new Timestamp(adjustedTimestampMillis);
+			reply.setDate(adjustedTimestamp);
+		}
+		
+		int startIndex = (page - 1) * pageSize;
+		int endIndex = Math.min(startIndex + pageSize, userReplyList.size());
+		List<QnaReply> pageData = userReplyList.subList(startIndex, endIndex);
+		
+		model.addAttribute("userReplyList", pageData);
+		model.addAttribute("userNick", nickname);
+		
+		return "info/myReply";
 	}
 	
 	public String profile(String nickname) {

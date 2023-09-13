@@ -51,5 +51,7 @@ public interface MemberService {
 	
 	String myQna(String nickname, int page, int pageSize, Model model);
 	
+	String myReply(String nickname, int page, int pageSize, Model model);
+	
 	String profile(String nickname);
 }

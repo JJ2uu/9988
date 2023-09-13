@@ -124,8 +124,7 @@
 			if (tabId === "qnaTab") {
 				myQna(myQnaCnt);
 			} else if (tabId === "replyTab") {
-				$("#paging_wrap").empty();
-				$("#dataList").empty();
+				myReply(myReplyCnt);
 			} else {
 				$("#paging_wrap").empty();
 				$("#dataList").empty();
@@ -135,7 +134,7 @@
 	    const pagination = document.getElementById("paging_wrap");
 		 
 		/* 페이징 버튼 업데이트 */
-		function updatePagination(currentPage, totalCnt, totalPages) {
+		function updatePagination(currentPage, totalCnt, totalPages, type) {
 	    	$("#paging_wrap").empty();
 			const maxVisiblePages = 10;
 			
@@ -153,22 +152,22 @@
 			
 			// "<" 버튼 추가
 			if (startPage > 1) {
-				addPaginationButton("←", startPage - 1, totalPages);
+				addPaginationButton("←", startPage - 1, totalPages, type);
 			}
 			
 			// 페이지 버튼 추가
 			for (let i = startPage; i <= endPage; i++) {
-				addPaginationButton(i, i, totalPages);
+				addPaginationButton(i, i, totalPages, type);
 			}
 			
 			// ">" 버튼 추가
 			if (endPage < totalPages) {
-				addPaginationButton("→", endPage + 1, totalPages);
+				addPaginationButton("→", endPage + 1, totalPages, type);
 			}
 		}
 		
 		/* 페이징 버튼 생성 */
-		function addPaginationButton(text, page, totalPages) {
+		function addPaginationButton(text, page, totalPages, type) {
 			const button = document.createElement("button");
 			button.className = "btn_paging";
 			button.value = page;
@@ -189,26 +188,41 @@
 					currentPage = page;
 				}
 			    
-			    $.ajax({
-			    	url: '../member/info/myQna',
-			    	data: {
-			    		nickname : userNick,
-			    		page : currentPage,
-			    		pageSize : 10
-			    	},
-			    	success: function(response) {
-			    		$("#dataList").empty();
-			    		$("#dataList").append(response);
-					}
-			    })
+			    if (type == 'qna') {
+			    	$.ajax({
+				    	url: '../member/info/myQna',
+				    	data: {
+				    		nickname : userNick,
+				    		page : currentPage,
+				    		pageSize : 10
+				    	},
+				    	success: function(response) {
+				    		$("#dataList").empty();
+				    		$("#dataList").append(response);
+						}
+				    })
+				} else if (type == 'reply') {
+					$.ajax({
+				    	url: '../member/info/myReply',
+				    	data: {
+				    		nickname : userNick,
+				    		page : currentPage,
+				    		pageSize : 10
+				    	},
+				    	success: function(response) {
+				    		$("#dataList").empty();
+				    		$("#dataList").append(response);
+						}
+				    })
+				}
 			});
 			pagination.appendChild(button);
 		}
 		
 	    /* 마이페이지 - 내 활동 이력 - 나의 질문 */
 	    function myQna(myQnaCnt) {
-			let totalPages = Math.ceil(myQnaCnt / 10);
-	    	updatePagination(1, myQnaCnt, totalPages);
+			let qnaTotal = Math.ceil(myQnaCnt / 10);
+	    	updatePagination(1, myQnaCnt, qnaTotal, 'qna');
 	    	
 			$.ajax({
 		    	url: '../member/info/myQna',
@@ -225,6 +239,27 @@
 					$(".btn_paging:first").addClass("current");
 				}
 		    })
+		}
+	    
+	    function myReply(myReplyCnt) {
+			let replyTotal = Math.ceil(myReplyCnt / 10);
+			updatePagination(1, myReplyCnt, replyTotal, 'reply')
+			
+			$.ajax({
+				url: '../member/info/myReply',
+				data: {
+					nickname : userNick,
+					page : 1,
+					pageSize : 10
+				},
+				success: function(response) {
+					$("#dataList").empty();
+					$("#dataList").append(response);
+					
+					/* 페이징 버튼 css 클래스 추가 */
+					$(".btn_paging:first").addClass("current");
+				}
+			})
 		}
 	    
 	    /* 마이페이지 - 프로필 사진 변경 */
