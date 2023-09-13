@@ -8,7 +8,7 @@ $(function() {
 	var qnaId = <%=qnaId%>;
 	
 	$('#btn_qnaUpdate').click(function(){
-		var title = $('.qnaTitle').val();
+		var title = $('.qnaUpdateTitle').val();
 		var content = $('.qnaContent').val();
 		var category = $('.create_category').val();
 		
@@ -43,7 +43,7 @@ $(function() {
 		<tbody class="create_tbody">
 			<tr style="font-weight: 400;">
 				<th>제목</th>
-				<th><input type="text" id="title" class="qnaTitle" value="${qnaVO.title}"></th>
+				<th><input type="text" id="title" class="qnaUpdateTitle" value="${qnaVO.title}"></th>
 				<th>카테고리</th>
 				<th>
 					<select class="create_category" name="category">
