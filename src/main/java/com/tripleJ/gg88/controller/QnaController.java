@@ -134,5 +134,30 @@ public class QnaController {
 		qnaDAO.replyCount(qnaId);
 	}
 	
+	@RequestMapping("main/main_qna")
+	public void mainQna(Page page, Model model) {
+		page.setStartEnd(page.getPage());
+		int count = qnaDAO.countAll();
+		int pages = 1;
+		List<Qna> qnaList = qnaDAO.qnaList(page);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		List<String> formattedDates = new ArrayList<>();
+		
+		for (Qna qnaVO : qnaList) {
+			int qnaId = qnaVO.getQnaId();
+	        qnaDAO.replyCount(qnaId);
+			
+			Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
+	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
+	        formattedDates.add(formattedDate);
+	    }
+		
+		model.addAttribute("formattedDates", formattedDates);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("count", count);
+		model.addAttribute("pages", pages);
+		
+	}
+	
 	
 }

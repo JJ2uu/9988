@@ -17,10 +17,19 @@
     font-weight: 600;
     padding-bottom: 30px;
 }
-
 </style>
+<script type="text/javascript">
+$(function() {
+    $.ajax({
+        url: 'main/main_qna',
+        success: function(x) {
+        	$('#mainQnaWrap').html(x)
+        }
+    });
+        
+});
+</script>
 </head>
-
 <body>
 	<div id="wrap">
 		<div id="header">
@@ -48,9 +57,7 @@
 						</jsp:include></div></div>
 				<div style="display: flex; justify-content: space-around;">
 					<div id="main_qna"><div class="menu">질문있어요</div>
-					<div><jsp:include page="WEB-INF/views/main/main_qna.jsp" flush="true">
-							<jsp:param name="mode" value="1"/>
-						</jsp:include></div></div>
+					<div id="mainQnaWrap"></div></div>
 					<div id="main_emergency"><div class="menu">응급이에요</div>
 					<div><jsp:include page="WEB-INF/views/main/main_emergency.jsp" flush="true">
 							<jsp:param name="mode" value="1"/>
