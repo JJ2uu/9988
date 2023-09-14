@@ -38,5 +38,9 @@ public class QnaReplyDAO {
 		my.delete("qnaReply.qnaDeleteReply", qnaReplyVO);
 	}
 	
+	public List<QnaReply> userReplyList(int memberNo) {
+		List<QnaReply> userReplyList = my.selectList("qnaReply.userReplyList", memberNo);
+		return userReplyList;
+	}
 
 }
