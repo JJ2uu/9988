@@ -20,6 +20,15 @@ $(function() {
 	var qnaId = <%=qnaId%>;
 	
 	$.ajax({
+		url : "qnaViews",
+		data : {
+			qnaId : qnaId
+		},
+		success : function(res) {
+		}
+	})
+	
+	$.ajax({
         url: 'qnaContent',
         data: { qnaId: qnaId },
         success: function(x) {

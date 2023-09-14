@@ -29,17 +29,14 @@ th, td {
 }
 
 .paging button {
-	background-color: white;
-	color: #000000;
-	border: 1px solid;
 	width: 40px;
 	height: 40px;
-	margin-top: 70px;
 }
 
 .paging {
 	display: flex;
 	justify-content: center;
+	margin-top: 70px;
 }
 
 .board_category {
@@ -52,13 +49,19 @@ select{
 	cursor: pointer;
 }
 .btn_paging {
-	width: 30px;
-	height: 30px;
 	border: 1px solid #B5C2CF;
 	background: #fff;
 	color: #717A84;
 	font-weight: 400;
 	cursor: pointer;
+	margin: 5px;
+}
+
+.btn_paging.current {
+	border: 1px solid #407FBA;
+	background: #407FBA;
+	color: #fff;
+	font-weight: 400;
 	margin: 5px;
 }
 #qnaBottomWrap{
@@ -138,6 +141,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .qnaTitle{
 	font-weight: 600;
 	font-size: larger;
+}
+.qnaUpdateTitle{
+	font-size: inherit;
 }
 #qnaDelete{
 	background-color: #E0E6EC;

@@ -34,6 +34,9 @@ public class QnaReplyDAO {
 		return reReplyList;
 	}
 	
+	public void qnaDeleteReply(QnaReply qnaReplyVO) {
+		my.delete("qnaReply.qnaDeleteReply", qnaReplyVO);
+	}
 	
 
 }

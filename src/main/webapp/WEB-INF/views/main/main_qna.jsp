@@ -2,18 +2,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style type="text/css">
 table {
-  border-collapse: collapse;
-  width: 500px;
-  font-size: large;
+	border-collapse: collapse;
+	width: 500px;
+	font-size: large;
 }
 
 th, td{
-  padding: 8px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
 }
-
+.title{
+	cursor: pointer;
+}
 </style>
+<script type="text/javascript">
+$(".title").click(function() {
+	var qnaId = $(this).find('.qnaId').text();
+	console.log(qnaId);
+	
+    location.href = "${pageContext.request.contextPath}/qna/qnaPost.jsp?qnaId="+qnaId;
+});
+</script>
 <table>
 	<tr>
 	    <th>카테고리</th>
@@ -22,9 +32,13 @@ th, td{
 	</tr>
 	<c:forEach var="i" begin="1" end="5">
 		<tr>
-		    <td style="color: #717A84">병원</td>
-		    <td style="font-weight: 400">당뇨 병원 추천해주세요.</td>
-		  	<td>2023.08.13</td>
+		    <td style="color: #717A84">[${qnaList[i-1].category}]</td>
+		    <td class="title">
+				<a> 
+					<span style="font-weight: 400">${qnaList[i-1].title}</span> 
+					<span class="qnaId" style="display: none;">${qnaList[i-1].qnaId}</span> 
+				</a></td>
+		  	<td>${formattedDates[i-1]}</td>
 	  	</tr>
 	</c:forEach>
 </table>
