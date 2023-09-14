@@ -4,30 +4,27 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.tripleJ.gg88.domain.Page;
 import com.tripleJ.gg88.domain.Qna;
 
-@Component
-public class QnaDAO {
+@Repository
+public class QnaRepositoryImpl implements QnaRepository {
 	
 	@Autowired
 	SqlSessionTemplate my;
 	
 	public int qnaInsert(Qna qnaVO) {
-		int result = my.insert("qna.qnaInsert", qnaVO);
-		return result;
+		return my.insert("qna.qnaInsert", qnaVO);
 	}
 	
 	public List<Qna> qnaList(Page page){
-		List<Qna> qnaList = my.selectList("qna.qnaList", page);
-		return qnaList;
+		return my.selectList("qna.qnaList", page);
 	}
 	
 	public Qna qnaDetail(int qnaId) {
-		Qna qnaVO = my.selectOne("qna.qnaDetail", qnaId);
-		return qnaVO;
+		return my.selectOne("qna.qnaDetail", qnaId);
 	}
 	
 	public void qnaUpdate(Qna qnaVO) {
@@ -51,8 +48,7 @@ public class QnaDAO {
 	}
 	
 	public List<Qna> userQnaList(int memberNo) {
-		List<Qna> userQnaList = my.selectList("qna.userQnaList", memberNo);
-		return userQnaList;
+		return my.selectList("qna.userQnaList", memberNo);
 	}
 
 }
