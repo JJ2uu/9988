@@ -55,7 +55,6 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 	}
 	
 	public String profileUpload(MultipartHttpServletRequest multiRequest, HttpServletRequest request) {
-		String userId = "";
 		
         MultipartFile mf = multiRequest.getFile("file");
         if (mf != null) {
@@ -63,24 +62,28 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 			try {
 				String encodedFilename = URLEncoder.encode(originalFilename, "UTF-8");
 				String uuidFilename = getUuidFileName(encodedFilename);
-        		upload(mf, uuidFilename);
-        		Cookie[] cookies = request.getCookies();
-        		if (cookies != null) {
+				String userId = "";
+				
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
 					 for (Cookie cookie : cookies) {
 						if (cookie.getName().equals("loginCookie")) {
 							String cookieValue = cookie.getValue();
 							Member member = memberRepo.checkSessionKey(cookieValue);
 							userId = member.getId();
+						} else {
+							userId = (String) request.getSession().getAttribute("userId");
 						}
 					}
 				} else {
-					userId = (String)request.getAttribute("userId");
+					userId = (String) request.getSession().getAttribute("userId");
 				}
-        		
-        		Map<String, Object> userDataMap = new HashMap<String, Object>();
-        		userDataMap.put("id", userId);
-        		userDataMap.put("profile", uuidFilename);
-        		memberRepo.profileUpload(userDataMap);
+				
+				Map<String, Object> userDataMap = new HashMap<String, Object>();
+	    		userDataMap.put("id", userId);
+	    		userDataMap.put("profile", uuidFilename);
+	    		memberRepo.profileUpload(userDataMap);
+        		upload(mf, uuidFilename);
         		return uuidFilename;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -90,7 +93,6 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 			System.out.println("업로드 실패");
 			return "fail";
 		}
-        
 	}
 	
 	public String getUuidFileName(String originalFilename) {
