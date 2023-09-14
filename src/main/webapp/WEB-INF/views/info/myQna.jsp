@@ -17,7 +17,7 @@
 		<tr>
 			<td class="num">${list.qnaId}</td>
 			<td class="article_title">
-				<a>
+				<a href="../qna/qnaPost.jsp?qnaId=${list.qnaId}">
 					<span class="category">[${list.category}]</span>
 					<span class="title">${list.title}</span>
 					<span class="reply">[4]</span>
