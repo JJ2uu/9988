@@ -23,8 +23,8 @@ import com.tripleJ.gg88.domain.Member;
 import com.tripleJ.gg88.domain.Qna;
 import com.tripleJ.gg88.domain.QnaReply;
 import com.tripleJ.gg88.repository.MemberRepository;
-import com.tripleJ.gg88.repository.QnaDAO;
-import com.tripleJ.gg88.repository.QnaReplyDAO;
+import com.tripleJ.gg88.repository.QnaRepository;
+import com.tripleJ.gg88.repository.QnaReplyRepository;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -33,10 +33,10 @@ public class MemberServiceImpl implements MemberService {
 	MemberRepository memberRepo;
 	
 	@Autowired
-	QnaDAO qnaDao;
+	QnaRepository qnaRepo;
 	
 	@Autowired
-	QnaReplyDAO replyDao;
+	QnaReplyRepository replyRepo;
 	
 	@Autowired
 	BcryptService bcrypt;
@@ -222,8 +222,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	public Map<String, Integer> totalCnt(String nickname) {
 		Member memberVO = memberRepo.searchNick(nickname);
-		List<Qna> userQnaList = qnaDao.userQnaList(memberVO.getMemberNo());
-		List<QnaReply> userReplyList = replyDao.userReplyList(memberVO.getMemberNo());
+		List<Qna> userQnaList = qnaRepo.userQnaList(memberVO.getMemberNo());
+		List<QnaReply> userReplyList = replyRepo.userReplyList(memberVO.getMemberNo());
 		Map<String, Integer> totalCnt = new HashMap<>();
 		totalCnt.put("myQna", userQnaList.size());
 		totalCnt.put("myReply", userReplyList.size());
@@ -233,7 +233,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	public String myQna(String nickname, int page, int pageSize, Model model) {
 		Member memberVO = memberRepo.searchNick(nickname);
-		List<Qna> userQnaList = qnaDao.userQnaList(memberVO.getMemberNo());
+		List<Qna> userQnaList = qnaRepo.userQnaList(memberVO.getMemberNo());
 		
 		for (Qna qna : userQnaList) {
 		    Timestamp originalTimestamp = qna.getDate();
@@ -255,7 +255,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	public String myReply(String nickname, int page, int pageSize, Model model) {
 		Member memberVO = memberRepo.searchNick(nickname);
-		List<QnaReply> userReplyList = replyDao.userReplyList(memberVO.getMemberNo());
+		List<QnaReply> userReplyList = replyRepo.userReplyList(memberVO.getMemberNo());
 		
 		for (QnaReply reply : userReplyList) {
 			Timestamp originalTimestamp = reply.getDate();
