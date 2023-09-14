@@ -244,6 +244,13 @@
 		  <artifactId>sdk</artifactId>
 		  <version>4.2.7</version>
 		</dependency>
+		
+		<!-- s3 -->
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-s3</artifactId>
+		    <version>1.11.238</version>
+		</dependency>
 	
 		<!-- Test -->
 		<dependency>

@@ -44,16 +44,9 @@
 		set reply_count = (select count(*) from qna_reply where qna_id = #{qnaId})
 		where qna_id = #{qnaId};
 	</update>
+	
+	<select id="userQnaList" resultType="qna">
+		select * from qna where member_no = #{memberNo} order by date desc
+	</select>
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-

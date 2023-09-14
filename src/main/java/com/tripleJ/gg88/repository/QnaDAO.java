@@ -50,5 +50,9 @@ public class QnaDAO {
 		return my.update("qna.replyCount", qnaId);
 	}
 	
+	public List<Qna> userQnaList(int memberNo) {
+		List<Qna> userQnaList = my.selectList("qna.userQnaList", memberNo);
+		return userQnaList;
+	}
 
 }

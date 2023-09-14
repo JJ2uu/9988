@@ -7,11 +7,11 @@
 	</select>
 	
 	<select id="searchNick" parameterType="String" resultType="member">
-		select nickname from member where nickname = #{nickname}
+		select * from member where nickname = #{nickname}
 	</select>
 	
 	<insert id="signUp" parameterType="member">
-		insert into member values (null, #{id}, #{pw}, #{name}, #{birth}, #{gender}, #{email}, #{tel}, #{nickname}, null, current_timestamp, 1, #{sessionId}, #{sessionLimit})
+		insert into member values (null, #{id}, #{pw}, #{name}, #{birth}, #{gender}, #{email}, #{tel}, #{nickname}, null, current_timestamp, 1, 'none', #{sessionLimit})
 	</insert>
 	
 	<select id="signIn" parameterType="member" resultType="member">
@@ -36,6 +36,10 @@
 	
 	<update id="updatePw">
 		update member set pw = #{pw} where email = #{email}
+	</update>
+	
+	<update id="profileUpload">
+		update member set profile = #{profile} where id = #{id}
 	</update>
 	
 </mapper>
