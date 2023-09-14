@@ -21,6 +21,10 @@
 	<select id="reReplyList" resultType="qnaReply" parameterType="Integer">
 		select * from qna_reply where group_id = #{groupId} order by `date`
 	</select>
+	
+	<delete id="qnaDeleteReply" parameterType="qnaReply">
+		delete from qna_reply where qna_id = #{qnaId}
+	</delete>
 
 </mapper>
 

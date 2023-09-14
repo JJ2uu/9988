@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tripleJ.gg88.domain.QnaReply;
+import com.tripleJ.gg88.domain.Page;
 import com.tripleJ.gg88.domain.Qna;
 import com.tripleJ.gg88.repository.QnaDAO;
 import com.tripleJ.gg88.repository.QnaReplyDAO;
@@ -30,19 +31,57 @@ public class QnaController {
 	QnaReplyDAO qnaReplyDAO;
 	
 	@RequestMapping("qna/qnaBoard")
-	public String qnaBoard(Model model) {
-		List<Qna> qnaList = qnaDAO.qnaList();
+	public String qnaBoard(Page page, Model model) {
+		page.setStartEnd(page.getPage());
+		int count = qnaDAO.countAll();
+		int pages = count / 10 + 1;
+		if (count % 10 == 0) {
+			--pages;
+		}
+		List<Qna> qnaList = qnaDAO.qnaList(page);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> formattedDates = new ArrayList<>();
 		
 		for (Qna qnaVO : qnaList) {
+			int qnaId = qnaVO.getQnaId();
+	        qnaDAO.replyCount(qnaId);
+			
+			Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
+	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
+	        formattedDates.add(formattedDate);
+	    }
+		
+		model.addAttribute("formattedDates", formattedDates);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("count", count);
+		model.addAttribute("pages", pages);
+		return "qna/qnaBoard";
+	}
+	@RequestMapping("qna/qnaPage")
+	public void qnaPage(Page page, Model model) {
+		page.setStartEnd(page.getPage());
+		int count = qnaDAO.countAll();
+		int pages = count / 10 + 1;
+		if (count % 10 == 0) {
+			--pages;
+		}
+		List<Qna> qnaList = qnaDAO.qnaList(page);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		List<String> formattedDates = new ArrayList<>();
+		
+		for (Qna qnaVO : qnaList) {
+			int qnaId = qnaVO.getQnaId();
+	        qnaDAO.replyCount(qnaId);
+	        
 	        Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
 	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
 	        formattedDates.add(formattedDate);
 	    }
+		
 		model.addAttribute("formattedDates", formattedDates);
 		model.addAttribute("qnaList", qnaList);
-		return "qna/qnaBoard";
+		model.addAttribute("count", count);
+		model.addAttribute("pages", pages);
 	}
 	@RequestMapping("qna/qnaCreate")
 	public String qnaCreate() {
@@ -77,8 +116,47 @@ public class QnaController {
 	
 	@RequestMapping("qna/qnaDelete")
 	@ResponseBody
-	public void qnaDelecte(HttpSession session, Qna qnaVO) {
+	public void qnaDelecte(HttpSession session, Qna qnaVO, QnaReply qnaReplyVO) {
+		qnaReplyDAO.qnaDeleteReply(qnaReplyVO);
 		qnaDAO.qnaDelete(qnaVO);
+		
+	}
+	
+	@RequestMapping("qna/qnaViews")
+	@ResponseBody
+	public void qnaViews(int qnaId) {
+		qnaDAO.qnaViews(qnaId);
+	}
+	
+	@RequestMapping("qna/replyCount")
+	@ResponseBody
+	public void replyCount(HttpSession session, int qnaId) {
+		qnaDAO.replyCount(qnaId);
+	}
+	
+	@RequestMapping("main/main_qna")
+	public void mainQna(Page page, Model model) {
+		page.setStartEnd(page.getPage());
+		int count = qnaDAO.countAll();
+		int pages = 1;
+		List<Qna> qnaList = qnaDAO.qnaList(page);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		List<String> formattedDates = new ArrayList<>();
+		
+		for (Qna qnaVO : qnaList) {
+			int qnaId = qnaVO.getQnaId();
+	        qnaDAO.replyCount(qnaId);
+			
+			Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
+	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
+	        formattedDates.add(formattedDate);
+	    }
+		
+		model.addAttribute("formattedDates", formattedDates);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("count", count);
+		model.addAttribute("pages", pages);
+		
 	}
 	
 	

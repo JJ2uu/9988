@@ -11,7 +11,16 @@ public class Qna {
 	private Timestamp date;
 	private int view;
 	private String category;
+	private int replyCount;
 	
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+
 	public int getQnaId() {
 		return qnaId;
 	}
