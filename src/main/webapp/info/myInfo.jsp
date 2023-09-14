@@ -179,10 +179,10 @@
 			    let buttonText = $(this).text();
 			    
 				if (buttonText === "←" && page > 1) {
-					updatePagination(currentPage, myQnaCnt, totalPages);
+					updatePagination(currentPage, myQnaCnt, totalPages, type);
 					$(".btn_paging[value=" + page + "]").addClass("current");
 				} else if (buttonText === "→") {
-					updatePagination(currentPage, myQnaCnt, totalPages);
+					updatePagination(currentPage, myQnaCnt, totalPages, type);
 					$(".btn_paging[value=" + page + "]").addClass("current");
 				} else {
 					currentPage = page;
