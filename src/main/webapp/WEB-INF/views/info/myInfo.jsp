@@ -9,6 +9,7 @@
 	<div class="info_row">
 		<span class="row_title">닉네임</span>
 		<span id="info_nickname" class="row_content">${member.nickname}</span>
+		<span id="info_nick" class="row_content">닉네임 변경</span>
 	</div>
 	<div class="info_row">
 		<span class="row_title">회원 등급</span>
@@ -41,5 +42,4 @@
 		<span class="row_title">연락처</span>
 		<span id="info_phone" class="row_content">${userPhone}</span>
 	</div>
-	<button class="btn" style="margin-top: 20px;">회원정보 수정</button>
 </div>

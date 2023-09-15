@@ -81,6 +81,14 @@
 	    	},
 	    	success: function(response) {
 				$("#tab_myInfo").append(response);
+				
+				$("#info_nick").click(function() {
+					window.open('nickChange.jsp','닉네임 변경','width=500,height=500');
+				})
+				
+				$("#info_pw").click(function() {
+					window.open('pwChange.jsp','비밀번호 변경','width=500,height=500');
+				})
 			}
 	    })
 	    
