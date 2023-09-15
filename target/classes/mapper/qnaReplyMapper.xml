@@ -25,16 +25,9 @@
 	<delete id="qnaDeleteReply" parameterType="qnaReply">
 		delete from qna_reply where qna_id = #{qnaId}
 	</delete>
+	
+	<select id="userReplyList" resultType="qnaReply">
+		select * from qna_reply where member_no = #{memberNo} order by date desc
+	</select>
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-

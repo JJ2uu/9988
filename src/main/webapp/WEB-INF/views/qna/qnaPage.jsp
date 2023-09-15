@@ -9,8 +9,18 @@ $(function() {
     	console.log(qnaId);
     	
         location.href = "qnaPost.jsp?qnaId="+qnaId;
-    });        
+    });   
+    
+ 	// replyCount가 0인 항목의 .reply를 숨김
+    $(".reply").each(function() {
+        var replyCountText = $(this).text();
+        var replyCount = parseInt(replyCountText.replace(/\[|\]/g, ''));
+        if (replyCount === 0) {
+            $(this).hide();
+        }
+    });
 });
+
 </script>
 <table>
 	<tr>
