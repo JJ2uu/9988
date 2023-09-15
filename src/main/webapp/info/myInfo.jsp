@@ -143,9 +143,6 @@
 			const startPage = (currentPageGroup - 1) * maxVisiblePages + 1;
 			const endPage = Math.min(currentPageGroup * maxVisiblePages, totalPages);
 		    
-		    console.log(startPage)
-		    console.log(endPage)
-
 		    if (endPage > totalPages) {
 		        endPage = totalPages;
 		    }
