@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.tripleJ.gg88.domain.Member;
 import com.tripleJ.gg88.domain.Page;
 import com.tripleJ.gg88.domain.Qna;
 import com.tripleJ.gg88.domain.QnaReply;
+import com.tripleJ.gg88.repository.MemberRepository;
 import com.tripleJ.gg88.repository.QnaReplyRepository;
 import com.tripleJ.gg88.repository.QnaRepository;
 
@@ -27,6 +29,9 @@ public class QnaServiceImpl implements QnaService {
 	@Autowired
 	QnaReplyRepository replyRepo;
 	
+	@Autowired
+	MemberRepository memberRepo;
+	
 	public String qnaBoard(Page page, Model model) {
 		page.setStartEnd(page.getPage());
 		int count = qnaRepo.countAll();
@@ -37,17 +42,23 @@ public class QnaServiceImpl implements QnaService {
 		List<Qna> qnaList = qnaRepo.qnaList(page);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> formattedDates = new ArrayList<>();
+		List<String> writerList = new ArrayList<>();
 		
 		for (Qna qnaVO : qnaList) {
 			int qnaId = qnaVO.getQnaId();
 	        qnaRepo.replyCount(qnaId);
-			
+	        
+	        int memberNo = qnaVO.getMemberNo();
+	        String writer = qnaRepo.NoToNick(memberNo);
+	        writerList.add(writer);
+	        
 			Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
 	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
 	        formattedDates.add(formattedDate);
 	    }
 		
 		model.addAttribute("formattedDates", formattedDates);
+		model.addAttribute("writerList", writerList);
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("count", count);
 		model.addAttribute("pages", pages);
@@ -64,17 +75,23 @@ public class QnaServiceImpl implements QnaService {
 		List<Qna> qnaList = qnaRepo.qnaList(page);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> formattedDates = new ArrayList<>();
+		List<String> writerList = new ArrayList<>();
 		
 		for (Qna qnaVO : qnaList) {
 			int qnaId = qnaVO.getQnaId();
 	        qnaRepo.replyCount(qnaId);
 	        
-	        Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
+	        int memberNo = qnaVO.getMemberNo();
+	        String writer = qnaRepo.NoToNick(memberNo);
+	        writerList.add(writer);
+	        
+			Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
 	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
 	        formattedDates.add(formattedDate);
 	    }
 		
 		model.addAttribute("formattedDates", formattedDates);
+		model.addAttribute("writerList", writerList);
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("count", count);
 		model.addAttribute("pages", pages);
@@ -87,6 +104,18 @@ public class QnaServiceImpl implements QnaService {
 	public void qnaContent(HttpSession session, int qnaId, Model model) {
 		Qna qnaVO = qnaRepo.qnaDetail(qnaId);
 		List<QnaReply> qnaReplyList = replyRepo.qnaReplyList(qnaId);
+		List<String> replyWriterList = new ArrayList<>();
+		int memberNo = qnaVO.getMemberNo();
+        String writer = qnaRepo.NoToNick(memberNo);
+        
+        for (QnaReply qnaReply : qnaReplyList) {
+        	int replyMemberNo = qnaReply.getMemberNo();
+			String replyWriter = qnaRepo.NoToNick(replyMemberNo);
+			replyWriterList.add(replyWriter);
+		}
+        
+        model.addAttribute("writer", writer);
+        model.addAttribute("replyWriterList", replyWriterList);
 		model.addAttribute("qnaVO", qnaVO);
 		model.addAttribute("qnaReplyList", qnaReplyList);
 		
@@ -105,7 +134,7 @@ public class QnaServiceImpl implements QnaService {
 		qnaRepo.qnaUpdate(qnaVO);
 	}
 	
-	public void qnaDelecte(HttpSession session, Qna qnaVO, QnaReply qnaReplyVO) {
+	public void qnaDelete(HttpSession session, Qna qnaVO, QnaReply qnaReplyVO) {
 		replyRepo.qnaDeleteReply(qnaReplyVO);
 		qnaRepo.qnaDelete(qnaVO);
 		
@@ -142,5 +171,13 @@ public class QnaServiceImpl implements QnaService {
 		model.addAttribute("pages", pages);
 		
 	}
+	
+	public int NickToNo(String nickname) {
+		Member member = memberRepo.searchNick(nickname);
+		int memberNo = member.getMemberNo();
+
+		return memberNo;
+	}
+	
 
 }

@@ -116,7 +116,7 @@ $(function() {
                                                 <span class="qnaId" style="display: none;">${qnaList[i-1].qnaId}</span> 
                                                 <span class="reply" style="color: #FF0000; font-size: smaller;">[${qnaList[i-1].replyCount}]</span>
                                         </a></td>
-                                    <td class="writer">홍홍홍홍</td>
+                                    <td class="writer">${writerList[i-1]}</td>
                                     <td>${formattedDates[i-1]}</td>
                                     <td>${qnaList[i-1].view}</td>
                                 </tr>

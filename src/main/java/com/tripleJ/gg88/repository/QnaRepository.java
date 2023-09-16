@@ -24,5 +24,7 @@ public interface QnaRepository {
 	int replyCount(int qnaId);
 	
 	List<Qna> userQnaList(int memberNo);
+	
+	String NoToNick(int memberNo);
 
 }

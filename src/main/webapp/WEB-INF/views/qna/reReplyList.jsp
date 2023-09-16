@@ -26,17 +26,29 @@ function formatRelativeDate(timestamp) {
         return timestamp;
     }
 }
+
 $(function() {
 	$(".replyDate").each(function() {
         const timestamp = $(this).text();
         const formattedDate = formatRelativeDate(timestamp);
         $(this).text(formattedDate);
     });
+
+	$(".reReplyWrap").each(function() {
+		var $this = $(this);
+        var reReplyWriter = $this.find(".reReplyWriter").text();
+
+        // "작성자"를 표시하는 div를 생성하여 추가
+        var writerDiv = $('<div>').text(displayWriter(reReplyWriter)).css('font-size', 'small');
+        $this.find(".reReplyWriter").after(writerDiv);
+
+	});
+	
 });
 </script>
 <c:forEach var="i" begin="1" end="${fn:length(reReplyList)}">
-	<div style="display: flex; gap: 10px; margin-top: 10px;">
-		<div style="font-weight: initial;">↳</div><div style="font-weight:600;">${reReplyList[i-1].memberNo}</div>
+	<div style="display: flex; gap: 10px; margin-top: 10px;" class="reReplyWrap">
+		<div style="font-weight: initial;">↳</div><div><div style="font-weight:600;" class="reReplyWriter">${reReplyWriterList[i-1]}</div></div>
 		<div>${reReplyList[i-1].content}
 			<span class="replyDate">${reReplyList[i-1].date}</span>
 		</div>
