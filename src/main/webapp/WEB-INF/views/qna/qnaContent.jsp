@@ -7,7 +7,7 @@
 //댓글 등록 함수
 function submitReply() {
 	var replyContent = $('.qnaReplyInput').val();
-	
+	let userNick = '<%= session.getAttribute("userNick") %>';
 	//memberNo 값
 	$.ajax({
 		url: "NickToNo",
@@ -92,7 +92,6 @@ function displayWriter(replyWriter) {
     if (replyWriter === writer) {
         return "작성자";
     }
-    return replyWriter;
 }
 
 $(function() {
@@ -140,6 +139,7 @@ $(function() {
 	        }
 	    });
 	});
+	
 	/* 수정하기 */
 	$("#qnaUpdate").click(function() {
 		$.ajax({

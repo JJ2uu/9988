@@ -34,16 +34,6 @@ $(function() {
         $(this).text(formattedDate);
     });
 
-	$(".reReplyWrap").each(function() {
-		var $this = $(this);
-        var reReplyWriter = $this.find(".reReplyWriter").text();
-
-        // "작성자"를 표시하는 div를 생성하여 추가
-        var writerDiv = $('<div>').text(displayWriter(reReplyWriter)).css('font-size', 'small');
-        $this.find(".reReplyWriter").after(writerDiv);
-
-	});
-	
 });
 </script>
 <c:forEach var="i" begin="1" end="${fn:length(reReplyList)}">
