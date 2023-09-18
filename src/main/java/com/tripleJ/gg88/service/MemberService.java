@@ -27,7 +27,9 @@ public interface MemberService {
 	
 	String changePw();
 	
-	void updatePw(String email, String newPw);
+	void updatePw(Member memberVO, String newPw);
+	
+	void updateNick(String nickname, String newNick, HttpServletRequest request);
 	
 	String searchId(String userId);
 	

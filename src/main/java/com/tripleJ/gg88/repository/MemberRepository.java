@@ -25,4 +25,6 @@ public interface MemberRepository {
 	void updatePw(Map<String, Object> userDataMap);
 	
 	void profileUpload(Map<String, Object> userDataMap);
+	
+	void updateNick(Map<String, Object> userDataMap);
 }

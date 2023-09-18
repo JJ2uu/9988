@@ -42,15 +42,8 @@
 		update member set profile = #{profile} where id = #{id}
 	</update>
 	
+	<update id="updateNick">
+		update member set nickname = #{newNickname} where nickname = #{nickname}
+	</update>
+	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
