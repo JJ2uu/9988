@@ -1,32 +1,13 @@
 package com.tripleJ.gg88.domain;
 
-import java.sql.Timestamp;
-
 public class Daily {
 
-	private int dailyNo;
-	private String company;
 	private String title;
+	private String writing;
 	private String content;
-	private Timestamp date;
-	private int view;
-	private String img;
-	
-	public int getDailyNo() {
-		return dailyNo;
-	}
-	
-	public void setDailyNo(int dailyNo) {
-		this.dailyNo = dailyNo;
-	}
-	
-	public String getCompany() {
-		return company;
-	}
-	
-	public void setCompany(String company) {
-		this.company = company;
-	}
+	private String newsUrl;
+	private String imgUrl;
+	private String date;
 	
 	public String getTitle() {
 		return title;
@@ -34,6 +15,14 @@ public class Daily {
 	
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getWriting() {
+		return writing;
+	}
+	
+	public void setWriting(String writing) {
+		this.writing = writing;
 	}
 	
 	public String getContent() {
@@ -44,28 +33,28 @@ public class Daily {
 		this.content = content;
 	}
 	
-	public Timestamp getDate() {
+	public String getNewsUrl() {
+		return newsUrl;
+	}
+	
+	public void setNewsUrl(String newsUrl) {
+		this.newsUrl = newsUrl;
+	}
+	
+	public String getImgUrl() {
+		return imgUrl;
+	}
+	
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	
+	public String getDate() {
 		return date;
 	}
 	
-	public void setDate(Timestamp date) {
+	public void setDate(String date) {
 		this.date = date;
-	}
-	
-	public int getView() {
-		return view;
-	}
-	
-	public void setView(int view) {
-		this.view = view;
-	}
-	
-	public String getImg() {
-		return img;
-	}
-	
-	public void setImg(String img) {
-		this.img = img;
 	}
 	
 }
