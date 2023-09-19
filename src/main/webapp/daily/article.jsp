@@ -13,22 +13,49 @@
 
 	$(function() {
 		
-		/* 기사 목록 */
 		$.ajax({
-			url: '../daily/articleList',
-			success: function(articleList) {
-				
-				$("#article_list").append(articleList)
+			url: '../daily/articleCnt',
+			success: function(response) {
+				const pagingWrap = document.getElementById("paging_wrap");
+				for (var i = 1; i <= response; i++) {
+					const button = document.createElement("button");
+					
+					button.textContent = i;
+					button.classList.add("btn_paging");
+					button.value = i;
+					
+					button.addEventListener("click", function() {
+						const btnValue = this.value;
+						console.log("클릭: " + btnValue)
+						
+						/* 기사 목록 */
+						$.ajax({
+							url: '../daily/articleList',
+							data: {
+								page : btnValue
+							},
+							success: function(articleList) {
+								$("#article_list").empty();
+								$("#article_list").append(articleList)
+								window.scrollTo(0, 0);
+							}
+						})
+					})
+					pagingWrap.appendChild(button);
+				}
 				
 				/* 페이징 버튼 css 클래스 추가 */
 				$(".btn_paging:first").addClass("current");
 				
+				/* 페이지 로드 시 첫 번째 버튼 클릭 */
+		        $(".btn_paging:first").click();
+				
+				/* 페이징 버튼 css 클래스 제거 */
 				$(".btn_paging").on("click", function () {
 				    $(this).addClass("current").siblings().removeClass("current");
 				});
 			}
 		})
-		
 	})
 	
 </script>
@@ -44,31 +71,9 @@
 		<div id="content_wrap">
 			<div id="content">
 				<div id="article_wrap">
-					<span style="font-size: 24px; font-weight: 700;">오늘 떴어요</span>
-					<div id="top_article_wrap">
-						<div class="top_article">
-							<div class="top_thumbnail">
-								<img src="${pageContext.request.contextPath}/resources/img/test_thumbnail1.jpg">
-							</div>
-							<span class="top_writing">농민신문</span>
-							<span class="top_title">초기 유방암, 꼭 방사선치료가 필요할까?</span>
-						</div>
-						<div class="top_article">
-							<div class="top_thumbnail">
-								<img src="${pageContext.request.contextPath}/resources/img/test_thumbnail2.jpg">
-							</div>
-							<span class="top_writing">조선일보</span>
-							<span class="top_title">“어릴때 폭행당한 아이, 정신질환 위험 높아”</span>
-						</div>
-						<div class="top_article">
-							<div class="top_thumbnail">
-								<img src="${pageContext.request.contextPath}/resources/img/test_thumbnail3.jpg">
-							</div>
-							<span class="top_writing">코메디닷컴</span>
-							<span class="top_title">'생체리듬 활발히'... 여름 가기 전 챙겨야 할 자연 식품들</span>
-						</div>
-					</div>
+					<span style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">오늘 떴어요</span>
 					<div id="article_list"></div>
+					<div id="paging_wrap"></div>
 				</div>
 			</div>
 		</div>
