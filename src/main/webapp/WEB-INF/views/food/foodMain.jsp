@@ -20,16 +20,22 @@
     border-radius: 5px;
     background-color: #F2F6FA;
     padding: 0 0 8px;
+    text-align: -webkit-center;
 }
 
 .foodImage {
     width: 300px;
+    height: 300px;
     border-radius: 5px 5px 0 0;
 }
 
 .foodText {
     font-weight: bold;
     font-size: 16px;
+    max-width: 250px; /* 원하는 최대 너비 설정 */
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 내용 감춤 */
+    text-overflow: ellipsis; /* 생략 부호 표시 */
 }
 #foodMain {
     display: flex;
@@ -61,6 +67,24 @@
 	margin: 5px;
 }
 </style>
+<script type="text/javascript">
+$(function() {
+
+	$("#foodSearch").click(function() {
+		$.ajax({
+			url : "crawling",
+			data : {
+				Search : $("#foodSearchTitle").val()
+			},
+			success : function(x) {
+				console.log(x);
+				$("#contentWrap").html(x)
+			}
+		})  
+    });
+	
+});
+</script>
 <body>
 	<div id="wrap">
 		<div id="header">
@@ -75,11 +99,10 @@
 						<span style="font-size: 24px; font-weight: bolder; margin-bottom: 20px">뭐 먹을까요?</span>
 					</div>
 					<div class="search" style="">
-						<input type="text" placeholder="식재료, 가지고 있는 질병, 예방하고 싶은 질병 등으로 검색"> <a href="#"> 
-						<img alt="돋보기 아이콘" src="${pageContext.request.contextPath}/resources/img/Vector.png">
-						</a>
+						<input id="foodSearchTitle" type="text" placeholder="식재료, 가지고 있는 질병, 예방하고 싶은 질병 등으로 검색">
+						<img alt="돋보기 아이콘" id="foodSearch" src="${pageContext.request.contextPath}/resources/img/Vector.png">
 					</div>
-					<div style="margin-top: 50px;">
+					<div style="margin-top: 50px;" id="contentWrap">
 						<c:forEach var="i" begin="1" end="9">
 							<div class="food">
 								<img class="foodImage" src="${pageContext.request.contextPath}/resources/img/foodimg.png">
