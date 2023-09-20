@@ -10,9 +10,7 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-
 	$(function() {
-		
 		$.ajax({
 			url: '../daily/articleCnt',
 			success: function(response) {
@@ -57,7 +55,6 @@
 			}
 		})
 	})
-	
 </script>
 <title>99팔팔</title>
 </head>
