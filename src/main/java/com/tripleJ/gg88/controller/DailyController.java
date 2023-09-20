@@ -22,8 +22,12 @@ public class DailyController {
 	}
 
 	@RequestMapping("articleList")
-	public String articleList(int page, Model model) {
+	public void articleList(int page, Model model) {
 		dailyService.articleList(page, model);
-		return "daily/articleList";
+	}
+	
+	@RequestMapping("articleDetail")
+	public void articleDetail(String newsUrl, Model model) {
+		dailyService.articleDetail(newsUrl, model);
 	}
 }

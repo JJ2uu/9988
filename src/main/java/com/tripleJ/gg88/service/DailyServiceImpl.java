@@ -93,4 +93,40 @@ public class DailyServiceImpl implements DailyService{
 			e.printStackTrace();
 		}
 	}
+	
+	public void articleDetail(String newsUrl, Model model) {
+		try {
+			Document doc = Jsoup.connect(newsUrl).get();
+			Element media = doc.select("a.media_end_head_top_logo img").first();
+			String mediaLogo = "";
+			if (media != null) {
+				mediaLogo = media.attr("src");
+			}
+			
+			Element headLine = doc.select("h2.media_end_head_headline span").first();
+			String title = headLine.text();
+			
+			Element dateStamp = doc.select("span.media_end_head_info_datestamp_time").first();
+			String date = dateStamp.text();
+			
+			Element article = doc.select("div#newsct_article").first();
+			String content = article.html();
+			String modifiedContent = content.replace("data-src", "src");
+			
+			Element write = doc.select("div.byline p span.byline_s").first();
+			String wrtier = "";
+			if (write != null) {
+				wrtier = write.text();
+			}
+			
+			model.addAttribute("newsUrl", newsUrl);
+			model.addAttribute("mediaLogo", mediaLogo);
+			model.addAttribute("title", title);
+			model.addAttribute("date", date);
+			model.addAttribute("content", modifiedContent);
+			model.addAttribute("wrtier", wrtier);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
