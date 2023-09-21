@@ -10,21 +10,22 @@
 	</settings>
    <typeAliases>
       <typeAlias type="com.tripleJ.gg88.domain.Daily" alias="daily"></typeAlias>
-      <typeAlias type="com.tripleJ.gg88.domain.EmergencyCategory" alias="emergencyCategory"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.EmergencyReply" alias="emergencyReply"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.Emergency" alias="emergency"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.Exercise" alias="exercise"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.Food" alias="food"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.Map" alias="DomainMap"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.Member" alias="member"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.Page" alias="page"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.QnaReply" alias="qnaReply"></typeAlias>
       <typeAlias type="com.tripleJ.gg88.domain.Qna" alias="qna"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.model.PagingDto" alias="pageDto"></typeAlias>
    </typeAliases>
    <mappers>
       <mapper resource="mapper/dailyMapper.xml"/>
-      <mapper resource="mapper/emergencyCategoryMapper.xml"/>
       <mapper resource="mapper/emergencyReplyMapper.xml"/>
       <mapper resource="mapper/emergencyMapper.xml"/>
+      <mapper resource="mapper/exerciseMapper.xml"/>
       <mapper resource="mapper/foodMapper.xml"/>
       <mapper resource="mapper/mapMapper.xml"/>
       <mapper resource="mapper/memberMapper.xml"/>
