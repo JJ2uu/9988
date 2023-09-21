@@ -3,6 +3,7 @@ package com.tripleJ.gg88.service;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,6 @@ public class QnaServiceImpl implements QnaService {
 			--pages;
 		}
 		List<Qna> qnaList = qnaRepo.qnaList(page);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> formattedDates = new ArrayList<>();
 		List<String> writerList = new ArrayList<>();
 		
@@ -52,8 +52,7 @@ public class QnaServiceImpl implements QnaService {
 	        String writer = qnaRepo.NoToNick(memberNo);
 	        writerList.add(writer);
 	        
-			Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
-	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
+	        String formattedDate = formattedDate(qnaVO.getDate());
 	        formattedDates.add(formattedDate);
 	    }
 		
@@ -73,7 +72,6 @@ public class QnaServiceImpl implements QnaService {
 			--pages;
 		}
 		List<Qna> qnaList = qnaRepo.qnaList(page);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> formattedDates = new ArrayList<>();
 		List<String> writerList = new ArrayList<>();
 		
@@ -85,8 +83,7 @@ public class QnaServiceImpl implements QnaService {
 	        String writer = qnaRepo.NoToNick(memberNo);
 	        writerList.add(writer);
 	        
-			Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
-	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
+	        String formattedDate = formattedDate(qnaVO.getDate());
 	        formattedDates.add(formattedDate);
 	    }
 		
@@ -113,7 +110,8 @@ public class QnaServiceImpl implements QnaService {
 			String replyWriter = qnaRepo.NoToNick(replyMemberNo);
 			replyWriterList.add(replyWriter);
 		}
-        
+        String formattedDate = formattedDate(qnaVO.getDate());
+        model.addAttribute("formattedDate", formattedDate);
         model.addAttribute("writer", writer);
         model.addAttribute("replyWriterList", replyWriterList);
 		model.addAttribute("qnaVO", qnaVO);
@@ -153,15 +151,13 @@ public class QnaServiceImpl implements QnaService {
 		int count = qnaRepo.countAll();
 		int pages = 1;
 		List<Qna> qnaList = qnaRepo.qnaList(page);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> formattedDates = new ArrayList<>();
 		
 		for (Qna qnaVO : qnaList) {
 			int qnaId = qnaVO.getQnaId();
 	        qnaRepo.replyCount(qnaId);
-			
-			Timestamp timestamp = qnaVO.getDate(); // qnaVO에서 날짜 가져오기
-	        String formattedDate = dateFormat.format(new Date(timestamp.getTime()));
+
+	        String formattedDate = formattedDate(qnaVO.getDate());
 	        formattedDates.add(formattedDate);
 	    }
 		
@@ -177,6 +173,16 @@ public class QnaServiceImpl implements QnaService {
 		int memberNo = member.getMemberNo();
 
 		return memberNo;
+	}
+	
+	public String formattedDate(Timestamp originalDate) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(originalDate);
+		calendar.add(Calendar.HOUR, -9);
+		Date adjustedDate = calendar.getTime();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy. MM. dd");
+		String formattedDate = format.format(adjustedDate);
+		return formattedDate;
 	}
 	
 

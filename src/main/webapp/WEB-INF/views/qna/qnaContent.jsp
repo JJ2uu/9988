@@ -213,7 +213,7 @@ $(function() {
 	<div id="qnaContentTop">
 		<div style="color: #717A84">${qnaVO.category}</div>
 		<div class="qnaTitle">${qnaVO.title}</div>
-		<div style="color: #717A84">${qnaVO.date}</div>
+		<div style="color: #717A84">${formattedDate}</div>
 	</div>
 	<hr>
 	<div id="qnaContentReal">${qnaVO.content}</div>
