@@ -6,6 +6,8 @@ public class Food {
     private int foodId;
     private String title;
     private String blogName;
+    private String job; // 새로운 필드 job 추가
+    private String simpleContent;
     private Timestamp date;
     private String url;
     private String thumbnail;
@@ -34,6 +36,22 @@ public class Food {
         this.blogName = blogName;
     }
 
+    public String getJob() { // job 필드의 getter 추가
+        return job;
+    }
+
+    public void setJob(String job) { // job 필드의 setter 추가
+        this.job = job;
+    }
+
+    public String getSimpleContent() {
+        return simpleContent;
+    }
+
+    public void setSimpleContent(String simpleContent) {
+        this.simpleContent = simpleContent;
+    }
+
     public Timestamp getDate() {
         return date;
     }
@@ -58,11 +76,13 @@ public class Food {
         this.thumbnail = thumbnail;
     }
 
-    // Builder 클래스 추가
+    // Builder 클래스 업데이트
     public static class Builder {
         private int foodId;
         private String title;
         private String blogName;
+        private String job; // Builder 클래스에도 job 필드 추가
+        private String simpleContent;
         private Timestamp date;
         private String url;
         private String thumbnail;
@@ -79,6 +99,16 @@ public class Food {
 
         public Builder blogName(String blogName) {
             this.blogName = blogName;
+            return this;
+        }
+
+        public Builder job(String job) { // Builder 클래스에 job 설정 메서드 추가
+            this.job = job;
+            return this;
+        }
+
+        public Builder simpleContent(String simpleContent) {
+            this.simpleContent = simpleContent;
             return this;
         }
 
@@ -102,6 +132,8 @@ public class Food {
             food.setFoodId(this.foodId);
             food.setTitle(this.title);
             food.setBlogName(this.blogName);
+            food.setJob(this.job); // job 설정 추가
+            food.setSimpleContent(this.simpleContent);
             food.setDate(this.date);
             food.setUrl(this.url);
             food.setThumbnail(this.thumbnail);
@@ -109,4 +141,3 @@ public class Food {
         }
     }
 }
-

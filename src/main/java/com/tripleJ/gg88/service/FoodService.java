@@ -4,6 +4,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,22 +30,27 @@ public class FoodService {
 		for (Element element : ele) {
 	        String title = element.select("a.name_link").text();
 	        String blogName = element.select("a.name span.txt").text();
+	        String job = element.select("span.etc.highlight").text();	        
+	        String simpleContent = element.select("p.dsc").text();
 	        String urlValue = element.select("a.name_link").attr("href");
-	        String thumbnail = element.select("img.img.api_get, img.bg_nimg").attr("src");
-
-	        if (title != "" && blogName != "" && urlValue != "" && thumbnail != "") {
+	        String imageUrl = element.select("img.bg_nimg").attr("src");
+	        if (imageUrl.contains("data:image/gif")) {
+				String thumbnail = element.select("div.detail_box div").first().select("a").first().html();
+				imageUrl = extractImageUrl(thumbnail);
+	        }
+	        
+	        if (title != "" && blogName != "" && urlValue != "" && imageUrl != "") {
 	            Food food = new Food.Builder()
 	                    .title(title)
 	                    .blogName(blogName)
+	                    .job(job)
+	                    .simpleContent(simpleContent)
 	                    .url(urlValue)
-	                    .thumbnail(thumbnail)
+	                    .thumbnail(imageUrl)
 	                    .build();
 	            foodList.add(food);
-	            System.out.println(food);
 	        }
 	    }
-		System.out.println(ele.toString()); // 선택한 요소들의 HTML 내용 출력
-		System.out.println(foodList);
 		
 		return foodList;
 		
@@ -59,26 +67,44 @@ public class FoodService {
 		for (Element element : ele) {
 	        String title = element.select("a.name_link").text();
 	        String blogName = element.select("a.name span.txt").text();
+	        String job = element.select("span.etc.highlight").text();	        
+	        String simpleContent = element.select("p.dsc").text();
 	        String urlValue = element.select("a.name_link").attr("href");
-	        String thumbnail = element.select("img.img.api_get, img.bg_nimg").attr("src");
-
-
-	        if (title != "" && blogName != "" && urlValue != "" && thumbnail != "") {
+	        String imageUrl = element.select("img.bg_nimg").attr("src");
+	        if (imageUrl.contains("data:image/gif")) {
+				String thumbnail = element.select("div.detail_box div").first().select("a").first().html();
+				imageUrl = extractImageUrl(thumbnail);
+	        }
+	        
+	        if (title != "" && blogName != "" && urlValue != "" && imageUrl != "") {
 	            Food food = new Food.Builder()
 	                    .title(title)
 	                    .blogName(blogName)
+	                    .job(job)
+	                    .simpleContent(simpleContent)
 	                    .url(urlValue)
-	                    .thumbnail(thumbnail)
+	                    .thumbnail(imageUrl)
 	                    .build();
 	            foodList.add(food);
-	            System.out.println(food);
 	        }
 	    }
-		System.out.println(ele.toString()); // 선택한 요소들의 HTML 내용 출력
-		System.out.println(foodList);
 		
 		return foodList;
 		
+	}
+	
+	public static String extractImageUrl(String html) {
+       
+        // data-lazysrc 속성의 값을 추출
+        String regex = "data-lazysrc=\"([^\"]+)\"";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(html);
+        
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        
+        return null;
 	}
 
 }
