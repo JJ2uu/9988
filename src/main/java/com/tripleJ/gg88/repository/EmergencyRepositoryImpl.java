@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.tripleJ.gg88.domain.Emergency;
+import com.tripleJ.gg88.model.PagingDto;
 
 @Repository
 public class EmergencyRepositoryImpl implements EmergencyRepository{
@@ -27,8 +28,8 @@ public class EmergencyRepositoryImpl implements EmergencyRepository{
 	}
 
 	@Override
-	public List<Emergency> findById(int memberNo) {
-		return sql.selectList(namespace + "findById", memberNo);
+	public Emergency findById(int emergencyId) {
+		return sql.selectOne(namespace + "findById", emergencyId);
 	}
 
 	@Override
@@ -49,6 +50,16 @@ public class EmergencyRepositoryImpl implements EmergencyRepository{
 	@Override
 	public int deleteBoard(int emergencyId) {
 		return sql.delete(namespace + "deleteBoard", emergencyId);
+	}
+
+	@Override
+	public int getTotalCount() {
+		return sql.selectOne(namespace + "getTotalCount");
+	}
+
+	@Override
+	public List<Emergency> getList(PagingDto pagingDto) {
+		return sql.selectList(namespace + "getList", pagingDto);
 	}
 	
 }

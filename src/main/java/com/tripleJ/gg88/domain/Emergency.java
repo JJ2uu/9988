@@ -76,5 +76,12 @@ public class Emergency {
 	public void setIsYn(int isYn) {
 		this.isYn = isYn;
 	}
+
+	@Override
+	public String toString() {
+		return "Emergency [emergencyId=" + emergencyId + ", memberNo=" + memberNo + ", title=" + title + ", content="
+				+ content + ", commendCount=" + commendCount + ", regdate=" + regdate + ", updatedate=" + updatedate
+				+ ", isYn=" + isYn + "]";
+	}
 	
 }

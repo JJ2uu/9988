@@ -80,22 +80,22 @@
 				<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
 				</div>
 				<!-- form태그는 컨트롤러랑 연결 -->
+				<form action="${pageContext.request.contextPath}/emergency/saveBoard" method="post">
 				<div class="symptom">
 					<span style="margin-left: 15px;">증상</span>
-					<input placeholder="응급상황을 적어주세요.">
+					<input placeholder="응급상황을 적어주세요." name="title">
 				</div>
 				<div class="solution">
 					<span style="padding-right: 0px;">대처방안</span>
-					<input placeholder="응급 상황 시 대처방안을 적어주세요.">
+					<input placeholder="응급 상황 시 대처방안을 적어주세요." name="content">
 				</div>
 				<div class="complete_btn">
 					<a href="${pageContext.request.contextPath}/emergency/temporarySave">
 					<button id="temSave" type="button" style="background-color: #E0E6EC; color: #2C343D;">글 임시 저장</button>
 					</a>
-					<a href="${pageContext.request.contextPath}/emergency/saveBoard">
 					<button id="sava" type="submit">글 작성 완료</button>
-					</a>
 				</div>
+				</form>
 			</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true" />
