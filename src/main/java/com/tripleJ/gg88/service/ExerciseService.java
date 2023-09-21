@@ -26,7 +26,7 @@ public class ExerciseService {
 		this.repository = repository;
 	}
 
-	public List<Exercise> search(String search) throws Exception {
+	public List<Exercise> search(String search, PagingDto dto) throws Exception {
 		String apiurl = "https://www.googleapis.com/youtube/v3/search";
 		apiurl += "?key=AIzaSyD1oh2pUIox-pNVm652OsV4Q-cImdiVpQg";
 		apiurl += "&part=snippet&type=video&maxResults=20&videoEmbeddable=true";
@@ -47,7 +47,7 @@ public class ExerciseService {
 			saveInfo(response.toString(), search);
 			return repository.selectKeyword(search);
 		} else {
-			return repository.selectKeyword(search);
+			return repository.getList(dto);
 		}
 	}
 	

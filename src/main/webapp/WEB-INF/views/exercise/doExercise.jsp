@@ -110,12 +110,10 @@ function doAction(seq){
 					<img src="${pageContext.request.contextPath}/resources/img/stretching.png" width="16px">
 				</div>
 				<div class="search" style="margin: auto; margin-bottom: 40px;">
-				<form action="${pageContext.request.contextPath}/exercise/serach">
 					<input type="text" placeholder="증상에 대한 검색어를 입력하세요."> 
 					<a href="#"> <img alt="돋보기 아이콘"
 						src="${pageContext.request.contextPath}/resources/img/Vector.png">
 					</a>
-				</form>
 				</div>
 				<div style="width: 1000px; height: 800px;">
 					<c:forEach var="exercise" items="${exercise}">

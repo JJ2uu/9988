@@ -28,7 +28,7 @@ public class ExerciseController {
 	@RequestMapping(value = "/doExercise", method = RequestMethod.GET)
 	public void mainPath(@RequestParam(defaultValue = "1", name = "seq") int currentNum, Model model) throws Exception{
 		PagingDto page = service.paganation(currentNum, "운동");
-		List<Exercise> exercise = service.getList(page);
+		List<Exercise> exercise = service.search("운동", page);
 		model.addAttribute("exercise", exercise);
 	}
 	
@@ -36,12 +36,6 @@ public class ExerciseController {
 	@ResponseBody
 	public PagingDto getPage(@RequestParam(defaultValue = "1", name = "seq") int currentNum, @RequestParam(defaultValue = "운동", required = false) String category, Model model) {
 		return service.paganation(currentNum, category);
-	}
-	
-	@RequestMapping(value = "/serach", method = RequestMethod.GET)
-	public void search(String search, Model model) throws Exception {
-		List<Exercise> exercise = service.search(search);
-		model.addAttribute("exercise", exercise);
 	}
 	
 }
