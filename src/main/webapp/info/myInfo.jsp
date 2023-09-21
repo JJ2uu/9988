@@ -81,6 +81,14 @@
 	    	},
 	    	success: function(response) {
 				$("#tab_myInfo").append(response);
+				
+				$("#info_nick").click(function() {
+					window.open('nickChange.jsp','닉네임 변경','width=450,height=420');
+				})
+				
+				$("#info_pw").click(function() {
+					window.open('pwChange.jsp','비밀번호 변경','width=450,height=500');
+				})
 			}
 	    })
 	    
@@ -143,9 +151,6 @@
 			const startPage = (currentPageGroup - 1) * maxVisiblePages + 1;
 			const endPage = Math.min(currentPageGroup * maxVisiblePages, totalPages);
 		    
-		    console.log(startPage)
-		    console.log(endPage)
-
 		    if (endPage > totalPages) {
 		        endPage = totalPages;
 		    }

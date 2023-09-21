@@ -98,11 +98,23 @@ public class MemberServiceImpl implements MemberService {
 		return "account/changePw";
 	}
 	
-	public void updatePw(String email, String newPw) {
+	public void updatePw(Member memberVO, String newPw) {
 		Map<String, Object> userDataMap = new HashMap<String, Object>();
-		userDataMap.put("email", email);
+		if (memberVO.getEmail() == null) {
+			Member result = memberRepo.searchNick(memberVO.getNickname());
+			memberVO.setEmail(result.getEmail());
+		}
+		userDataMap.put("email", memberVO.getEmail());
 		userDataMap.put("pw", bcrypt.encode(newPw));
 		memberRepo.updatePw(userDataMap);
+	}
+	
+	public void updateNick(String nickname, String newNick, HttpServletRequest request) {
+		Map<String, Object> userDataMap = new HashMap<String, Object>();
+		userDataMap.put("nickname", nickname);
+		userDataMap.put("newNickname", newNick);
+		memberRepo.updateNick(userDataMap);
+		request.getSession().setAttribute("userNick", newNick);
 	}
 	
 	public String searchId(String userId) {

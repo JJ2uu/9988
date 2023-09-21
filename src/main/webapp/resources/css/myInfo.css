@@ -137,13 +137,17 @@
 	text-align: center;
 }
 
-#info_pw {
+#info_pw, #info_nick {
 	border: 1px solid #717A84;
 	border-radius: 5px;
 	padding: 5px 10px;
 	width: 100px;
 	text-align: center;
 	cursor: pointer;
+}
+
+#info_nick {
+	margin-left: 20px;
 }
 
 .arrow {

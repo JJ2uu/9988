@@ -60,8 +60,8 @@ public class MemberController {
 	
 	@RequestMapping("account/updatePw")
 	@ResponseBody
-	public void updatePw(String email, String newPw) {
-		memberService.updatePw(email, newPw);
+	public void updatePw(Member memberVO, String newPw) {
+		memberService.updatePw(memberVO, newPw);
 	}
 	
 	@RequestMapping("account/searchId")
@@ -80,6 +80,12 @@ public class MemberController {
 	@ResponseBody
 	public int signUp(Member memberVO, String userbirth) {
 		return memberService.signUp(memberVO, userbirth);
+	}
+	
+	@RequestMapping("account/updateNick")
+	@ResponseBody
+	public void updateNick(String nickname, String newNick, HttpServletRequest request) {
+		memberService.updateNick(nickname, newNick, request);
 	}
 	
 	@RequestMapping("signIn")
@@ -119,7 +125,6 @@ public class MemberController {
 	public String myReply(String nickname, int page, int pageSize, Model model) {
 		return memberService.myReply(nickname, page, pageSize, model);
 	}
-	
 	
 	@RequestMapping("info/profile")
 	@ResponseBody

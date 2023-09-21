@@ -53,6 +53,10 @@ public class MemberRepositoryImpl implements MemberRepository {
 	}
 	
 	public void profileUpload(Map<String, Object> userDataMap) {
-		sql.update(namespace+ "profileUpload", userDataMap);
+		sql.update(namespace + "profileUpload", userDataMap);
+	}
+	
+	public void updateNick(Map<String, Object> userDataMap) {
+		sql.update(namespace + "updateNick", userDataMap);
 	}
 }
