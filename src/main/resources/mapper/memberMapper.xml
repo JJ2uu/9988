@@ -46,4 +46,8 @@
 		update member set nickname = #{newNickname} where nickname = #{nickname}
 	</update>
 	
+	<select id="noToNick" parameterType="integer" resultType="member">
+		select * from member where member_no = #{memberNo}
+	</select>
+	
 </mapper>

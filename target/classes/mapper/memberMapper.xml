@@ -42,15 +42,12 @@
 		update member set profile = #{profile} where id = #{id}
 	</update>
 	
+	<update id="updateNick">
+		update member set nickname = #{newNickname} where nickname = #{nickname}
+	</update>
+	
+	<select id="noToNick" parameterType="integer" resultType="member">
+		select * from member where member_no = #{memberNo}
+	</select>
+	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
