@@ -115,9 +115,9 @@ function doAction(seq){
 						src="${pageContext.request.contextPath}/resources/img/Vector.png">
 					</a>
 				</div>
-				<div style="width: 1000px; height: 800px;">
+				<div style="width: 1000px; height: 800px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
 					<c:forEach var="exercise" items="${exercise}">
-					<div style="width: 320px; margin-left: 5px; margin-right: 5px; float: left;">
+					<div style="width: 320px; margin-bottom: 20px;">
 						<a href="https://www.youtube.com/watch?v=${exercise.videoId}">
 							<img src="${exercise.url}" width="${exercise.width}" height="${exercise.height}">
 							<span style="width: 323px; margin: auto;">${exercise.title}</span>
