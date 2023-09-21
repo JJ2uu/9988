@@ -16,7 +16,9 @@ public class FoodController {
 	FoodService service;
 	
 	@RequestMapping("food/foodMain")
-	public String foodMain() {
+	public String foodMain(Model model) throws Exception {
+		List<Food> foodList = service.foodMainCrawling(model);
+		model.addAttribute("foodList",foodList);
 		return "food/foodMain";
 	}
 	@RequestMapping("food/crawling")

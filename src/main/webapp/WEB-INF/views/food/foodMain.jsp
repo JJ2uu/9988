@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,14 +104,15 @@ $(function() {
 						<img alt="돋보기 아이콘" id="foodSearch" src="${pageContext.request.contextPath}/resources/img/Vector.png">
 					</div>
 					<div style="margin-top: 50px;" id="contentWrap">
-						<c:forEach var="i" begin="1" end="9">
+						<c:forEach var="i" begin="1" end="${fn:length(foodList)}">
 							<div class="food">
-								<img class="foodImage" src="${pageContext.request.contextPath}/resources/img/foodimg.png">
-								<div class="textContainer">
-									<div class="foodText">행복한 주방</div>
-									<div class="foodText" style="font-weight: normal;">맛있는 떡볶이</div>
+								<a href="${foodList[i-1].url}">
+									<img class="foodImage" src="${foodList[i-1].thumbnail}"></a>
+									<div class="textContainer">
+										<div class="foodText">${foodList[i-1].blogName}</div>
+										<div class="foodText" style="font-weight: normal;">${foodList[i-1].title}</div>
+									</div>
 								</div>
-							</div>
 						</c:forEach>
 					</div>
 					<div class="paging">
