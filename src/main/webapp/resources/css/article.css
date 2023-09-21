@@ -74,15 +74,15 @@
 	justify-content: space-around;
     align-items: center;
     cursor: pointer;
-    border-top: 1px solid #e0e6ec;
-    padding-top: 30px;
+    border-bottom: 1px solid #e0e6ec;
+    padding-bottom: 30px;
 }
 
 .article_thumbnail {
 	overflow: hidden;
 	border-radius: 5px;
-	width: 150px;
-    height: 100px;
+	width: 106px;
+    height: 72px;
 }
 
 .article_thumbnail > img {
@@ -129,6 +129,9 @@
 #paging_wrap {
 	margin-top: 30px;
 	margin-bottom: 50px;
+	display: flex;
+	gap: 5px;
+	justify-content: center;
 }
 
 .btn_paging {
