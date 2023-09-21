@@ -7,38 +7,59 @@
 //댓글 등록 함수
 function submitReply() {
 	var replyContent = $('.qnaReplyInput').val();
-	if(replyContent === ""){
-		alert("내용을 입력해주세요")
-	}else{
-		$.ajax({
-			url : "qnaReplyInsert",
-			data : {
-				memberNo : 3,
-				qnaId : ${qnaVO.qnaId},
-				content : replyContent
-			},
-			success : function(x) {
-				location.reload();
+	let userNick = '<%= session.getAttribute("userNick") %>';
+	//memberNo 값
+	$.ajax({
+		url: "NickToNo",
+		data: {
+		  nickname: userNick
+		},
+		success: function(memberNo) {
+			if(replyContent === ""){
+				alert("내용을 입력해주세요")
+			}else{
+				$.ajax({
+					url : "qnaReplyInsert",
+					data : {
+						memberNo : memberNo,
+						qnaId : ${qnaVO.qnaId},
+						content : replyContent
+					},
+					success : function(x) {
+						location.reload();
+					}
+				}) 	
+				
 			}
-		}) 	
-		
-	}
+		}
+	});
+	
 }
 //대댓글 등록 함수
 function submitReReply(reReplyContent, groupId) {
-    var memberNo = 3;
-    $.ajax({
-        url: "reReplyInsert",
-        data: {
-            memberNo: memberNo,
-            qnaId: ${qnaVO.qnaId},
-            content: reReplyContent,
-            groupId: groupId
-        },
-        success: function(x) {
-            location.reload();
-        }
-    });
+    
+    let userNick = '<%= session.getAttribute("userNick") %>';
+	//memberNo 값
+	$.ajax({
+		url: "NickToNo",
+		data: {
+		  nickname: userNick
+		},
+		success: function(memberNo) {
+			$.ajax({
+		        url: "reReplyInsert",
+		        data: {
+		            memberNo: memberNo,
+		            qnaId: ${qnaVO.qnaId},
+		            content: reReplyContent,
+		            groupId: groupId
+		        },
+		        success: function(x) {
+		            location.reload();
+		        }
+		    });
+		}
+	});
 }
 
 function formatRelativeDate(timestamp) {
@@ -65,7 +86,28 @@ function formatRelativeDate(timestamp) {
     }
 }
 
+//댓글 작성 시 작성자를 표시하는 함수
+function displayWriter(replyWriter) {
+	var writer = '${writer}'; // 작성자 정보
+    if (replyWriter === writer) {
+        return "작성자";
+    }
+}
+
 $(function() {
+	var userNick = '<%= session.getAttribute("userNick") %>';
+	var writer = '${writer}';
+    console.log(userNick);
+    console.log(writer);
+
+    // userNick과 writer가 같으면 버튼 표시
+    if (userNick === writer) {
+        $("#qnaDelete").show();
+        $("#qnaUpdate").show();
+    } else {
+        $("#qnaDelete").hide();
+        $("#qnaUpdate").hide();
+    }
 	
 	$(".replyDate").each(function() {
         const timestamp = $(this).text();
@@ -74,7 +116,12 @@ $(function() {
     });
 	/*대댓글 불러오기*/
 	$(".replySpace").each(function() {
-	    var $this = $(this);
+		var $this = $(this);
+        var replyWriter = $this.find(".replyWriter").text();
+
+        // "작성자"를 표시하는 div를 생성하여 추가
+        var writerDiv = $('<div>').text(displayWriter(replyWriter)).css('font-size', 'small');
+        $this.find(".replyWriter").after(writerDiv);
 
 	    var groupId = $this.find(".replyId").text();
 	    console.log(groupId);
@@ -92,6 +139,7 @@ $(function() {
 	        }
 	    });
 	});
+	
 	/* 수정하기 */
 	$("#qnaUpdate").click(function() {
 		$.ajax({
@@ -165,7 +213,7 @@ $(function() {
 	<div id="qnaContentTop">
 		<div style="color: #717A84">${qnaVO.category}</div>
 		<div class="qnaTitle">${qnaVO.title}</div>
-		<div style="color: #717A84">${qnaVO.date}</div>
+		<div style="color: #717A84">${formattedDate}</div>
 	</div>
 	<hr>
 	<div id="qnaContentReal">${qnaVO.content}</div>
@@ -176,7 +224,7 @@ $(function() {
 					src="${pageContext.request.contextPath}/resources/img/person2.svg"
 					width="50px" style="border-radius: 100px;">
 			</div>
-			<div style="font-weight: 600;">홍홍홍홍</div>
+			<div style="font-weight: 600;">${writer}</div>
 		</div>
 		<div id="onlyWriter">
 			<div>
@@ -188,7 +236,7 @@ $(function() {
 	<hr>
 	<c:forEach var="i" begin="1" end="${fn:length(qnaReplyList)}">
 	<div class="replySpace">
-		<div style="font-weight: 600;">초이초이</div>
+		<div><div style="font-weight: 600;" class="replyWriter">${replyWriterList[i-1]}</div></div>
 		<div style="display: flex; flex-direction: column;">
 			<div style="display: flex; justify-content: space-between; width: 910px;">
 				<div style="max-width: 870px; text-align: left;">${qnaReplyList[i-1].content}

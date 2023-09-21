@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.tripleJ.gg88.domain.Member;
 import com.tripleJ.gg88.domain.Page;
 import com.tripleJ.gg88.domain.Qna;
 
@@ -49,6 +50,12 @@ public class QnaRepositoryImpl implements QnaRepository {
 	
 	public List<Qna> userQnaList(int memberNo) {
 		return my.selectList("qna.userQnaList", memberNo);
+	}
+	
+	public String NoToNick(int memberNo) {
+		Member member = my.selectOne("member.noToNick", memberNo);
+		String writer = member.getNickname();
+		return writer;
 	}
 
 }

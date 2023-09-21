@@ -26,17 +26,19 @@ function formatRelativeDate(timestamp) {
         return timestamp;
     }
 }
+
 $(function() {
 	$(".replyDate").each(function() {
         const timestamp = $(this).text();
         const formattedDate = formatRelativeDate(timestamp);
         $(this).text(formattedDate);
     });
+
 });
 </script>
 <c:forEach var="i" begin="1" end="${fn:length(reReplyList)}">
-	<div style="display: flex; gap: 10px; margin-top: 10px;">
-		<div style="font-weight: initial;">↳</div><div style="font-weight:600;">${reReplyList[i-1].memberNo}</div>
+	<div style="display: flex; gap: 10px; margin-top: 10px;" class="reReplyWrap">
+		<div style="font-weight: initial;">↳</div><div><div style="font-weight:600;" class="reReplyWriter">${reReplyWriterList[i-1]}</div></div>
 		<div>${reReplyList[i-1].content}
 			<span class="replyDate">${reReplyList[i-1].date}</span>
 		</div>

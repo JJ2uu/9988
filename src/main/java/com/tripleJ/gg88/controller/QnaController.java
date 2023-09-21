@@ -59,8 +59,8 @@ public class QnaController {
 	
 	@RequestMapping("qna/qnaDelete")
 	@ResponseBody
-	public void qnaDelecte(HttpSession session, Qna qnaVO, QnaReply qnaReplyVO) {
-		qnaService.qnaDelecte(session, qnaVO, qnaReplyVO);
+	public void qnaDelete(HttpSession session, Qna qnaVO, QnaReply qnaReplyVO) {
+		qnaService.qnaDelete(session, qnaVO, qnaReplyVO);
 	}
 	
 	@RequestMapping("qna/qnaViews")
@@ -79,6 +79,12 @@ public class QnaController {
 	public void mainQna(Page page, Model model) {
 		qnaService.mainQna(page, model);
 		
+	}
+	
+	@RequestMapping("qna/NickToNo")
+	@ResponseBody
+	public int NickToNo(String nickname) {
+		return qnaService.NickToNo(nickname);
 	}
 	
 	

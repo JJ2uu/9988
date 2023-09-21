@@ -14,31 +14,42 @@
 </head>
 <script type="text/javascript">
 $(function() {
-	$('#qnaInsert').click(function(){
-		var memberNo = 1;
-		var title = $('.qnaTitle').val();
-		var content = $('.qnaContent').val();
-		var category = $('.create_category').val();
-		
-		if(title === "" || content === "" || category === ""){
-			alert("제목, 카테고리, 내용 중 빠진 곳이 없는지 확인해주세요!")
-		}else{
-			$.ajax({
-				url : "qnaInsert",
-				data : {
-					memberNo : memberNo,
-					title : title,
-					content : content,
-					category : category
-				},
-				success : function(x) {
-					alert("질문글을 등록했습니다.")
-					location.href = "${pageContext.request.contextPath}/qna/qnaBoard";
+	let userNick = '<%= session.getAttribute("userNick") %>';
+	//memberNo 값
+	$.ajax({
+		url: "NickToNo",
+		data: {
+		  nickname: userNick
+		},
+		success: function(memberNo) {
+			console.log(memberNo);
+			$('#qnaInsert').click(function(){
+				var title = $('.qnaTitle').val();
+				var content = $('.qnaContent').val();
+				var category = $('.create_category').val();
+				
+				if (title === "" || content === "" || category === "") {
+				  alert("제목, 카테고리, 내용 중 빠진 곳이 없는지 확인해주세요!");
+				} else {
+					$.ajax({
+						 url: "qnaInsert",
+						 data: {
+						   memberNo: memberNo,
+						   title: title,
+						   content: content,
+						   category: category
+						 },
+						 success: function(x) {
+						   alert("질문글을 등록했습니다.");
+						   location.href = "${pageContext.request.contextPath}/qna/qnaBoard";
+						}
+					});
 				}
-			})
+			});
 		}
-	})
-})
+	});
+});
+
 </script>
 <body>
 	<div id="wrap">

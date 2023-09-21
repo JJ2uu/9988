@@ -220,5 +220,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     display: none;
 }
 
+.title{
+	text-align: left;
+    padding-left: 80px;
+}
+
 
 

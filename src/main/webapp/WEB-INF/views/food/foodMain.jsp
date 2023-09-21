@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,16 +21,22 @@
     border-radius: 5px;
     background-color: #F2F6FA;
     padding: 0 0 8px;
+    text-align: -webkit-center;
 }
 
 .foodImage {
     width: 300px;
+    height: 300px;
     border-radius: 5px 5px 0 0;
 }
 
 .foodText {
     font-weight: bold;
     font-size: 16px;
+    max-width: 250px; /* 원하는 최대 너비 설정 */
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 내용 감춤 */
+    text-overflow: ellipsis; /* 생략 부호 표시 */
 }
 #foodMain {
     display: flex;
@@ -61,6 +68,24 @@
 	margin: 5px;
 }
 </style>
+<script type="text/javascript">
+$(function() {
+
+	$("#foodSearch").click(function() {
+		$.ajax({
+			url : "crawling",
+			data : {
+				Search : $("#foodSearchTitle").val()
+			},
+			success : function(x) {
+				console.log(x);
+				$("#contentWrap").html(x)
+			}
+		})  
+    });
+	
+});
+</script>
 <body>
 	<div id="wrap">
 		<div id="header">
@@ -75,19 +100,19 @@
 						<span style="font-size: 24px; font-weight: bolder; margin-bottom: 20px">뭐 먹을까요?</span>
 					</div>
 					<div class="search" style="">
-						<input type="text" placeholder="식재료, 가지고 있는 질병, 예방하고 싶은 질병 등으로 검색"> <a href="#"> 
-						<img alt="돋보기 아이콘" src="${pageContext.request.contextPath}/resources/img/Vector.png">
-						</a>
+						<input id="foodSearchTitle" type="text" placeholder="식재료, 가지고 있는 질병, 예방하고 싶은 질병 등으로 검색">
+						<img alt="돋보기 아이콘" id="foodSearch" src="${pageContext.request.contextPath}/resources/img/Vector.png">
 					</div>
-					<div style="margin-top: 50px;">
-						<c:forEach var="i" begin="1" end="9">
+					<div style="margin-top: 50px;" id="contentWrap">
+						<c:forEach var="i" begin="1" end="${fn:length(foodList)}">
 							<div class="food">
-								<img class="foodImage" src="${pageContext.request.contextPath}/resources/img/foodimg.png">
-								<div class="textContainer">
-									<div class="foodText">행복한 주방</div>
-									<div class="foodText" style="font-weight: normal;">맛있는 떡볶이</div>
+								<a href="${foodList[i-1].url}">
+									<img class="foodImage" src="${foodList[i-1].thumbnail}"></a>
+									<div class="textContainer">
+										<div class="foodText">${foodList[i-1].blogName}</div>
+										<div class="foodText" style="font-weight: normal;">${foodList[i-1].title}</div>
+									</div>
 								</div>
-							</div>
 						</c:forEach>
 					</div>
 					<div class="paging">

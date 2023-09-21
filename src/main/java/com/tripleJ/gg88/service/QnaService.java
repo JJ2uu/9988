@@ -24,12 +24,14 @@ public interface QnaService {
 	
 	void qnaUpdate(HttpSession session, Qna qnaVO);
 	
-	void qnaDelecte(HttpSession session, Qna qnaVO, QnaReply qnaReplyVO);
+	void qnaDelete(HttpSession session, Qna qnaVO, QnaReply qnaReplyVO);
 	
 	void qnaViews(int qnaId);
 	
 	void replyCount(HttpSession session, int qnaId);
 	
 	void mainQna(Page page, Model model);
+	
+	int NickToNo(String nickname);
 	
 }
