@@ -94,7 +94,6 @@
 	    
 	    var myQnaCnt;
 		var myReplyCnt;
-		var myLikeCnt;
 	    
 	    /* 마이페이지 - 내 활동 이력 count */
 	    $.ajax({
@@ -105,15 +104,12 @@
 	    	success: function(response) {
 	    		myQnaCnt = response.myQna
 	    		myReplyCnt = response.myReply
-	    		myLikeCnt = response.myLike
 				
 	    		const qnaSpan = document.getElementById("qnaCnt")
 	    		const replySpan = document.getElementById("replyCnt")
-	    		const likeSpan = document.getElementById("likeCnt")
 	    		
 	    		qnaSpan.innerHTML = myQnaCnt
 	    		replySpan.innerHTML = myReplyCnt
-	    		likeSpan.innerHTML = myLikeCnt
 	    		
 	    		/* 페이지 로드시 나의 질문 로드 */
 	    		myQna(myQnaCnt);
@@ -133,9 +129,6 @@
 				myQna(myQnaCnt);
 			} else if (tabId === "replyTab") {
 				myReply(myReplyCnt);
-			} else {
-				$("#paging_wrap").empty();
-				$("#dataList").empty();
 			}
 		})
 		
@@ -351,10 +344,6 @@
 										<div class="tab2_section" id="replyTab">
 											<span>나의 답변</span>
 											<span class="count" id="replyCnt"></span>
-										</div>
-										<div class="tab2_section" id="likeTab">
-											<span>좋아요</span>
-											<span class="count" id="likeCnt"></span>
 										</div>
 									</div>
 									<table id="dataList"></table>
