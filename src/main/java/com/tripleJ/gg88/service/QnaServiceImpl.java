@@ -33,50 +33,28 @@ public class QnaServiceImpl implements QnaService {
 	@Autowired
 	MemberRepository memberRepo;
 	
-	public String qnaBoard(Page page, Model model) {
-		page.setStartEnd(page.getPage());
-		int count = qnaRepo.countAll();
-		int pages = count / 10 + 1;
-		if (count % 10 == 0) {
-			--pages;
-		}
-		List<Qna> qnaList = qnaRepo.qnaList(page);
-		List<String> formattedDates = new ArrayList<>();
-		List<String> writerList = new ArrayList<>();
-		
-		for (Qna qnaVO : qnaList) {
-			int qnaId = qnaVO.getQnaId();
-	        qnaRepo.replyCount(qnaId);
-	        
-	        int memberNo = qnaVO.getMemberNo();
-	        String writer = qnaRepo.NoToNick(memberNo);
-	        writerList.add(writer);
-	        
-	        String formattedDate = formattedDate(qnaVO.getDate());
-	        formattedDates.add(formattedDate);
-	    }
-		
-		model.addAttribute("formattedDates", formattedDates);
-		model.addAttribute("writerList", writerList);
-		model.addAttribute("qnaList", qnaList);
-		model.addAttribute("count", count);
-		model.addAttribute("pages", pages);
+	public String qnaBoard( Model model) {
+		List<Qna> qnaList = qnaRepo.qnaList();
+		model.addAttribute("listCount", qnaList.size());
 		return "qna/qnaBoard";
 	}
 	
-	public void qnaPage(Page page, Model model) {
-		page.setStartEnd(page.getPage());
-		int count = qnaRepo.countAll();
-		int pages = count / 10 + 1;
-		if (count % 10 == 0) {
-			--pages;
-		}
-		List<Qna> qnaList = qnaRepo.qnaList(page);
-		List<String> formattedDates = new ArrayList<>();
-		List<String> writerList = new ArrayList<>();
-		
-		for (Qna qnaVO : qnaList) {
-			int qnaId = qnaVO.getQnaId();
+	public void qnaPage(int page, int pageSize, Model model) {
+	    List<Qna> qnaList = qnaRepo.qnaList();
+	    
+	    // 페이징을 위한 시작 인덱스와 끝 인덱스 계산
+	    int startIndex = (page - 1) * pageSize;
+	    int endIndex = Math.min(startIndex + pageSize, qnaList.size());
+
+	    // 페이징된 데이터 추출
+	    List<Qna> pageData = qnaList.subList(startIndex, endIndex);
+
+	    List<String> formattedDates = new ArrayList<>();
+	    List<String> writerList = new ArrayList<>();
+	    
+	    // 페이징된 데이터에 대해 작성일과 작성자 목록을 계산
+	    for (Qna qnaVO : pageData) {
+	        int qnaId = qnaVO.getQnaId();
 	        qnaRepo.replyCount(qnaId);
 	        
 	        int memberNo = qnaVO.getMemberNo();
@@ -86,13 +64,13 @@ public class QnaServiceImpl implements QnaService {
 	        String formattedDate = formattedDate(qnaVO.getDate());
 	        formattedDates.add(formattedDate);
 	    }
-		
-		model.addAttribute("formattedDates", formattedDates);
-		model.addAttribute("writerList", writerList);
-		model.addAttribute("qnaList", qnaList);
-		model.addAttribute("count", count);
-		model.addAttribute("pages", pages);
+	    
+	    model.addAttribute("pageData", pageData);
+	    model.addAttribute("listCount", qnaList.size());
+	    model.addAttribute("formattedDates", formattedDates);
+	    model.addAttribute("writerList", writerList);
 	}
+
 	
 	public String qnaCreate() {
 		return "qna/qnaCreate";
@@ -150,7 +128,7 @@ public class QnaServiceImpl implements QnaService {
 		page.setStartEnd(page.getPage());
 		int count = qnaRepo.countAll();
 		int pages = 1;
-		List<Qna> qnaList = qnaRepo.qnaList(page);
+		List<Qna> qnaList = qnaRepo.qnaList();
 		List<String> formattedDates = new ArrayList<>();
 		
 		for (Qna qnaVO : qnaList) {

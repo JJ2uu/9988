@@ -8,13 +8,8 @@
 		values(#{memberNo}, #{title}, #{content}, #{category});
 	</insert>
 	
-	<select id="qnaList" resultType="qna" parameterType="page">
-		SELECT *
-		FROM (
-    	SELECT ROW_NUMBER() OVER (order by `date` desc) AS qna_no, q.*
-    	FROM qna q
-    	) AS temp
-		WHERE qna_no BETWEEN #{start} AND #{end};
+	<select id="qnaList" resultType="qna">
+		select * from qna order by `date` desc 
 	</select>
 	
 	<select id="qnaDetail" resultType="qna" parameterType="Integer" >

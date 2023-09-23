@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tripleJ.gg88.domain.Member;
-import com.tripleJ.gg88.domain.Page;
 import com.tripleJ.gg88.domain.Qna;
 
 @Repository
@@ -20,8 +19,8 @@ public class QnaRepositoryImpl implements QnaRepository {
 		return my.insert("qna.qnaInsert", qnaVO);
 	}
 	
-	public List<Qna> qnaList(Page page){
-		return my.selectList("qna.qnaList", page);
+	public List<Qna> qnaList(){
+		return my.selectList("qna.qnaList");
 	}
 	
 	public Qna qnaDetail(int qnaId) {
