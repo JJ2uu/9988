@@ -15,8 +15,15 @@
 <title>99팔팔</title>
 
 <script type="text/javascript">
+
 $(function() {
     const pagination = $("#paging_wrap");
+	var userNick = '<%= session.getAttribute("userNick") %>';
+    console.log(userNick);
+    // userNick이 null이면 qnaWrite 버튼 숨기기
+    if (userNick === "null") {
+        $("#qnaWrite").hide();
+    }
 
     // 페이징 버튼 업데이트
     function updatePagination(currentPage, totalCnt, totalPages, type) {

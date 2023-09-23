@@ -99,6 +99,11 @@ $(function() {
 	var writer = '${writer}';
     console.log(userNick);
     console.log(writer);
+    
+    if (userNick === "null") {
+        $("#replyWrite").hide();
+        $(".reReply").hide();
+    }
 
     // userNick과 writer가 같으면 버튼 표시
     if (userNick === writer) {
