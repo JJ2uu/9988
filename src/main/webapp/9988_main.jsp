@@ -26,6 +26,13 @@ $(function() {
         	$('#mainQnaWrap').html(x)
         }
     });
+    
+    $.ajax({
+        url: 'main/main_food',
+        success: function(x) {
+        	$('#mainFoodWrap').html(x)
+        }
+    });
         
 });
 </script>
@@ -64,9 +71,7 @@ $(function() {
 						</jsp:include></div></div></div>
 				<div id="main_food"><div class="menu">뭐먹을까요?</div>
 					<div style="display: flex; justify-content: space-around;">
-						<jsp:include page="WEB-INF/views/main/main_food.jsp" flush="true">
-							<jsp:param name="mode" value="1"/>
-						</jsp:include></div></div>
+						<div id="mainFoodWrap"></div></div></div>
 				<div id="main_exercise"><div class="menu">운동해요</div>
 				<div><jsp:include page="WEB-INF/views/main/main_exercise.jsp" flush="true">
 							<jsp:param name="mode" value="1"/>

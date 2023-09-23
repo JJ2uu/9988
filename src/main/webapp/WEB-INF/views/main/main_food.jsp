@@ -12,6 +12,7 @@
 
 .foodImage {
     width: 250px;
+    height: 150px;
     border-radius: 5px;
 }
 
@@ -36,14 +37,18 @@
     color: white;
     font-weight: bold;
     font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }
 </style>
 <c:forEach var="i" begin="1" end="4">
-	<div class="food">
-		<img class="foodImage" src="${pageContext.request.contextPath}/resources/img/foodimg.png">
+	<a href="${foodList[i-1].url}"  class="food">
+		<img class="foodImage" src="${foodList[i-1].thumbnail}">
 		<div class="textContainer">
-			<div class="foodText">행복한 주방</div>
-			<div class="foodText" style="font-weight: normal;">맛있는 떡볶이</div>
+			<div class="foodText">${foodList[i-1].blogName}</div>
+			<div class="foodText" style="font-weight: normal;">${foodList[i-1].title}</div>
 		</div>
-	</div>
+	</a>
 </c:forEach>
