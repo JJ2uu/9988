@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tripleJ.gg88.domain.QnaReply;
@@ -20,13 +21,13 @@ public class QnaController {
 	QnaService qnaService;
 	
 	@RequestMapping("qna/qnaBoard")
-	public String qnaBoard(Page page, Model model) {
-		return qnaService.qnaBoard(page, model);
+	public String qnaBoard(Model model) {
+		return qnaService.qnaBoard(model);
 	}
 	
 	@RequestMapping("qna/qnaPage")
-	public void qnaPage(Page page, Model model) {
-		qnaService.qnaPage(page, model);
+	public void qnaPage(@RequestParam(required = true) int page, int pageSize, Model model) {
+		qnaService.qnaPage(page, pageSize, model);
 	}
 	
 	@RequestMapping("qna/qnaCreate")

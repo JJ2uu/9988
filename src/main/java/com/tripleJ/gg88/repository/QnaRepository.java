@@ -2,14 +2,13 @@ package com.tripleJ.gg88.repository;
 
 import java.util.List;
 
-import com.tripleJ.gg88.domain.Page;
 import com.tripleJ.gg88.domain.Qna;
 
 public interface QnaRepository {
 	
 	int qnaInsert(Qna qnaVO);
 	
-	List<Qna> qnaList(Page page);
+	List<Qna> qnaList();
 	
 	Qna qnaDetail(int qnaId) ;
 	
