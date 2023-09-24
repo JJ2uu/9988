@@ -60,9 +60,11 @@
     });
 </script>
 <div class="slideshow-container">
-    <c:forEach var="i" begin="1" end="4">
-        <img width="400px" height="250px" src="${pageContext.request.contextPath}/resources/img/emergency.png">
+    <c:forEach var="emergencyList" items="${emergencyList}" begin="1" end="4">
+    	<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
+			<img width="400px" height="250px" alt="응급상황 사진" align="left" src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+		</a>
     </c:forEach>
-	 <span class="material-symbols-outlined prev">arrow_back_ios</span>
-	 <span class="material-symbols-outlined next">arrow_forward_ios</span>
+	<span class="material-symbols-outlined prev">arrow_back_ios</span>
+	<span class="material-symbols-outlined next">arrow_forward_ios</span>
 </div>

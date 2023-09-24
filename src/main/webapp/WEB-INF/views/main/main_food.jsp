@@ -8,11 +8,12 @@
     cursor: pointer;
     background: #000;
     border-radius: 5px;
+    height: 180px;
 }
 
 .foodImage {
     width: 250px;
-    height: 150px;
+    height: 180px;
     border-radius: 5px;
 }
 

@@ -1,8 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.tripleJ.gg88.domain.Daily"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script type="text/javascript">
+	$(function() {
+		$(".article").click(function() {
+			let newsUrl = $(this).data("newsurl");
+			
+			window.location.href = "${pageContext.request.contextPath}/daily/articleDetail.jsp?newsUrl=" + newsUrl;
+		})
+	})
+</script>
 <style type="text/css">
 .article{
 	align-content: center;
+	cursor: pointer;
 }
 
 .articleImage {
@@ -29,12 +42,15 @@
     padding-top: 5px;
 }
 </style>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<c:forEach var="i" begin="1" end="4">
-	<div class="article">
-		<img class="articleImage" alt="기사썸네일" src="${pageContext.request.contextPath}/resources/img/articleimg.jpg" width="250px" height="200px">
-		<div class="articleCompany">한국경제 TV</div>
-		<div class="articleTitle">열나면서 고개 숙이기 어렵다면? 감기 아닌 '뇌수막염'</div>
-		<div class="articleContent">38도 이상의 고열, 두통, 오한 증상이 나타나면 대부분의 사람들은 ...</div>
+<c:forEach begin="1" end="4" items="${newsList}" var="list">
+	<div class="article" data-newsurl="${list.newsUrl}">
+		<c:if test="${not empty list.imgUrl}">
+			<div class="articleImage">
+				<img src="${list.imgUrl}" width="230px" style="border-radius: 5px">
+			</div>
+		</c:if>
+		<div class="articleCompany">${list.writing}</div>
+		<div class="articleTitle">${list.title}</div>
+		<div class="articleContent">${list.content}</div>
 	</div>
 </c:forEach>

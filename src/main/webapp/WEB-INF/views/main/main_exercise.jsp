@@ -40,15 +40,20 @@
 </style>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <div class="exerciseContainer">
-	<div class="bigContainer">
-	  	<img class="exerciseImage bigImage" src="${pageContext.request.contextPath}/resources/img/exerciseimg.png" width="500px">
-		<div class="bigSizeText">[ENG]딱 20분 하루 운동 끝장내는 전신운동과 올인원루틴</div>
-	</div>
-	<div class="smallContainer">
-		<c:forEach var="i" begin="1" end="4">
-			<div class="exerciseLeft">
-				<img class="exerciseImage" src="${pageContext.request.contextPath}/resources/img/exerciseimg.png" width="200px">
-				<div class="exerciseText">[ENG]딱 20분 하루 운동 끝장내는 전신운동과 올인원루틴</div></div>
-		</c:forEach>
-	</div>
+    <div class="bigContainer">
+	    <a href="https://www.youtube.com/watch?v=${exercise[0].videoId}">
+	        <img src="${exercise[0].url}" class="exerciseImage" src="${pageContext.request.contextPath}/resources/img/exerciseimg.png" width="500px">
+	        <div class="bigSizeText">${exercise[0].title}</div>
+        </a>
+    </div>
+    <div class="smallContainer">
+        <c:forEach var="exercise" items="${exercise}" varStatus="loop" begin="1" end="4">
+            <div class="exerciseLeft">
+	            <a href="https://www.youtube.com/watch?v=${exercise.videoId}">
+	                <img src="${exercise.url}" class="exerciseImage" src="${pageContext.request.contextPath}/resources/img/exerciseimg.png" width="200px">
+	                <div class="exerciseText">${exercise.title}</div>
+	            </a>
+            </div>
+        </c:forEach>
+    </div>
 </div>
