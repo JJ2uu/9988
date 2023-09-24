@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tripleJ.gg88.domain.QnaReply;
-import com.tripleJ.gg88.domain.Page;
 import com.tripleJ.gg88.domain.Qna;
 import com.tripleJ.gg88.service.QnaService;
 
@@ -74,12 +73,6 @@ public class QnaController {
 	@ResponseBody
 	public void replyCount(HttpSession session, int qnaId) {
 		qnaService.replyCount(session, qnaId);
-	}
-	
-	@RequestMapping("main/main_qna")
-	public void mainQna(Page page, Model model) {
-		qnaService.mainQna(page, model);
-		
 	}
 	
 	@RequestMapping("qna/NickToNo")

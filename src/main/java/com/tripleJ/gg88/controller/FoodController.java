@@ -27,12 +27,6 @@ public class FoodController {
 		model.addAttribute("foodList",foodList);
 	}
 	
-	@RequestMapping("main/main_food")
-	public void mainFood(Model model) throws Exception {
-		List<Food> foodList = service.foodMainCrawling(model);
-		model.addAttribute("foodList",foodList);
-	}
-	
 	
 	
 }
