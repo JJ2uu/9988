@@ -94,6 +94,7 @@
 	    
 	    var myQnaCnt;
 		var myReplyCnt;
+		var searchType = "qna";
 	    
 	    /* 마이페이지 - 내 활동 이력 count */
 	    $.ajax({
@@ -126,8 +127,12 @@
 			let tabId = $(this).attr("id");
 			
 			if (tabId === "qnaTab") {
+				searchType = 'qna'
+				$('#searchBar').val("")
 				myQna(myQnaCnt);
 			} else if (tabId === "replyTab") {
+				searchType = 'reply'
+				$('#searchBar').val("")
 				myReply(myReplyCnt);
 			}
 		})
@@ -197,6 +202,7 @@
 				    	success: function(response) {
 				    		$("#dataList").empty();
 				    		$("#dataList").append(response);
+				    		window.scrollTo(0, 0);
 						}
 				    })
 				} else if (type == 'reply') {
@@ -210,8 +216,43 @@
 				    	success: function(response) {
 				    		$("#dataList").empty();
 				    		$("#dataList").append(response);
+				    		window.scrollTo(0, 0);
 						}
 				    })
+				} else if (type == 'qnaSearch') {
+					var search = $('#searchBar').val()
+					
+					$.ajax({
+						url: '../member/info/qnaKeywordSearch',
+						data: {
+							nickname : userNick,
+							keyword : search,
+							page : currentPage,
+							pageSize : 10
+						},
+						success: function(response) {
+							$("#dataList").empty();
+				    		$("#dataList").append(response);
+				    		window.scrollTo(0, 0);
+						}
+					})
+				} else if (type == 'replySearch') {
+					var search = $('#searchBar').val()
+					
+					$.ajax({
+						url: '../member/info/replyKeywordSearch',
+						data: {
+							nickname : userNick,
+							keyword : search,
+							page : currentPage,
+							pageSize : 10
+						},
+						success: function(response) {
+							$("#dataList").empty();
+				    		$("#dataList").append(response);
+				    		window.scrollTo(0, 0);
+						}
+					})
 				}
 			});
 			pagination.appendChild(button);
@@ -287,16 +328,90 @@
 		/* 검색 엔터키 이벤트 테스트 */
 		$("#searchBar").keyup(function(event) {
 			if (event.which == 13) {
-				var search = $('#searchBar').val()
-				console.log(search);
+				if (searchType == 'qna') {
+					qnaSearch()
+					window.scrollTo(0, 0);
+				} else {
+					replySearch()
+					window.scrollTo(0, 0);
+				}
 			}
 		})
 		
 		/* 검색 마우스 클릭 이벤트 테스트 */
 		$("#btn_search").click(function() {
-			var search = $('#searchBar').val()
-			console.log(search);
+			if (searchType == 'qna') {
+				qnaSearch()
+				window.scrollTo(0, 0);
+			} else {
+				replySearch()
+				window.scrollTo(0, 0);
+			}
 		})
+		
+		/* 나의 질문 키워드 검색 */
+		function qnaSearch() {
+	    	var search = $('#searchBar').val()
+	    	
+	    	if (search.length >= 2) {
+				$.ajax({
+					url: '../member/info/qnaKeywordSearch',
+					data: {
+						nickname : userNick,
+						keyword : search,
+						page : 1,
+						pageSize : 10
+					},
+					success: function(response) {
+						$("#dataList").empty();
+						$("#dataList").append(response);
+						
+						let qnaSearchTotalCnt = $("#listSize").text();
+						if (qnaSearchTotalCnt != null) {
+							let qnaSearchTotal = Math.ceil(parseInt(qnaSearchTotalCnt) / 10);
+							updatePagination(1, qnaSearchTotalCnt, qnaSearchTotal, 'qnaSearch')
+						}
+						
+						/* 페이징 버튼 css 클래스 추가 */
+						$(".btn_paging:first").addClass("current");
+					}
+				})
+			} else {
+				alert('2글자 이상 입력해 주세요.')
+			}
+		}
+	    
+	    /* 나의 답변 키워드 검색 */
+		function replySearch() {
+	    	var search = $('#searchBar').val()
+	    	
+	    	if (search.length >= 2) {
+	    		$.ajax({
+					url: '../member/info/replyKeywordSearch',
+					data: {
+						nickname : userNick,
+						keyword : search,
+						page : 1,
+						pageSize : 10
+					},
+					success: function(response) {
+						$("#dataList").empty();
+						$("#dataList").append(response);
+						
+						let replySearchTotalCnt = $("#listSize").text();
+						if (replySearchTotalCnt != null) {
+							let replySearchTotal = Math.ceil(parseInt(replySearchTotalCnt) / 10);
+							updatePagination(1, replySearchTotalCnt, replySearchTotal, 'replySearch')
+						}
+						
+						/* 페이징 버튼 css 클래스 추가 */
+						$(".btn_paging:first").addClass("current");
+					}
+				})
+			} else {
+				alert('2글자 이상 입력해 주세요.')
+			}
+		}
 	})
 	
 </script>
