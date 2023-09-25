@@ -25,7 +25,7 @@
 		<%
 			}
 		%>
-		<span class="row_content" style="margin-left: 20px; cursor: pointer;">
+		<span id="license" class="row_content" style="margin-left: 20px; cursor: pointer;">
 			의사 회원 전환하기
 			<span class="arrow"></span>
 		</span>

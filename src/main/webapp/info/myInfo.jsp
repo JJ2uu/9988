@@ -89,6 +89,10 @@
 				$("#info_pw").click(function() {
 					window.open('pwChange.jsp','비밀번호 변경','width=450,height=500');
 				})
+				
+				$("#license").click(function() {
+					window.open('license.jsp','의사 면허 인증','width=450,height=480');
+				})
 			}
 	    })
 	    
