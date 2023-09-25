@@ -1,5 +1,6 @@
 package com.tripleJ.gg88.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -55,6 +56,14 @@ public class QnaRepositoryImpl implements QnaRepository {
 		Member member = my.selectOne("member.noToNick", memberNo);
 		String writer = member.getNickname();
 		return writer;
+	}
+	
+	public List<Qna> searchAll(String search){
+		return my.selectList("qna.searchAll", search);
+	}
+	
+	public List<Qna> categorySearch(HashMap<String, String> map){
+		return my.selectList("qna.categorySearch", map);
 	}
 
 }

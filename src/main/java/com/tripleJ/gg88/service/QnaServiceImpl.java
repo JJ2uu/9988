@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -161,6 +162,72 @@ public class QnaServiceImpl implements QnaService {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy. MM. dd");
 		String formattedDate = format.format(adjustedDate);
 		return formattedDate;
+	}
+	
+	public void searchAllPage(int page, int pageSize, String search, Model model) {
+	    List<Qna> qnaList = qnaRepo.searchAll(search);
+	    
+	    // 페이징을 위한 시작 인덱스와 끝 인덱스 계산
+	    int startIndex = (page - 1) * pageSize;
+	    int endIndex = Math.min(startIndex + pageSize, qnaList.size());
+
+	    // 페이징된 데이터 추출
+	    List<Qna> pageData = qnaList.subList(startIndex, endIndex);
+
+	    List<String> formattedDates = new ArrayList<>();
+	    List<String> writerList = new ArrayList<>();
+	    
+	    // 페이징된 데이터에 대해 작성일과 작성자 목록을 계산
+	    for (Qna qnaVO : pageData) {
+	        int qnaId = qnaVO.getQnaId();
+	        qnaRepo.replyCount(qnaId);
+	        
+	        int memberNo = qnaVO.getMemberNo();
+	        String writer = qnaRepo.NoToNick(memberNo);
+	        writerList.add(writer);
+	        
+	        String formattedDate = formattedDate(qnaVO.getDate());
+	        formattedDates.add(formattedDate);
+	    }
+	    model.addAttribute("pageData", pageData);
+	    model.addAttribute("listCount", qnaList.size());
+	    model.addAttribute("formattedDates", formattedDates);
+	    model.addAttribute("writerList", writerList);
+	}
+	
+	public void categorySearchPage(int page, int pageSize, String search, String category, Model model) {
+	    HashMap<String, String> map = new HashMap<String, String>();
+	    map.put("search", search);
+	    map.put("category", category);
+	    
+	    List<Qna> qnaList = qnaRepo.categorySearch(map);
+
+	    // 페이징을 위한 시작 인덱스와 끝 인덱스 계산
+	    int startIndex = (page - 1) * pageSize;
+	    int endIndex = Math.min(startIndex + pageSize, qnaList.size());
+
+	    // 페이징된 데이터 추출
+	    List<Qna> pageData = qnaList.subList(startIndex, endIndex);
+
+	    List<String> formattedDates = new ArrayList<>();
+	    List<String> writerList = new ArrayList<>();
+	    
+	    // 페이징된 데이터에 대해 작성일과 작성자 목록을 계산
+	    for (Qna qnaVO : pageData) {
+	        int qnaId = qnaVO.getQnaId();
+	        qnaRepo.replyCount(qnaId);
+	        
+	        int memberNo = qnaVO.getMemberNo();
+	        String writer = qnaRepo.NoToNick(memberNo);
+	        writerList.add(writer);
+	        
+	        String formattedDate = formattedDate(qnaVO.getDate());
+	        formattedDates.add(formattedDate);
+	    }
+	    model.addAttribute("pageData", pageData);
+	    model.addAttribute("listCount", qnaList.size());
+	    model.addAttribute("formattedDates", formattedDates);
+	    model.addAttribute("writerList", writerList);
 	}
 	
 

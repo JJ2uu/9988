@@ -43,5 +43,21 @@
 	<select id="userQnaList" resultType="qna">
 		select * from qna where member_no = #{memberNo} order by date desc
 	</select>
+	
+	<select id="searchAll" parameterType="String" resultType="qna">
+		select * from qna 
+		where content like concat('%',#{search},'%') 
+		or title like concat('%',#{search},'%') 
+		order by `date` desc
+	</select>
+	
+	<select id="categorySearch" parameterType="Map" resultType="qna">
+		select * from qna 
+		where category = #{category} 
+		and (content like concat('%',#{search},'%') 
+		or title like concat('%',#{search},'%')) 
+		order by `date` desc
+	</select>
+	
 
 </mapper>

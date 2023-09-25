@@ -19,7 +19,7 @@
 $(function() {
     const pagination = $("#paging_wrap");
 	var userNick = '<%= session.getAttribute("userNick") %>';
-    console.log(userNick);
+	
     // userNick이 null이면 qnaWrite 버튼 숨기기
     if (userNick === "null") {
         $("#qnaWrite").hide();
@@ -67,6 +67,9 @@ $(function() {
 			let currentPage = parseInt($(this).attr("value"));
 		    let buttonText = $(this).text();
 		    
+		    let searchInput = $('#searchInput').val();
+		    let selectedCategory = document.getElementById('category_select').value;
+		    
 			if (buttonText === "←" && page > 1) {
 				updatePagination(currentPage, listCount, totalPages, type);
 				$(".btn_paging[value=" + page + "]").addClass("current");
@@ -76,16 +79,44 @@ $(function() {
 			} else {
 				currentPage = page;
 			}
-            $.ajax({
-                url: 'qnaPage',
-                data: {
-                    page: currentPage,
-                    pageSize: 10
-                },
-                success: function (response) {
-                    $("#qnaTable").empty().append(response);
-                }
-            });
+			if(type == 'qna'){
+				$.ajax({
+	                url: 'qnaPage',
+	                data: {
+	                    page: currentPage,
+	                    pageSize: 10
+	                },
+	                success: function (response) {
+	                    $("#qnaTable").empty().append(response);
+	                }
+	            });
+			}else if(type == 'searchAll'){
+				$.ajax({
+		            url: 'searchAllPage',
+		            data:{
+		            	search: searchInput,
+		            	page: currentPage,
+		                pageSize: 10
+		                },
+		            success: function (response) {
+		            	$("#qnaTable").empty().append(response);
+		            }
+		        });
+			}else if(type == 'categorySearch'){
+				$.ajax({
+		            url: 'categorySearchPage',
+		            data:{
+		            	search: searchInput,
+		            	category: selectedCategory,
+		            	page: currentPage,
+		                pageSize: 10
+		                },
+		            success: function (response) {
+		            	$("#qnaTable").empty().append(response);
+		            }
+		        });
+			}
+            
         });
         pagination.append(button);
     }
@@ -121,6 +152,56 @@ $(function() {
             }
         });
     });
+   
+    $("#searchIcon").click(function () { 
+    	var searchInput = $('#searchInput').val();
+   	 	var selectedCategory = document.getElementById('category_select').value;
+    	if (searchInput === '') {
+    		console.log(searchInput)
+    		alert("검색어를 입력해주세요")
+		}else if(selectedCategory == "전체"){
+			$.ajax({
+	            url: 'searchAllPage',
+	            data:{
+	            	search: searchInput,
+	            	page: 1,
+	                pageSize: 10
+	                },
+	            success: function (response) {
+	            	$("#qnaTable").empty().append(response);
+	            	let searchAllListCount = $("#searchAllListCount").text();
+	            	if (searchAllListCount == '0') {
+						alert("검색결과가 없습니다.");
+						qnaPage(listCount);
+					}else{
+						updatePagination(1, searchAllListCount, Math.ceil(parseInt(searchAllListCount) / 10), 'searchAll');
+					}
+	                $(".btn_paging:first").addClass("current");
+	            }
+	        });
+		}else{
+			$.ajax({
+	            url: 'categorySearchPage',
+	            data:{
+	            	search: searchInput,
+	            	category: selectedCategory,
+	            	page: 1,
+	                pageSize: 10
+	                },
+	            success: function (response) {
+	            	$("#qnaTable").empty().append(response);
+	            	let categorySearchListCount = $("#categorySearchListCount").text();
+	            	if (categorySearchListCount== '0') {
+	            		alert("검색결과가 없습니다.");
+						qnaPage(listCount);
+					}else{
+	            		updatePagination(1, categorySearchListCount, Math.ceil(parseInt(categorySearchListCount) / 10), 'categorySearch');
+					}
+	                $(".btn_paging:first").addClass("current");
+	            }
+	        });
+		}
+    });
 });
 </script>
 
@@ -139,11 +220,11 @@ $(function() {
                     <div style="font-size: 24px; font-weight: bolder; margin-bottom: 20px;">질문있어요</div>
                     <div id="search" style="display: flex; flex-direction: row-reverse; margin: 9px; margin-bottom: 20px;">
                         <div id="search_wrap" style="position: relative;">
-                            <img alt="돋보기 아이콘" style="position: absolute; right: 8px; margin-top: 4px; width: 18px;top: 2px;"
+                            <img alt="돋보기 아이콘" id="searchIcon" style="position: absolute; right: 8px; margin-top: 4px; width: 18px;top: 2px;"
                                 src="${pageContext.request.contextPath}/resources/img/Vector.png">
-                            <input type="text" placeholder="검색어를 입력하세요." style="height: 25px; width: 220px;"> </div>
-                        <select class="board_category" name="category">
-                            <option>카테고리</option>
+                            <input type="text" id="searchInput" placeholder="검색어를 입력하세요." style="height: 25px; width: 220px;"></div>
+                        <select class="board_category" name="category" id="category_select">
+                            <option value="전체">전체</option>
                             <option value="병원">병원</option>
                             <option value="질병">질병</option>
                             <option value="의약품">의약품</option>

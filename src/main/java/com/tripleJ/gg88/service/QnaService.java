@@ -34,4 +34,7 @@ public interface QnaService {
 	
 	int NickToNo(String nickname);
 	
+	void searchAllPage(int page, int pageSize, String search, Model model);
+	
+	void categorySearchPage(int page, int pageSize, String search, String category, Model model);
 }

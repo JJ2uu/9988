@@ -81,5 +81,14 @@ public class QnaController {
 		return qnaService.NickToNo(nickname);
 	}
 	
+	@RequestMapping("qna/searchAllPage")
+	public void searchAllPage(@RequestParam(required = true) int page, int pageSize, String search, Model model) {
+		qnaService.searchAllPage(page, pageSize, search, model);
+	}
+	@RequestMapping("qna/categorySearchPage")
+	public void categorySearchPage(@RequestParam(required = true) int page, int pageSize, String search, String category, Model model) {
+		qnaService.categorySearchPage(page, pageSize, search, category, model);
+	}
+	
 	
 }
