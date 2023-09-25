@@ -1,21 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style type="text/css">
-table {
-	border-collapse: collapse;
-	width: 500px;
-	font-size: large;
-}
-
-th, td{
-	padding: 8px;
-	text-align: center;
-	border-bottom: 1px solid #ddd;
-}
-.title{
-	cursor: pointer;
-}
-</style>
 <script type="text/javascript">
 $(".title").click(function() {
 	var qnaId = $(this).find('.qnaId').text();

@@ -12,36 +12,6 @@
 		})
 	})
 </script>
-<style type="text/css">
-.article{
-	align-content: center;
-	cursor: pointer;
-}
-
-.articleImage {
-    border-radius: 5px;
-}
-.articleTitle {
-    max-width: 250px; /* 원하는 최대 너비 설정 */
-    white-space: nowrap; /* 글자 줄바꿈 방지 */
-    overflow: hidden; /* 넘치는 내용 감춤 */
-    text-overflow: ellipsis; /* 생략 부호 표시 */
-    font-weight: bold;
-}
-.articleContent {
-    max-width: 250px; /* 원하는 최대 너비 설정 */
-    white-space: nowrap; /* 글자 줄바꿈 방지 */
-    overflow: hidden; /* 넘치는 내용 감춤 */
-    text-overflow: ellipsis; /* 생략 부호 표시 */
-}
-.articleCompany {
-    color: #407FBA;
-    font-weight: 500;
-    text-align: left;
-    padding-bottom: 5px;
-    padding-top: 5px;
-}
-</style>
 <c:forEach begin="1" end="4" items="${newsList}" var="list">
 	<div class="article" data-newsurl="${list.newsUrl}">
 		<c:if test="${not empty list.imgUrl}">
