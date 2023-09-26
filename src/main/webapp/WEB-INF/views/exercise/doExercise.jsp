@@ -17,63 +17,41 @@
 	href="${pageContext.request.contextPath}/resources/css/search_box.css" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
-$(function() {
-	$.ajax({
-		type : 'POST',
-		url : "${pageContext.request.contextPath}/exercise/getPage",
-		data: {
-			currentNum: 1
-		},
-		traditional: true,
-		success : function(data) {
-			if(data.xprev){
-				$('#paganation').append('<button type="button"><</button>')
-			}
-			
-			console.log(data)
-			
-			var first = data.firstPageNoOnPageList;
-			var last = data.lastPageNoOnPageList;
-			
-			for(i = first; i <= last+1; i++){
-				$('#paganation').append('<button type="button" class="page_btn uncheck_btn" onclick="doAction(' + i + ')" id="btn_' + i + '">'+ i +'</button>')
-			} 
-			
-			var recordCountPerPage = data.recordCountPerPage;
-			
-			if(data.xnext){
-				$('#paganation').append('<button type="button">></button>') 
-			}
-			
-			if(data.currentPageNo == 1){
-				$('#btn_1').removeClass("uncheck_btn");
-				$('#btn_1').addClass("check_btn");
-			}
-			
-		},
-		error : function(error) {
-			console.error('Error:', error);
-		} 
-	})//ajax
-}) 
-
-function doAction(seq){
-	var currentCount = seq;
-	
-	let f = document.createElement('form');
-	let obj;
-	obj = document.createElement('input');
-    obj.setAttribute('type', 'hidden');
-    obj.setAttribute('value', currentCount);
-    
-    f.appendChild(obj);
-    f.setAttribute('method', 'post');
-    f.setAttribute('action', 'getPage');
-    
-    document.body.appendChild(f);
-    f.submit();
+function searchWithKeyword() {
+	console.log('클릭됨');
+ 	var keyword = document.getElementById("keyword").value;
+ 	
+ 	if(keyword){
+	 	$.ajax({
+	 		type: 'post', 
+	 		url: '${pageContext.request.contextPath}/exercise/search',
+	 		data: {
+	 			keyword: keyword
+	 		},
+	 		success: function(data){
+			 	$('#main_div').empty();
+			 	
+	 			console.log(data)
+	 			
+	 			$.each(data, function(index, item) { // 데이터 =item
+					$("#main_div").append(
+							'<div id="separate_div" style="width: 320px; margin-bottom: 20px;">' 
+							+ '<a href="https://www.youtube.com/watch?v=' + item.videoId + '><img src="' + item.url + '" width="' + item.width + '" heigth="' + item.height 
+							+ '"><span style="width: 323px; margin: auto;">' 
+							+ item.title + '</span></a></div>'); 
+				});
+	 		},
+	 		error: function(e){
+	 			console.error('Error', e)
+	 		}
+	 	})
+ 	} else {
+ 		alert("검색어를 입력해 주세요.");
+ 	}
 }
+
 </script>
+
 <style type="text/css">
 .paging button{
 	width: 40px;
@@ -105,27 +83,27 @@ function doAction(seq){
 		<div id="content_wrap">
 			<div id="content">
 				<!-- 이 content div 안에서  작업 시작-->
-				<div class="subheading" style="margin-bottom: 30px;">
+				<div class="subheading" style="margin-bottom: 20px;">
 					<span style="font-size: 24px; font-weight: bolder; margin-bottom: 20px">운동해요</span>
-					<img src="${pageContext.request.contextPath}/resources/img/stretching.png" width="16px">
+					<img src="${pageContext.request.contextPath}/resources/img/stretching.png" width="16px" style="cursor:pointer;">
 				</div>
+				<form action="exercise/search" id="search_frm" method="get">
 				<div class="search" style="margin: auto; margin-bottom: 40px;">
-					<input type="text" placeholder="증상에 대한 검색어를 입력하세요."> 
-					<a href="#"> <img alt="돋보기 아이콘"
-						src="${pageContext.request.contextPath}/resources/img/Vector.png">
+					<input id="keyword" type="text" placeholder="검색어를 입력해 주세요."> 
+					<a href="javascript:void(0);" onclick="searchWithKeyword();">
+					<img alt="돋보기 아이콘" src="${pageContext.request.contextPath}/resources/img/Vector.png">
 					</a>
 				</div>
-				<div style="width: 1000px; height: 800px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+				</form>
+				<div id="main_div" style="width: 1000px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
 					<c:forEach var="exercise" items="${exercise}">
-					<div style="width: 320px; margin-bottom: 20px;">
+					<div id="separate_div" style="width: 320px; margin-bottom: 20px;">
 						<a href="https://www.youtube.com/watch?v=${exercise.videoId}">
 							<img src="${exercise.url}" width="${exercise.width}" height="${exercise.height}">
 							<span style="width: 323px; margin: auto;">${exercise.title}</span>
 						</a>
 					</div>
 					</c:forEach>
-				</div>
-				<div class="paging" id="paganation" style="margin-top: 20px;">
 				</div>
 			</div>
 		</div>

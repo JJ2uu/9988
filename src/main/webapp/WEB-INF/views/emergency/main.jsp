@@ -30,9 +30,8 @@
 	border-style: none
 }
 </style>
-<!-- 전체 숫자 -->
 <script type="text/javascript">
-$(function() {
+$(document).ready(function(){
 	$.ajax({
 		type : 'POST',
 		url : "${pageContext.request.contextPath}/emergency/getPage",
@@ -45,13 +44,11 @@ $(function() {
 				$('#paganation').append('<button type="button"><</button>')
 			}
 			
-			console.log(data)
-			
 			var first = data.firstPageNoOnPageList;
 			var last = data.lastPageNoOnPageList;
 			
-			for(i = first; i <= last; i++){
-				$('#paganation').append('<button type="button" class="page_btn uncheck_btn" onclick="doAction()" id="btn_' + i + '" value="' + i + '">'+ i +'</button>')
+			for(i = first; i < last+1; i++){
+				$('#paganation').append('<button type="button" class="page_btn uncheck_btn" onclick="doAction(' + i + ')" id="btn_' + i + '">'+ i +'</button>')
 			} 
 			
 			var recordCountPerPage = data.recordCountPerPage;
@@ -60,10 +57,8 @@ $(function() {
 				$('#paganation').append('<button type="button">></button>') 
 			}
 			
-			if(data.currentPageNo == 1){
-				$('#btn_1').removeClass("uncheck_btn");
-				$('#btn_1').addClass("check_btn");
-			}
+			$('#btn_1').removeClass("uncheck_btn");
+			$('#btn_1').addClass("check_btn");
 			
 		},
 		error : function(error) {
@@ -71,16 +66,80 @@ $(function() {
 		} 
 	})//ajax
 }) 
-
-function doAction(){
-	var currentCount = $('.page_btn').val();
-	console.log(currentCount)
+	
+function doAction(seq){
+	var checkPageNum = seq;
+	var btn = '#btn_' + checkPageNum;
+	
+	$.ajax({
+		type: 'post',
+		url: '${pageContext.request.contextPath}/emergency/getPage',
+		data: {
+			currentNum: checkPageNum
+		}, 
+		success: function(data){
+			$('#paganation').empty();
+			
+			var firstRecord = data.firstRecordIndex;
+			var lastRecord = data.lastRecordIndex;
+			
+			getList(firstRecord, lastRecord);
+			
+			if(data.xprev){
+				$('#paganation').append('<button type="button"><</button>')
+			}
+			
+			var first = data.firstPageNoOnPageList;
+			var last = data.lastPageNoOnPageList;
+			
+			for(i = first; i < last+1; i++){
+				$('#paganation').append('<button type="button" class="page_btn uncheck_btn" onclick="doAction(' + i + ')" id="btn_' + i + '">'+ i +'</button>')
+			} 
+			
+			var recordCountPerPage = data.recordCountPerPage;
+			
+			if(data.xnext){
+				$('#paganation').append('<button type="button">></button>') 
+			}
+			
+			$(btn).removeClass("uncheck_btn");
+			$(btn).addClass("check_btn");
+		}, 
+		error: function(e){
+			console.log('Error', e);
+		}
+	})
+	
 }
 
-/* function getId(id){
-	var idx = $("")
-} */
-
+function getList(first, last){
+	console.log('성공')
+	
+	var f = first;
+	var l = last;
+	
+	$.ajax({
+		type: 'post',
+		url: '${pageContext.request.contextPath}/emergency/getList',
+		data: {
+			firstRecordIndex: f,
+			lastRecordIndex: l
+		}, 
+		success: function(data){
+			$('#contents').empty();
+			
+			$.each(data, function(index, item) { // 데이터 =item
+				$("#contents").append(
+						'<div class="img_box"><a href="${pageContext.request.contextPath}/emergency/board?emergencyId=' + item.emergencyId + '">'
+								+'<img alt="응급상황 사진" align="left" src="${pageContext.request.contextPath}/resources/img/test_img.png"><span>'
+						+ item.title + '</span></a></div>'); // index가 끝날때까지 
+			});
+		}, 
+		error: function(e){
+			console.log('Error', e);
+		}
+	})
+}
 
 </script>
 <title>99팔팔</title>
@@ -95,7 +154,7 @@ function doAction(){
 		<div id="content_wrap">
 			<div id="content" style="width: 1000px; display: flex; flex-direction: column; align-items: center;">
 				<!-- 이 content div 안에서  작업 시작-->
-				<div class="subheading" style="margin-bottom: 30px;">
+				<div class="subheading" style="margin-bottom: 20px;">
 				<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
 				</div>
 				<div class="search"
@@ -107,12 +166,14 @@ function doAction(){
 				</div>
 
 				<div id="plus_content" style="display: flex; justify-content: flex-end;">
-					<form action="createBoard">
-						<button type="submit" class="contetn_btn">응급상황 추가하기</button>
-					</form>
+					<c:if test="${memberNo != 0}">
+						<form action="createBoard">
+							<button type="submit" class="contetn_btn">응급상황 추가하기</button>
+						</form>
+					</c:if>
 				</div>
 				
-				<div style="width: 880px; display: flex; gap: 10px; justify-content: space-between; flex-wrap: wrap;">
+				<div id="contents" style="width: 880px; display: flex; gap: 10px; flex-wrap: wrap;">
 					<c:forEach var="emergencyList" items="${emergencyList}">
 						<div class="img_box">
 						<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
@@ -121,9 +182,9 @@ function doAction(){
 						</a>
 						</div>
 					</c:forEach>
-					<div class="paging" id="paganation" style="margin: 20px;">
-					</div>
 				</div>
+			<div class="paging" id="paganation" style="margin: 20px;">
+			</div>
 		</div><!-- content div -->
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true" />
