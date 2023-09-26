@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tripleJ.gg88.domain.Exercise;
-import com.tripleJ.gg88.model.PagingDto;
 import com.tripleJ.gg88.service.ExerciseService;
 
 @Controller
@@ -26,16 +25,15 @@ public class ExerciseController {
 	}
 
 	@RequestMapping(value = "/doExercise", method = RequestMethod.GET)
-	public void mainPath(@RequestParam(defaultValue = "1", name = "seq") int currentNum, Model model) throws Exception{
-		PagingDto page = service.paganation(currentNum, "운동");
-		List<Exercise> exercise = service.search("운동", page);
+	public void mainPath(Model model) throws Throwable{
+		List<Exercise> exercise = service.search("운동");
 		model.addAttribute("exercise", exercise);
 	}
 	
-	@RequestMapping(value = "/getPage", method = RequestMethod.POST)
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	@ResponseBody
-	public PagingDto getPage(@RequestParam(defaultValue = "1", name = "seq") int currentNum, @RequestParam(defaultValue = "운동", required = false) String category, Model model) {
-		return service.paganation(currentNum, category);
+	public List<Exercise> search(@RequestParam String keyword, Model model) throws Throwable{
+		return service.search(keyword);
 	}
 	
 }

@@ -2,15 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="emergencyReply">
 	<!-- 댓글 작성 -->
-	<insert id="saveReply" parameterType="emergencyReply"> 
+	<insert id="insertComment" parameterType="emergencyReply"> 
 		insert into 
-		gg88.emergency_reply(memberNo, emergency_id, content, regdate, commend_count) 
-		values (#{memberNo}, #{emergencyId}, #{content}, NOW(), 0)
+		gg88.emergency_reply(member_no, emergency_id, content, regdate) 
+		values (#{memberNo}, #{emergencyId}, #{content}, NOW())
 	</insert>
 	
 	<!-- 전체 댓글 조회 -->
-	<select id="findAllReply" parameterType="emergencyReply" resultType="emergencyReply">
-		select * from gg88.emergency_reply
+	<select id="findAllReply" parameterType="int" resultType="emergencyReply">
+		SELECT er.reply_id, er.emergency_id, er.content , er.regdate , m.id, m.nickname 
+		FROM emergency_reply er LEFT JOIN member m 
+		ON (m.member_no = er.member_no) WHERE er.emergency_id = #{emergencyId}
 	</select>
 	
 	<!-- 댓글 수정 -->
@@ -27,7 +29,7 @@
 	</delete>
 	
 	<!-- 추천수 검색  -->
-	<select id="searchCommend" resultType="int">
+	<select id="searchComment" resultType="int">
 		SELECT commend_count FROM gg88.emergency_reply
 		WHERE reply_id = #{replyId}
 	</select>

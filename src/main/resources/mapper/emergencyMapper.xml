@@ -4,14 +4,8 @@
 	<!-- 게시판 글 작성 -->
 	<insert id="saveBoard" parameterType="emergency"> 
 		insert into 
-		gg88.emergency(member_no, title, content, commend_count, regdate, isYn) 
-		values (#{memberNo}, #{title}, #{content}, 0, NOW(), #{isYn})
-	</insert>
-	
-	<!-- 게시판 글 임시작성 -->
-	<insert id="temSaveBoard" parameterType="emergency"> 
-		insert into gg88.emergency(memberNo, title, content, isYn) 
-		values (#{memberNo}, #{title}, #{content}, #{isYn})
+		gg88.emergency(member_no, title, content, commend_count, regdate, imgFile) 
+		values (#{memberNo}, #{title}, #{content}, 0, NOW(), #{imgFile})
 	</insert>
 	
 	<!-- 작성자 글 조회 -->
@@ -30,8 +24,8 @@
 		update gg88.emergency set 
 			title = #{title}, 
 			content = #{content},
-			updatedate = #{updatedate} 
-		where member_no = #{memberNo} and emergency_id = #{emergencyId}
+			updatedate = NOW()
+		where emergency_id = #{emergencyId}
 	</update>
 	
 	<!-- 추천수 증가 -->
@@ -55,7 +49,11 @@
 	<select id="getList" parameterType="pageDto" resultType="emergency">
 		select * from gg88.emergency 
 		order by emergency_id desc 
-		limit #{firstRecordIndex}, #{recordCountPerPage}
+		limit #{firstRecordIndex}, #{lastRecordIndex}
+	</select>
+	
+	<select id="getMemberNo" parameterType="String" resultType="integer">
+		select member_no from gg88.member where id = #{userId}
 	</select>
 	
 </mapper>

@@ -7,9 +7,9 @@ import com.tripleJ.gg88.domain.EmergencyReply;
 
 public interface EmergencyReplyRepository {
 
-	void saveReply(EmergencyReply reply);
+	void insertComment(EmergencyReply reply);
 
-	void findAllReply();
+	List<EmergencyReply> findAllReply(int emergencyId);
 
 	void updateReply(EmergencyReply reply);
 

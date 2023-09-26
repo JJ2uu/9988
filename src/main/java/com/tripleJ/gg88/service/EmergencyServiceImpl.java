@@ -1,13 +1,15 @@
 package com.tripleJ.gg88.service;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tripleJ.gg88.domain.Emergency;
 import com.tripleJ.gg88.model.PagingDto;
@@ -25,15 +27,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public int saveBoard(Emergency emergency, int memberNo) {
 		emergency.setMemberNo(memberNo);
-		emergency.setIsYn(0);
 		return repository.save(emergency);
-	}
-	
-	@Override
-	public int temporarySave(Emergency emergency, int memberNo) {
-		emergency.setMemberNo(memberNo);
-		emergency.setIsYn(1);
-		return repository.temporarySave(emergency);
 	}
 	
 	@Override
@@ -47,7 +41,9 @@ public class EmergencyServiceImpl implements EmergencyService {
 	}
 	
 	@Override
-	public int updateBoard(Emergency emergency) {
+	public int updateBoard(Emergency emergency, HttpServletRequest request) {
+		Object no = request.getSession().getAttribute("memberNo");
+		emergency.setMemberNo((int) no);
 		return repository.updateBoard(emergency);
 	}
 	
@@ -72,19 +68,19 @@ public class EmergencyServiceImpl implements EmergencyService {
 		
 		dto.setCurrentPageNo(currentNum);
 		dto.setTotalRecordCount(getTotalCount());
+		dto.setRecordCountPerPage(12);
 		
 		setRealEnd(dto);
 		setFirstPage(dto);
 		setLastPage(dto);
 		setFirstRecordIndex(dto);
-		dto.setRecordCountPerPage(dto.getFirstRecordIndex() + 12);
+		setLastRecordIndex(dto);
 		setXprevXnext(dto);
 		
 		return dto;
 	}
 	
 	private void setRealEnd(PagingDto dto) {
-		dto.setRecordCountPerPage(12);
 		int realEnd = (int)(Math.ceil((dto.getTotalRecordCount() * 1.0) / dto.getRecordCountPerPage()));
 		dto.setRealEnd(realEnd);
 	}
@@ -117,9 +113,24 @@ public class EmergencyServiceImpl implements EmergencyService {
 		dto.setXnext(xnext);
 	}
 	
-	@Override
-	public List<Emergency> getList(PagingDto pagingDto){
-		return repository.getList(pagingDto);
+	private void setLastRecordIndex(PagingDto dto) {
+		dto.setLastRecordIndex(dto.getFirstRecordIndex() + 12);
+		if(dto.getTotalRecordCount() < dto.getLastRecordIndex()) {
+			dto.setLastRecordIndex(dto.getTotalRecordCount());
+		}
 	}
 	
+	@Override
+	public List<Emergency> getList(int first, int last){
+		PagingDto dto = new PagingDto();
+		dto.setFirstRecordIndex(first);
+		dto.setLastRecordIndex(last);
+		return repository.getList(dto);
+	}
+	
+	@Override
+	public int getMemberNo(String userId) {
+		return repository.getMemberNo(userId);
+	}
+
 }

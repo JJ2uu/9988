@@ -16,7 +16,7 @@
 	
 	<select id="getList" parameterType="pageDto" resultType="exercise">
 	select * from gg88.exercise 
-	limit #{firstRecordIndex}, #{recordCountPerPage}
+	limit #{firstRecordIndex}, #{lastRecordIndex}
 	</select>
 	
 </mapper>

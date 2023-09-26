@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -21,6 +22,18 @@ public class AmazonS3Controller {
 	@ResponseBody
 	public String profileUpload(MultipartHttpServletRequest multiRequest, HttpServletRequest request) {
 		return amazonService.profileUpload(multiRequest, request);
+	}
+	
+	@RequestMapping(value = "/boardUpload", method = RequestMethod.POST)
+	@ResponseBody
+	public String boardFileUpload(MultipartHttpServletRequest multiRequest, HttpServletRequest request) {
+		return amazonService.boardFileUpload(multiRequest, request);
+	}
+	
+	@RequestMapping(value = "/getImg", method = RequestMethod.POST)
+	@ResponseBody
+	public String getImg(MultipartHttpServletRequest multiRequest, HttpServletRequest request) {
+		return amazonService.boardFileUpload(multiRequest, request);
 	}
 	
 }

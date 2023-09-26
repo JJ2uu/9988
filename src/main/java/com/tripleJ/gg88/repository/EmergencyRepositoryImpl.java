@@ -23,11 +23,6 @@ public class EmergencyRepositoryImpl implements EmergencyRepository{
 	}
 
 	@Override
-	public int temporarySave(Emergency emergency) {
-		return sql.insert(namespace + "temSaveBoard", emergency);
-	}
-
-	@Override
 	public Emergency findById(int emergencyId) {
 		return sql.selectOne(namespace + "findById", emergencyId);
 	}
@@ -60,6 +55,11 @@ public class EmergencyRepositoryImpl implements EmergencyRepository{
 	@Override
 	public List<Emergency> getList(PagingDto pagingDto) {
 		return sql.selectList(namespace + "getList", pagingDto);
+	}
+
+	@Override
+	public int getMemberNo(String userId) {
+		return sql.selectOne(namespace + "getMemberNo", userId);
 	}
 	
 }
