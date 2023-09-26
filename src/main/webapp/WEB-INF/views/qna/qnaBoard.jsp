@@ -152,8 +152,18 @@ $(function() {
             }
         });
     });
-   
-    $("#searchIcon").click(function () { 
+ 	// 검색 클릭 이벤트 핸들러
+    $("#searchIcon").click(function() {
+        performSearch();
+    });
+
+    // 검색 엔터 키 이벤트 핸들러
+    $("#searchInput").on("keyup", function(event) {
+        if (event.key === "Enter") {
+            performSearch();
+        }
+    });
+    function performSearch() { 
     	var searchInput = $('#searchInput').val();
    	 	var selectedCategory = document.getElementById('category_select').value;
     	if (searchInput === '') {
@@ -201,7 +211,7 @@ $(function() {
 	            }
 	        });
 		}
-    });
+    }
 });
 </script>
 
