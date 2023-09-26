@@ -1,15 +1,15 @@
 package com.tripleJ.gg88.domain;
 
-import java.util.Date;
-
 public class EmergencyReply {
 
 	private int replyId;
 	private int emergencyId;
 	private int memberNo;
+	private String userId;
+	private String nickName;
 	private String content;
 	private int commend_count;
-	private Date regdate;
+	private String regdate;
 	
 	public int getReplyId() {
 		return replyId;
@@ -51,12 +51,35 @@ public class EmergencyReply {
 		this.commend_count = commend_count;
 	}
 	
-	public Date getRegdate() {
+	public String getRegdate() {
 		return regdate;
 	}
 	
-	public void setRegdate(Date regdate) {
+	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	@Override
+	public String toString() {
+		return "EmergencyReply [replyId=" + replyId + ", emergencyId=" + emergencyId + ", memberNo=" + memberNo
+				+ ", userId=" + userId + ", nickName=" + nickName + ", content=" + content + ", commend_count="
+				+ commend_count + ", regdate=" + regdate + "]";
+	}
+
 }

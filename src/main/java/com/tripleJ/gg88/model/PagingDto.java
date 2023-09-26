@@ -41,6 +41,7 @@ public class PagingDto {
 	private int firstPageNoOnPageList; //페이지 리스트의 첫 페이지 번호
 	private int lastPageNoOnPageList; //페이지 리스트의 마지막 페이지 번호
 	private int firstRecordIndex; //페이징 sql의 조건절에 사용되는 시작 rownum
+	private int lastRecordIndex; //페이징 sql의 조건절에 사용되는 마지막 rownum
 	
 	private boolean xprev; //이전 버튼
 	private boolean xnext; //다음 버튼
@@ -79,6 +80,21 @@ public class PagingDto {
 	}
 	public void setXnext(boolean xnext) {
 		this.xnext = xnext;
+	}
+	public int getLastRecordIndex() {
+		return lastRecordIndex;
+	}
+	public void setLastRecordIndex(int lastRecordIndex) {
+		this.lastRecordIndex = lastRecordIndex;
+	}
+	
+	@Override
+	public String toString() {
+		return "PagingDto [currentPageNo=" + currentPageNo + ", recordCountPerPage=" + recordCountPerPage
+				+ ", pageSize=" + pageSize + ", totalRecordCount=" + totalRecordCount + ", realEnd=" + realEnd
+				+ ", firstPageNoOnPageList=" + firstPageNoOnPageList + ", lastPageNoOnPageList=" + lastPageNoOnPageList
+				+ ", firstRecordIndex=" + firstRecordIndex + ", lastRecordIndex=" + lastRecordIndex + ", xprev=" + xprev
+				+ ", xnext=" + xnext + "]";
 	}
 	
 }

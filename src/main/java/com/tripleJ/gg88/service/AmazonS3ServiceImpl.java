@@ -98,5 +98,26 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 	public String getUuidFileName(String originalFilename) {
 		return UUID.randomUUID().toString() + "_" + originalFilename;
 	}
+	
+	public String boardFileUpload(MultipartHttpServletRequest multiRequest, HttpServletRequest request) {
+		MultipartFile mf = multiRequest.getFile("file");
+		System.out.println(mf);
+		if (mf != null) {
+			String originalFilename = mf.getOriginalFilename();
+			try {
+				String encodedFilename = URLEncoder.encode(originalFilename, "UTF-8");
+				String uuidFilename = getUuidFileName(encodedFilename);
+				
+				upload(mf, uuidFilename);
+				return uuidFilename;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "fail";
+			}
+		} else {
+			System.out.println("업로드 실패");
+			return "fail";
+		}
+	}
 
 }

@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/default_sub.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
@@ -66,37 +64,6 @@
 	cursor: pointer;
 }
 </style>
-<script type="text/javascript">
-$(function() {
-	$("#imageFile").change(function() {
-	
-	var formData = new FormData();
-	formData.append("file", $("#imageFile")[0].files[0]);
-	console.log(formData)
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath}/amazonS3/boardUpload',
-		type: 'post',
-		data: formData,
-		contentType: false,
-	    processData: false,
-		enctype: 'multipart/form-data',
-		success: function(response) {
-			console.log(response)
-			if (response != "fail") {
-				let srcPath = "http://figveoefijyo19505068.cdn.ntruss.com/" + response + "?type=f&w=150&h=150";
-				$("#imageFile").attr("value", response);
-				$("#preview").attr("src", srcPath);
-			} else {
-				console.log("fail")
-			} 
-		}, error: function(e){
-			console.log(e)
-		}
-	})
-	})
-})
-</script>
 <title>99팔팔</title>
 </head>
 <body>
@@ -113,23 +80,19 @@ $(function() {
 				<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
 				</div>
 				<!-- form태그는 컨트롤러랑 연결 -->
-				<form id="upload_frm" action="${pageContext.request.contextPath}/emergency/saveBoard" method="post">
+				<form action="${pageContext.request.contextPath}/emergency/updateBoard" method="post">
+				<input type="hidden" value="${emergency.emergencyId}" name="emergencyId">
 				<div class="symptom">
 					<span style="margin-left: 15px;">증상</span>
-					<input placeholder="응급상황을 적어주세요." name="title">
+					<input placeholder="응급상황을 적어주세요." value="${emergency.title}" name="title">
 				</div>
 				<div class="solution">
 					<span style="padding-right: 0px;">대처방안</span>
-					<input placeholder="응급 상황 시 대처방안을 적어주세요." name="content">
-				</div>
-				<div class="form-group" style="height: 150px; width: 200px;">
-					<span style="padding-right: 0px;">이미지 파일 첨부</span>
-		            <input id="imageFile" type="file" name="imgFile">
-					<img id="preview" src="#" width=200 height=150 alt="선택된 이미지가 없습니다" style="align-content: flex-end; ">
+					<input placeholder="응급 상황 시 대처방안을 적어주세요." value="${emergency.content}" name="content">
 				</div>
 				<div class="complete_btn">
-					<button type="button" style="background-color: #E0E6EC; color: #2C343D;" onClick="history.go(-1)">글 작성 취소</button>
-					<button id="sava" type="submit">글 작성 완료</button>
+					<button type="button" style="background-color: #E0E6EC; color: #2C343D;" onClick="history.go(-1)">수정 취소</button>
+					<button id="sava" type="submit">수정 완료</button>
 				</div>
 				</form>
 			</div>

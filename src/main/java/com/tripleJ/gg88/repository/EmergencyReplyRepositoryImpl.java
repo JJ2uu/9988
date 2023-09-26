@@ -18,13 +18,13 @@ public class EmergencyReplyRepositoryImpl implements EmergencyReplyRepository {
 	}
 	
 	@Override
-	public void saveReply(EmergencyReply reply) {
-		sql.insert(namespace + "saveReply" + reply);
+	public void insertComment(EmergencyReply reply) {
+		sql.insert(namespace + "insertComment", reply);
 	}
 	
 	@Override
-	public void findAllReply() {
-		sql.selectList(namespace + "findAllReply");
+	public List<EmergencyReply> findAllReply(int emergencyId) {
+		return sql.selectList(namespace + "findAllReply", emergencyId);
 	}
 	
 	@Override
