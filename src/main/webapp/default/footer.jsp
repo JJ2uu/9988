@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div id="footer">
-	<div style="width: 100%; padding: 10px 100px; border-bottom: 1px solid #e0e6ec; ">
+	<div style="width: 100%; border-bottom: 1px solid #e0e6ec; ">
 		<ul class="footer_menu">
 			<li class="service"><a href="${pageContext.request.contextPath}/service/terms.jsp">이용약관</a></li>
 			<li style="color: #e0e6ec;">|</li>
