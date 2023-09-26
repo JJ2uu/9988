@@ -97,8 +97,6 @@ function displayWriter(replyWriter) {
 $(function() {
 	var userNick = '<%= session.getAttribute("userNick") %>';
 	var writer = '${writer}';
-    console.log(userNick);
-    console.log(writer);
     
     if (userNick === "null") {
         $("#replyWrite").hide();
@@ -129,7 +127,6 @@ $(function() {
         $this.find(".replyWriter").after(writerDiv);
 
 	    var groupId = $this.find(".replyId").text();
-	    console.log(groupId);
 
 	    $.ajax({
 	        url: "reReplyList",
@@ -138,6 +135,12 @@ $(function() {
 	        },
 	        success: function(response) {
 	            $this.find(".reReplySpace").append(response);
+	            $this.find(".reReplyWriter").each(function() {
+	                var reReplyWriter = $(this).text();
+
+	                var reWriterDiv = $('<div>').text(displayWriter(reReplyWriter)).css('font-size', 'small');
+	                $(this).after(reWriterDiv);
+	            });
 	        },
 	        error: function() {
 	            console.error("AJAX 요청에 실패했습니다.");
