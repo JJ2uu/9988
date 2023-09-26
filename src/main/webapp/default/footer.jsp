@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div id="footer">
-	<div style="width: 100%; border-bottom: 1px solid #e0e6ec; ">
+	<div style="width: 1320px; margin: 0 auto;">
 		<ul class="footer_menu">
 			<li class="service"><a href="${pageContext.request.contextPath}/service/terms.jsp">이용약관</a></li>
 			<li style="color: #e0e6ec;">|</li>
@@ -10,7 +10,8 @@
 			<li class="service"><a href="${pageContext.request.contextPath}/service/youth.jsp">청소년보호정책</a></li>
 		</ul>
 	</div>
-	<div style="font-size: 12px; display: flex; gap: 40px; align-items: flex-start; padding: 0 100px 50px 100px;">
+	<div style="width: 100%; height: 1px; background: #e0e6ec;"></div>
+	<div style="width: 1320px; margin: 30px auto 0 auto; font-size: 12px; display: flex; gap: 40px; align-items: flex-start; padding: 0 100px 50px 100px;">
 		<img src="${pageContext.request.contextPath}/resources/img/logo.svg" width="100px" style="padding-top: 5px;">
 		<div style="display: flex; flex-flow: column; gap: 20px;">
 			<div style="display:flex; flex-flow: column; text-align: left;">

@@ -49,7 +49,6 @@ html, body {
 	flex-flow: column;
 	font-size: 12px;
 	align-items: flex-start;
-	gap: 30px;
 }
 
 .footer_menu {
@@ -57,7 +56,7 @@ html, body {
     display: flex;
     gap: 20px;
     margin: 0;
-    padding: 10px 100px;
+    padding: 10px 30px;
     justify-content: flex-start;
     font-size: 12px;
 }
