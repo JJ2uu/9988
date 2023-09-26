@@ -93,6 +93,34 @@
 				$("#license").click(function() {
 					window.open('license.jsp','의사 면허 인증','width=450,height=480');
 				})
+				
+				$("#del_account").click(function() {
+					let delConfirm = confirm("모든 권한이 제한됩니다. 정말 탈퇴하시겠습니까?")
+					if (delConfirm) {
+						$.ajax({
+							url: '../member/account/withdraw',
+							data: {
+								nickname : userNick
+							},
+							success: function(response) {
+								alert("정상적으로 탈퇴되었습니다.")
+								
+								/* 모든 쿠키 삭제 */
+								const cookies = document.cookie.split(";");
+								for (let i = 0; i < cookies.length; i++) {
+									const cookie = cookies[i];
+									const eqPos = cookie.indexOf("=");
+									const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+									document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+								}
+								
+								/* 로컬 스토리지 초기화 */
+								localStorage.clear();
+								location.href = "../9988_main.jsp"
+							}
+						})
+					}
+				})
 			}
 	    })
 	    

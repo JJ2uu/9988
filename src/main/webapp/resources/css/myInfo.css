@@ -331,3 +331,14 @@ a > span {
 	font-weight: 400;
 	color: #fff
 }
+
+#del_account {
+	width: 120px;
+	height: 40px;
+	background: #407FBA;
+	color: #fff;
+	border-style: none;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 14px;
+}
