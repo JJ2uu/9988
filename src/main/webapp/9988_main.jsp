@@ -7,23 +7,42 @@
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="resources/favicon.ico">
 <script src="http://code.jquery.com/jquery-latest.min.js">
 </script>
 <title>99팔팔</title>
-<style type="text/css">
-.menu{
-    font-size: x-large;
-    font-weight: 600;
-    padding-bottom: 30px;
-}
-</style>
 <script type="text/javascript">
 $(function() {
     $.ajax({
         url: 'main/main_qna',
         success: function(x) {
         	$('#mainQnaWrap').html(x)
+        }
+    });
+    
+    $.ajax({
+        url: 'main/main_food',
+        success: function(x) {
+        	$('#mainFoodWrap').html(x)
+        }
+    });
+    $.ajax({
+        url: 'main/main_daily',
+        success: function(x) {
+        	$('#mainDailyWrap').html(x)
+        }
+    });
+    $.ajax({
+        url: 'main/main_emergency',
+        success: function(x) {
+        	$('#mainEmergencyWrap').html(x)
+        }
+    });
+    $.ajax({
+        url: 'main/main_exercise',
+        success: function(x) {
+        	$('#mainExerciseWrap').html(x)
         }
     });
         
@@ -51,26 +70,18 @@ $(function() {
 		<div id="content_wrap">
 			<div id="content" style="display: flex; gap: 80px; flex-direction: column;">
 				<div id="main_daily"><div class="menu">오늘떴어요</div>
-					<div style="display: flex; justify-content: space-around;">
-						<jsp:include page="WEB-INF/views/main/main_daily.jsp" flush="true">
-							<jsp:param name="mode" value="1"/>
-						</jsp:include></div></div>
+					<div>
+						<div id="mainDailyWrap" style="display: flex; justify-content: space-between;"></div></div></div>
 				<div style="display: flex; justify-content: space-around;">
 					<div id="main_qna"><div class="menu">질문있어요</div>
 					<div id="mainQnaWrap"></div></div>
 					<div id="main_emergency"><div class="menu">응급이에요</div>
-					<div><jsp:include page="WEB-INF/views/main/main_emergency.jsp" flush="true">
-							<jsp:param name="mode" value="1"/>
-						</jsp:include></div></div></div>
+					<div><div id="mainEmergencyWrap"></div></div></div></div>
 				<div id="main_food"><div class="menu">뭐먹을까요?</div>
 					<div style="display: flex; justify-content: space-around;">
-						<jsp:include page="WEB-INF/views/main/main_food.jsp" flush="true">
-							<jsp:param name="mode" value="1"/>
-						</jsp:include></div></div>
+						<div id="mainFoodWrap"></div></div></div>
 				<div id="main_exercise"><div class="menu">운동해요</div>
-				<div><jsp:include page="WEB-INF/views/main/main_exercise.jsp" flush="true">
-							<jsp:param name="mode" value="1"/>
-						</jsp:include></div></div>
+				<div><div id="mainExerciseWrap"></div></div></div>
 				
 			</div>
 		</div>

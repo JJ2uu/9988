@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tripleJ.gg88.domain.QnaReply;
-import com.tripleJ.gg88.domain.Page;
 import com.tripleJ.gg88.domain.Qna;
 import com.tripleJ.gg88.service.QnaService;
 
@@ -20,13 +20,13 @@ public class QnaController {
 	QnaService qnaService;
 	
 	@RequestMapping("qna/qnaBoard")
-	public String qnaBoard(Page page, Model model) {
-		return qnaService.qnaBoard(page, model);
+	public String qnaBoard(Model model) {
+		return qnaService.qnaBoard(model);
 	}
 	
 	@RequestMapping("qna/qnaPage")
-	public void qnaPage(Page page, Model model) {
-		qnaService.qnaPage(page, model);
+	public void qnaPage(@RequestParam(required = true) int page, int pageSize, Model model) {
+		qnaService.qnaPage(page, pageSize, model);
 	}
 	
 	@RequestMapping("qna/qnaCreate")
@@ -75,16 +75,19 @@ public class QnaController {
 		qnaService.replyCount(session, qnaId);
 	}
 	
-	@RequestMapping("main/main_qna")
-	public void mainQna(Page page, Model model) {
-		qnaService.mainQna(page, model);
-		
-	}
-	
 	@RequestMapping("qna/NickToNo")
 	@ResponseBody
 	public int NickToNo(String nickname) {
 		return qnaService.NickToNo(nickname);
+	}
+	
+	@RequestMapping("qna/searchAllPage")
+	public void searchAllPage(@RequestParam(required = true) int page, int pageSize, String search, Model model) {
+		qnaService.searchAllPage(page, pageSize, search, model);
+	}
+	@RequestMapping("qna/categorySearchPage")
+	public void categorySearchPage(@RequestParam(required = true) int page, int pageSize, String search, String category, Model model) {
+		qnaService.categorySearchPage(page, pageSize, search, category, model);
 	}
 	
 	

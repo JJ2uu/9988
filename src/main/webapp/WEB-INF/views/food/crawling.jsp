@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-
 <c:forEach var="i" begin="1" end="${fn:length(foodList)}">
 	<a href="${foodList[i-1].url}" class="food">
 	    <img class="foodImage" src="${foodList[i-1].thumbnail}">
