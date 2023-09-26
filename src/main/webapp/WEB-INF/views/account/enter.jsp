@@ -78,7 +78,9 @@
 				<option value="hanmail.net">hanmail.net</option>
 				<option value="daum.net">nate.com</option>
 			</select>
+			<button id="confirm_email" class="btn_confirm" style="width: 50%;">중복 확인</button>
 		</div>
+		<div id="email_error" class="error_message" style="display: none;"></div>
 	</div>
 	<div class="input_wrap">
 		<div class="input_title">

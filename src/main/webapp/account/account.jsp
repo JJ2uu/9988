@@ -153,6 +153,7 @@
 					let idCheck = false;
 					let pwPatternCheck = false;
 					let pwCheck = false;
+					let emailCheck = false;
 					let nickCheck = false;
 					let phoneAuthCheck = false;
 					
@@ -270,12 +271,34 @@
 					/* 이메일 */
 					const domainListSelect = document.getElementById("domain_list");
 					let email = null;
+					let selectedDomain = null;
 
 					domainListSelect.addEventListener("change", function() {
-					    const selectedDomain = domainListSelect.value;
+					    selectedDomain = domainListSelect.value;
 					    userEmailAddressInput.value = selectedDomain;
-					    email = userEmail.value + "@" + selectedDomain;
 					});
+					
+					$("#confirm_email").click(function() {
+						event.preventDefault();
+						email = userEmail.value + "@" + selectedDomain;
+						$.ajax({
+							url: '../member/account/searchEmail',
+							data: {
+								email : email
+							},
+							success: function(response) {
+								const emailError = document.getElementById("email_error");
+								
+								if (response != 'null') {
+									emailError.innerHTML = "이미 가입된 아이디가 존재합니다."
+									emailError.style.display = "block";
+								} else {
+									emailError.style.display = "none";
+									emailCheck = true;
+								}
+							}
+						})
+					})
 					
 					/* 휴대폰 문자메세지 인증 */
 					$("#certification").click(function() {
@@ -365,7 +388,7 @@
 								}
 							}
 						} else {
-							if (idCheck && pwCheck && nickCheck && phoneAuthCheck) {
+							if (idCheck && pwCheck && nickCheck && phoneAuthCheck && emailCheck) {
 								$.ajax({
 									url: '../member/account/signUp',
 									type: 'post',
@@ -393,6 +416,9 @@
 								} else if (!phoneAuthCheck) {
 									alert("휴대폰 인증을 진행해 주세요.")
 									userPhone.focus();
+								} else if (!emailCheck) {
+									alert("이메일 중복을 확인해 주세요.")
+									userEmail.focus();
 								} else {
 									alert("닉네임을 확인해 주세요.")
 									userNickname.focus();
