@@ -1,5 +1,6 @@
 package com.tripleJ.gg88.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tripleJ.gg88.domain.Member;
-import com.tripleJ.gg88.domain.Page;
 import com.tripleJ.gg88.domain.Qna;
 
 @Repository
@@ -20,8 +20,8 @@ public class QnaRepositoryImpl implements QnaRepository {
 		return my.insert("qna.qnaInsert", qnaVO);
 	}
 	
-	public List<Qna> qnaList(Page page){
-		return my.selectList("qna.qnaList", page);
+	public List<Qna> qnaList(){
+		return my.selectList("qna.qnaList");
 	}
 	
 	public Qna qnaDetail(int qnaId) {
@@ -56,6 +56,14 @@ public class QnaRepositoryImpl implements QnaRepository {
 		Member member = my.selectOne("member.noToNick", memberNo);
 		String writer = member.getNickname();
 		return writer;
+	}
+	
+	public List<Qna> searchAll(String search){
+		return my.selectList("qna.searchAll", search);
+	}
+	
+	public List<Qna> categorySearch(HashMap<String, String> map){
+		return my.selectList("qna.categorySearch", map);
 	}
 
 }

@@ -10,83 +10,11 @@
 <link href="${pageContext.request.contextPath}/resources/css/default_sub.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/search_box.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/food.css" type="text/css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>99팔팔</title>
 </head>
-<style>
-.food {
-    display: flex;
-    margin: 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #F2F6FA;
-    text-align: -webkit-center;
-    width: 1000px;
-    align-items: center;
-}
-
-.foodImage {
-    width: 150px;
-    height: 150px;
-    border-radius: 5px;
-}
-
-.foodText {
-    font-weight: bold;
-    font-size: 16px;
-    max-width: 800px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left;
-}
-.userWrap{
-	display: flex;
-    gap: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 700px;
-    margin-bottom: 10px;
-}
-.textContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 20px;
-}
-#foodMain {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 1000px
-}
-.paging button {
-	background-color: white;
-	color: #000000;
-	border: 1px solid;
-	width: 40px;
-	height: 40px;
-	margin-top: 70px;
-}
-
-.paging {
-	display: flex;
-	justify-content: center;
-}
-.btn_paging {
-	width: 30px;
-	height: 30px;
-	border: 1px solid #B5C2CF;
-	background: #fff;
-	color: #717A84;
-	font-weight: 400;
-	cursor: pointer;
-	margin: 5px;
-}
-</style>
 <script type="text/javascript">
-
 function sendAjaxRequest() {
     $.ajax({
         url: "crawling",
@@ -94,7 +22,6 @@ function sendAjaxRequest() {
             Search: $("#foodSearchTitle").val()
         },
         success: function(x) {
-            console.log(x);
             $("#contentWrap").html(x);
         }
     });
@@ -145,11 +72,6 @@ $(function() {
 							        <div class="foodText" style="font-weight: 300; overflow-wrap: break-word;">${foodList[i-1].simpleContent}</div>
 							    </div>
 							</a>
-						</c:forEach>
-					</div>
-					<div class="paging">
-						<c:forEach var="i" begin="1" end="5">
-							<button type="button" class="btn_paging">${i}</button>
 						</c:forEach>
 					</div>
 				</div>

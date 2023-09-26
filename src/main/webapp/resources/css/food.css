@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+.food {
+    display: flex;
+    margin: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #F2F6FA;
+    text-align: -webkit-center;
+    width: 1000px;
+    align-items: center;
+}
+
+.foodImage {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+}
+
+.foodText {
+    font-weight: bold;
+    font-size: 16px;
+    max-width: 800px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+.userWrap{
+	display: flex;
+    gap: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 700px;
+    margin-bottom: 10px;
+}
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+}
+#foodMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px
+}

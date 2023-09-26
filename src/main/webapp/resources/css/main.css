@@ -1,0 +1,164 @@
+@charset "UTF-8";
+
+.menu{
+    font-size: x-large;
+    font-weight: 600;
+    padding-bottom: 30px;
+}
+
+/* 오늘떴어요 */
+.article{
+	align-content: center;
+	cursor: pointer;
+}
+
+.articleImage {
+    border-radius: 5px;
+}
+.articleTitle {
+    max-width: 250px; /* 원하는 최대 너비 설정 */
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 내용 감춤 */
+    text-overflow: ellipsis; /* 생략 부호 표시 */
+    font-weight: bold;
+}
+.articleContent {
+    max-width: 250px; /* 원하는 최대 너비 설정 */
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 내용 감춤 */
+    text-overflow: ellipsis; /* 생략 부호 표시 */
+}
+.articleCompany {
+    color: #407FBA;
+    font-weight: 500;
+    text-align: left;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+/* 질문있어요 */
+table {
+	border-collapse: collapse;
+	width: 500px;
+	font-size: large;
+}
+
+th, td{
+	padding: 8px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+}
+.title{
+	cursor: pointer;
+}
+/* 응급이에요 */
+.slideshow-container {
+    position: relative;
+    max-width: 400px;
+    margin: auto;
+    display: inline-block;
+}
+
+.slideshow-container img {
+    display: none;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.material-symbols-outlined {
+	margin-top: 10px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	z-index: 1;
+}
+.prev {
+        left: 10px; 
+    }
+
+.next {
+    right: 10px;
+}
+/* 뭐먹을까요 */
+.food {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+    background: #000;
+    border-radius: 5px;
+    height: 180px;
+}
+
+.foodImage {
+    width: 250px;
+    height: 180px;
+    border-radius: 5px;
+}
+
+.foodImage:hover {
+    opacity: 30%;
+}
+
+.textContainer {
+    position: absolute;
+    top: 50%; /* 부모 요소의 중앙에 배치 */
+    left: 50%; /* 부모 요소의 중앙에 배치 */
+    transform: translate(-50%, -50%); /* 요소의 중앙 정렬을 위한 이동 */
+    padding: 10px;
+    text-align: center;
+    pointer-events: none; /* 이벤트를 요소에 적용하지 않도록 설정 */
+    display: none; /* 초기에는 표시하지 않음 */
+}
+.food:hover .textContainer {
+    display: block; /* 호버 시 텍스트를 표시 */
+}
+.foodText {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+/* 운동해요 */
+.exerciseText {
+    max-width: 200px; /* 원하는 최대 너비 설정 */
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 내용 감춤 */
+    text-overflow: ellipsis; /* 생략 부호 표시 */
+    font-weight: bold;
+    text-align: center;
+    display: block;
+}
+.bigSizeText{
+	max-width: 500px; /* 원하는 최대 너비 설정 */
+    white-space: nowrap; /* 글자 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 내용 감춤 */
+    text-overflow: ellipsis; /* 생략 부호 표시 */
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    display: block;
+}
+.exerciseImage{
+	border-radius: 5px;
+}
+.exerciseContainer{
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+    align-items: center;
+}
+.bigContainer{
+    margin-left: 20px;
+}
+.smallContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-around;
+    width: 500px;
+}

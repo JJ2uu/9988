@@ -10,9 +10,9 @@ import com.tripleJ.gg88.domain.QnaReply;
 
 public interface QnaService {
 	
-	String qnaBoard(Page page, Model model);
+	String qnaBoard(Model model);
 
-	void qnaPage(Page page, Model model);
+	void qnaPage(int page, int pageSize, Model model);
 	
 	String qnaCreate();
 	
@@ -34,4 +34,7 @@ public interface QnaService {
 	
 	int NickToNo(String nickname);
 	
+	void searchAllPage(int page, int pageSize, String search, Model model);
+	
+	void categorySearchPage(int page, int pageSize, String search, String category, Model model);
 }

@@ -19,7 +19,6 @@ $(".reply").each(function() {
         $(this).hide();
     }
 });
-
 </script>
 <table>
     <tr>
@@ -29,6 +28,7 @@ $(".reply").each(function() {
         <th>작성일</th>
         <th class="views">조회 수</th>
     </tr>
+    <tr style="display: none;"><th id="searchAllListCount">${listCount}</th></tr>
     <c:forEach items="${pageData}" var="list" varStatus="status">
         <tr>
             <td class="num">${(status.index + 1) + ((currentPage - 1) * pageSize)}</td>

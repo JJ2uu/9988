@@ -13,7 +13,6 @@ th, td {
 }
 
 #qnaWrite {
-	float: right;
     margin: 15px;
     font-size: 16px;
     border-radius: 5px;
@@ -25,18 +24,14 @@ th, td {
     color: white;
     font-weight: bolder;
     position: absolute;
-    right: 5px;
+    right: 10px;
 }
 
-.paging button {
-	width: 40px;
-	height: 40px;
-}
-
-.paging {
+#qnaBottomWrap{
 	display: flex;
-	justify-content: center;
-	margin-top: 70px;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 }
 
 .board_category {
@@ -48,22 +43,7 @@ select{
 .qnaContent{
 	cursor: pointer;
 }
-.btn_paging {
-	border: 1px solid #B5C2CF;
-	background: #fff;
-	color: #717A84;
-	font-weight: 400;
-	cursor: pointer;
-	margin: 5px;
-}
 
-.btn_paging.current {
-	border: 1px solid #407FBA;
-	background: #407FBA;
-	color: #fff;
-	font-weight: 400;
-	margin: 5px;
-}
 #qnaBottomWrap{
 	position: relative;
 }
@@ -225,5 +205,30 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     padding-left: 80px;
 }
 
+#paging_wrap {
+	margin-top: 70px;
+	margin-bottom: 50px;
+	display: flex;
+    gap: 5px;
+    justify-content: center;
+}
 
+.btn_paging {
+	width: 30px;
+	height: 30px;
+	border: 1px solid #B5C2CF;
+	background: #fff;
+	color: #717A84;
+	font-weight: 400;
+	cursor: pointer;
+}
+
+.btn_paging.current {
+	width: 30px;
+	height: 30px;
+	border: 1px solid #407FBA;
+	background: #407FBA;
+	color: #fff;
+	font-weight: 400;
+}
 
