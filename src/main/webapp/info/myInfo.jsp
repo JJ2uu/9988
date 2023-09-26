@@ -89,12 +89,44 @@
 				$("#info_pw").click(function() {
 					window.open('pwChange.jsp','비밀번호 변경','width=450,height=500');
 				})
+				
+				$("#license").click(function() {
+					window.open('license.jsp','의사 면허 인증','width=450,height=480');
+				})
+				
+				$("#del_account").click(function() {
+					let delConfirm = confirm("모든 권한이 제한됩니다. 정말 탈퇴하시겠습니까?")
+					if (delConfirm) {
+						$.ajax({
+							url: '../member/account/withdraw',
+							data: {
+								nickname : userNick
+							},
+							success: function(response) {
+								alert("정상적으로 탈퇴되었습니다.")
+								
+								/* 모든 쿠키 삭제 */
+								const cookies = document.cookie.split(";");
+								for (let i = 0; i < cookies.length; i++) {
+									const cookie = cookies[i];
+									const eqPos = cookie.indexOf("=");
+									const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+									document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+								}
+								
+								/* 로컬 스토리지 초기화 */
+								localStorage.clear();
+								location.href = "../9988_main.jsp"
+							}
+						})
+					}
+				})
 			}
 	    })
 	    
 	    var myQnaCnt;
 		var myReplyCnt;
-		var myLikeCnt;
+		var searchType = "qna";
 	    
 	    /* 마이페이지 - 내 활동 이력 count */
 	    $.ajax({
@@ -105,15 +137,12 @@
 	    	success: function(response) {
 	    		myQnaCnt = response.myQna
 	    		myReplyCnt = response.myReply
-	    		myLikeCnt = response.myLike
 				
 	    		const qnaSpan = document.getElementById("qnaCnt")
 	    		const replySpan = document.getElementById("replyCnt")
-	    		const likeSpan = document.getElementById("likeCnt")
 	    		
 	    		qnaSpan.innerHTML = myQnaCnt
 	    		replySpan.innerHTML = myReplyCnt
-	    		likeSpan.innerHTML = myLikeCnt
 	    		
 	    		/* 페이지 로드시 나의 질문 로드 */
 	    		myQna(myQnaCnt);
@@ -130,12 +159,13 @@
 			let tabId = $(this).attr("id");
 			
 			if (tabId === "qnaTab") {
+				searchType = 'qna'
+				$('#searchBar').val("")
 				myQna(myQnaCnt);
 			} else if (tabId === "replyTab") {
+				searchType = 'reply'
+				$('#searchBar').val("")
 				myReply(myReplyCnt);
-			} else {
-				$("#paging_wrap").empty();
-				$("#dataList").empty();
 			}
 		})
 		
@@ -204,6 +234,7 @@
 				    	success: function(response) {
 				    		$("#dataList").empty();
 				    		$("#dataList").append(response);
+				    		window.scrollTo(0, 0);
 						}
 				    })
 				} else if (type == 'reply') {
@@ -217,8 +248,43 @@
 				    	success: function(response) {
 				    		$("#dataList").empty();
 				    		$("#dataList").append(response);
+				    		window.scrollTo(0, 0);
 						}
 				    })
+				} else if (type == 'qnaSearch') {
+					var search = $('#searchBar').val()
+					
+					$.ajax({
+						url: '../member/info/qnaKeywordSearch',
+						data: {
+							nickname : userNick,
+							keyword : search,
+							page : currentPage,
+							pageSize : 10
+						},
+						success: function(response) {
+							$("#dataList").empty();
+				    		$("#dataList").append(response);
+				    		window.scrollTo(0, 0);
+						}
+					})
+				} else if (type == 'replySearch') {
+					var search = $('#searchBar').val()
+					
+					$.ajax({
+						url: '../member/info/replyKeywordSearch',
+						data: {
+							nickname : userNick,
+							keyword : search,
+							page : currentPage,
+							pageSize : 10
+						},
+						success: function(response) {
+							$("#dataList").empty();
+				    		$("#dataList").append(response);
+				    		window.scrollTo(0, 0);
+						}
+					})
 				}
 			});
 			pagination.appendChild(button);
@@ -294,16 +360,90 @@
 		/* 검색 엔터키 이벤트 테스트 */
 		$("#searchBar").keyup(function(event) {
 			if (event.which == 13) {
-				var search = $('#searchBar').val()
-				console.log(search);
+				if (searchType == 'qna') {
+					qnaSearch()
+					window.scrollTo(0, 0);
+				} else {
+					replySearch()
+					window.scrollTo(0, 0);
+				}
 			}
 		})
 		
 		/* 검색 마우스 클릭 이벤트 테스트 */
 		$("#btn_search").click(function() {
-			var search = $('#searchBar').val()
-			console.log(search);
+			if (searchType == 'qna') {
+				qnaSearch()
+				window.scrollTo(0, 0);
+			} else {
+				replySearch()
+				window.scrollTo(0, 0);
+			}
 		})
+		
+		/* 나의 질문 키워드 검색 */
+		function qnaSearch() {
+	    	var search = $('#searchBar').val()
+	    	
+	    	if (search.length >= 2) {
+				$.ajax({
+					url: '../member/info/qnaKeywordSearch',
+					data: {
+						nickname : userNick,
+						keyword : search,
+						page : 1,
+						pageSize : 10
+					},
+					success: function(response) {
+						$("#dataList").empty();
+						$("#dataList").append(response);
+						
+						let qnaSearchTotalCnt = $("#listSize").text();
+						if (qnaSearchTotalCnt != null) {
+							let qnaSearchTotal = Math.ceil(parseInt(qnaSearchTotalCnt) / 10);
+							updatePagination(1, qnaSearchTotalCnt, qnaSearchTotal, 'qnaSearch')
+						}
+						
+						/* 페이징 버튼 css 클래스 추가 */
+						$(".btn_paging:first").addClass("current");
+					}
+				})
+			} else {
+				alert('2글자 이상 입력해 주세요.')
+			}
+		}
+	    
+	    /* 나의 답변 키워드 검색 */
+		function replySearch() {
+	    	var search = $('#searchBar').val()
+	    	
+	    	if (search.length >= 2) {
+	    		$.ajax({
+					url: '../member/info/replyKeywordSearch',
+					data: {
+						nickname : userNick,
+						keyword : search,
+						page : 1,
+						pageSize : 10
+					},
+					success: function(response) {
+						$("#dataList").empty();
+						$("#dataList").append(response);
+						
+						let replySearchTotalCnt = $("#listSize").text();
+						if (replySearchTotalCnt != null) {
+							let replySearchTotal = Math.ceil(parseInt(replySearchTotalCnt) / 10);
+							updatePagination(1, replySearchTotalCnt, replySearchTotal, 'replySearch')
+						}
+						
+						/* 페이징 버튼 css 클래스 추가 */
+						$(".btn_paging:first").addClass("current");
+					}
+				})
+			} else {
+				alert('2글자 이상 입력해 주세요.')
+			}
+		}
 	})
 	
 </script>
@@ -351,10 +491,6 @@
 										<div class="tab2_section" id="replyTab">
 											<span>나의 답변</span>
 											<span class="count" id="replyCnt"></span>
-										</div>
-										<div class="tab2_section" id="likeTab">
-											<span>좋아요</span>
-											<span class="count" id="likeCnt"></span>
 										</div>
 									</div>
 									<table id="dataList"></table>

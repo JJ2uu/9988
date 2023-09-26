@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tripleJ.gg88.domain.Exercise;
-import com.tripleJ.gg88.model.PagingDto;
 import com.tripleJ.gg88.repository.ExerciseRepository;
 
 @Service

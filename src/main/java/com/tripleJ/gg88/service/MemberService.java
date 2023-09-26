@@ -35,6 +35,8 @@ public interface MemberService {
 	
 	String searchNick(String nickname);
 	
+	String searchEmail(String email);
+	
 	int signUp(Member memberVO, String userbirth);
 	
 	String signIn(String id, String pw, boolean loginKeep, HttpServletRequest request, HttpServletResponse response);
@@ -47,6 +49,8 @@ public interface MemberService {
 	
 	String signOut(HttpSession session, HttpServletRequest request, HttpServletResponse response);
 	
+	void withdraw(String nickname, HttpSession session, HttpServletRequest request, HttpServletResponse response);
+	
 	String myInfo(String nickname, Model model);
 	
 	Map<String, Integer> totalCnt(String nickname);
@@ -54,6 +58,10 @@ public interface MemberService {
 	String myQna(String nickname, int page, int pageSize, Model model);
 	
 	String myReply(String nickname, int page, int pageSize, Model model);
+	
+	String qnaKeywordSearch(String nickname, String keyword, int page, int pageSize, Model model);
+	
+	String replyKeywordSearch(String nickname, String keyword, int page, int pageSize, Model model);
 	
 	String profile(String nickname);
 }

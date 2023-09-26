@@ -1,11 +1,6 @@
 package com.tripleJ.gg88.service;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,9 +35,12 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 	MemberRepository memberRepo;
 	
 	@Value("${profileBucket}")
-	private String bucket;
+	private String profile;
 	
-	public PutObjectResult upload(MultipartFile multiPartFile, String storedFileName) throws Exception {
+	@Value("${emergencyBucket}")
+	private String emergency;
+	
+	public PutObjectResult upload(MultipartFile multiPartFile, String storedFileName, String bucket) throws Exception {
 		ObjectMetadata objectMetadata = new ObjectMetadata();
 		String filePath = storedFileName;
 		byte[] bytes = IOUtils.toByteArray(multiPartFile.getInputStream());
@@ -83,7 +81,7 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 	    		userDataMap.put("id", userId);
 	    		userDataMap.put("profile", uuidFilename);
 	    		memberRepo.profileUpload(userDataMap);
-        		upload(mf, uuidFilename);
+        		upload(mf, uuidFilename, profile);
         		return uuidFilename;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -108,7 +106,7 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 				String encodedFilename = URLEncoder.encode(originalFilename, "UTF-8");
 				String uuidFilename = getUuidFileName(encodedFilename);
 				
-				upload(mf, uuidFilename);
+				upload(mf, uuidFilename, emergency);
 				return uuidFilename;
 			} catch (Exception e) {
 				e.printStackTrace();

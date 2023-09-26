@@ -2,6 +2,7 @@ package com.tripleJ.gg88.repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.tripleJ.gg88.domain.Qna;
 
@@ -30,5 +31,7 @@ public interface QnaRepository {
 	List<Qna> searchAll(String search);
 	
 	List<Qna> categorySearch(HashMap<String, String> map);
+	
+	List<Qna> userQnaKeywordSearch(Map<String, Object> userDataMap);
 
 }

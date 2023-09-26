@@ -25,7 +25,7 @@
 		<%
 			}
 		%>
-		<span class="row_content" style="margin-left: 20px; cursor: pointer;">
+		<span id="license" class="row_content" style="margin-left: 20px; cursor: pointer;">
 			의사 회원 전환하기
 			<span class="arrow"></span>
 		</span>
@@ -43,3 +43,5 @@
 		<span id="info_phone" class="row_content">${userPhone}</span>
 	</div>
 </div>
+<div style="width: 100%; height: 1px; background: #E0E6EC; margin: 50px 0;"></div>
+<button id="del_account">회원탈퇴</button>

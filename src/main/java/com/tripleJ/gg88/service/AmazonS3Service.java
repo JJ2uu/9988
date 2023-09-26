@@ -13,7 +13,7 @@ public interface AmazonS3Service {
 	
 	String profileUpload(MultipartHttpServletRequest multiRequest, HttpServletRequest request);
 	
-	PutObjectResult upload(MultipartFile multiPartFile, String storedFileName) throws Exception;
+	PutObjectResult upload(MultipartFile multiPartFile, String storedFileName, String bucket) throws Exception;
 	
 	String boardFileUpload(MultipartHttpServletRequest multiRequest, HttpServletRequest request);
 }

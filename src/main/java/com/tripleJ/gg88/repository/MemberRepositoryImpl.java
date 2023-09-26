@@ -59,4 +59,8 @@ public class MemberRepositoryImpl implements MemberRepository {
 	public void updateNick(Map<String, Object> userDataMap) {
 		sql.update(namespace + "updateNick", userDataMap);
 	}
+	
+	public void withdraw(Map<String, Object> userDataMap) {
+		sql.update(namespace + "withdraw", userDataMap);
+	}
 }

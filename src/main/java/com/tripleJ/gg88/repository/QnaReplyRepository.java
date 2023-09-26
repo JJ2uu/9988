@@ -1,6 +1,7 @@
 package com.tripleJ.gg88.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tripleJ.gg88.domain.QnaReply;
 
@@ -17,5 +18,7 @@ public interface QnaReplyRepository {
 	void qnaDeleteReply(QnaReply qnaReplyVO);
 	
 	List<QnaReply> userReplyList(int memberNo);
+	
+	List<QnaReply> userReplyKeywordSearch(Map<String, Object> userDataMap);
 
 }

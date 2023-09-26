@@ -2,6 +2,7 @@ package com.tripleJ.gg88.repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,10 @@ public class QnaRepositoryImpl implements QnaRepository {
 	
 	public List<Qna> categorySearch(HashMap<String, String> map){
 		return my.selectList("qna.categorySearch", map);
+	}
+	
+	public List<Qna> userQnaKeywordSearch(Map<String, Object> userDataMap) {
+		return my.selectList("qna.keywordSearch", userDataMap);
 	}
 
 }

@@ -11,11 +11,11 @@
 	</select>
 	
 	<insert id="signUp" parameterType="member">
-		insert into member values (null, #{id}, #{pw}, #{name}, #{birth}, #{gender}, #{email}, #{tel}, #{nickname}, null, current_timestamp, 1, 'none', #{sessionLimit})
+		insert into member values (null, #{id}, #{pw}, #{name}, #{birth}, #{gender}, #{email}, #{tel}, #{nickname}, 'default_profile.jpg', current_timestamp, 1, 'none', #{sessionLimit}, 'Y')
 	</insert>
 	
 	<select id="signIn" parameterType="member" resultType="member">
-		select * from member where id = #{id} and pw = #{pw}
+		select * from member where id = #{id} and pw = #{pw} and status = 'Y'
 	</select>
 	
 	<update id="keepLogin">
@@ -49,5 +49,9 @@
 	<select id="noToNick" parameterType="integer" resultType="member">
 		select * from member where member_no = #{memberNo}
 	</select>
+	
+	<update id="withdraw">
+		update member set id = #{code}, email = #{code}, status = 'N' where nickname = #{nickname}
+	</update>
 	
 </mapper>
