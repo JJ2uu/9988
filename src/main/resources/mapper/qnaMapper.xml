@@ -59,5 +59,8 @@
 		order by `date` desc
 	</select>
 	
-
+	<select id="keywordSearch" resultType="qna">
+		select * from qna where match (title) against(#{keyword} in natural language mode) and member_no = #{memberNo} order by date DESC;
+	</select>
+	
 </mapper>

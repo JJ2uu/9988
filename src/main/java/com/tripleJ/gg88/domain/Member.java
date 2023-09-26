@@ -19,6 +19,7 @@ public class Member {
 	private int level;
 	private String sessionId;
 	private Date sessionLimit;
+	private String status;
 	
 	public int getMemberNo() {
 		return memberNo;
@@ -130,6 +131,14 @@ public class Member {
 
 	public void setSessionLimit(Date sessionLimit) {
 		this.sessionLimit = sessionLimit;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

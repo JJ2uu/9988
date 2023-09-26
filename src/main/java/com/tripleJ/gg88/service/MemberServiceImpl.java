@@ -40,7 +40,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	BcryptService bcrypt;
-	
+
 	public String agreement() {
 		return "account/agreement";
 	}
@@ -135,6 +135,15 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
+	public String searchEmail(String email) {
+		Member result = memberRepo.searchEmail(email);
+		if (result == null) {
+			return "null";
+		} else {
+			return "notNull";
+		}
+	}
+	
 	public int signUp(Member memberVO, String userbirth) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {
@@ -212,6 +221,16 @@ public class MemberServiceImpl implements MemberService {
 		return "redirect:../9988_main.jsp";
 	}
 	
+	public void withdraw(String nickname, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		String code = makeWithdrawalCode(nickname);
+		System.out.println(code);
+		Map<String, Object> userDataMap = new HashMap<String, Object>();
+		userDataMap.put("nickname", nickname);
+		userDataMap.put("code", code);
+		memberRepo.withdraw(userDataMap);
+		session.invalidate();
+	}
+	
 	public String myInfo(String nickname, Model model) {
 		Member memberVO = memberRepo.searchNick(nickname);
 		StringBuilder userIdSb = new StringBuilder();
@@ -238,9 +257,16 @@ public class MemberServiceImpl implements MemberService {
 		List<Qna> userQnaList = qnaRepo.userQnaList(memberVO.getMemberNo());
 		List<QnaReply> userReplyList = replyRepo.userReplyList(memberVO.getMemberNo());
 		Map<String, Integer> totalCnt = new HashMap<>();
-		totalCnt.put("myQna", userQnaList.size());
-		totalCnt.put("myReply", userReplyList.size());
-		totalCnt.put("myLike", 0);
+		if (userQnaList != null) {
+			totalCnt.put("myQna", userQnaList.size());
+		} else {
+			totalCnt.put("myQna", 0);
+		}
+		if (userQnaList != null) {
+			totalCnt.put("myReply", userReplyList.size());
+		} else {
+			totalCnt.put("myReply", 0);
+		}
 		return totalCnt;
 	}
 	
@@ -288,6 +314,58 @@ public class MemberServiceImpl implements MemberService {
 		return "info/myReply";
 	}
 	
+	public String qnaKeywordSearch(String nickname, String keyword, int page, int pageSize, Model model) {
+		Member memberVO = memberRepo.searchNick(nickname);
+		Map<String, Object> userDataMap = new HashMap<String, Object>();
+		userDataMap.put("memberNo", memberVO.getMemberNo());
+		userDataMap.put("keyword", keyword);
+		List<Qna> userQnaList = qnaRepo.userQnaKeywordSearch(userDataMap);
+		
+		for (Qna qna : userQnaList) {
+		    Timestamp originalTimestamp = qna.getDate();
+		    long timestampMillis = originalTimestamp.getTime();
+		    long adjustedTimestampMillis = timestampMillis - (9 * 60 * 60 * 1000);
+		    Timestamp adjustedTimestamp = new Timestamp(adjustedTimestampMillis);
+		    qna.setDate(adjustedTimestamp);
+		}
+		
+		int startIndex = (page - 1) * pageSize;
+	    int endIndex = Math.min(startIndex + pageSize, userQnaList.size());
+	    List<Qna> pageData = userQnaList.subList(startIndex, endIndex);
+
+	    model.addAttribute("listSize", userQnaList.size());
+		model.addAttribute("userQnaList", pageData);
+		model.addAttribute("userNick", nickname);
+		
+		return "info/qnaKeywordSearch";
+	}
+	
+	public String replyKeywordSearch(String nickname, String keyword, int page, int pageSize, Model model) {
+		Member memberVO = memberRepo.searchNick(nickname);
+		Map<String, Object> userDataMap = new HashMap<String, Object>();
+		userDataMap.put("memberNo", memberVO.getMemberNo());
+		userDataMap.put("keyword", keyword);
+		List<QnaReply> userReplyList = replyRepo.userReplyKeywordSearch(userDataMap);
+		
+		for (QnaReply reply : userReplyList) {
+			Timestamp originalTimestamp = reply.getDate();
+			long timestampMillis = originalTimestamp.getTime();
+			long adjustedTimestampMillis = timestampMillis - (9 * 60 * 60 * 1000);
+			Timestamp adjustedTimestamp = new Timestamp(adjustedTimestampMillis);
+			reply.setDate(adjustedTimestamp);
+		}
+		
+		int startIndex = (page - 1) * pageSize;
+		int endIndex = Math.min(startIndex + pageSize, userReplyList.size());
+		List<QnaReply> pageData = userReplyList.subList(startIndex, endIndex);
+		
+		model.addAttribute("listSize", userReplyList.size());
+		model.addAttribute("userReplyList", pageData);
+		model.addAttribute("userNick", nickname);
+		
+		return "info/replyKeywordSearch";
+	}
+	
 	public String profile(String nickname) {
 		Member memberVO = memberRepo.searchNick(nickname);
 		return memberVO.getProfile();
@@ -302,4 +380,14 @@ public class MemberServiceImpl implements MemberService {
 		String formattedDate = format.format(adjustedDate);
 		return formattedDate;
 	}
+	
+	public String makeWithdrawalCode(String nickname) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("del_");
+		sb.append(nickname + "_");
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		sb.append(format.format(date));
+		return sb.toString();
+ 	}
 }

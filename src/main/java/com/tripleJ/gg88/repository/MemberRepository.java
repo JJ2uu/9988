@@ -27,4 +27,6 @@ public interface MemberRepository {
 	void profileUpload(Map<String, Object> userDataMap);
 	
 	void updateNick(Map<String, Object> userDataMap);
+	
+	void withdraw(Map<String, Object> userDataMap);
 }

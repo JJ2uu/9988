@@ -76,6 +76,12 @@ public class MemberController {
 		return memberService.searchNick(nickname);
 	}
 	
+	@RequestMapping("account/searchEmail")
+	@ResponseBody
+	public String searchEmail(String email) {
+		return memberService.searchEmail(email);
+	}
+	
 	@RequestMapping("account/signUp")
 	@ResponseBody
 	public int signUp(Member memberVO, String userbirth) {
@@ -105,6 +111,11 @@ public class MemberController {
 		return memberService.signOut(session, request, response);
 	}
 	
+	@RequestMapping("account/withdraw")
+	public void withdraw(String nickname, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		memberService.withdraw(nickname, session, request, response);
+	}
+	
 	@RequestMapping("info/myInfo")
 	public String myInfo(String nickname, Model model) {
 		return memberService.myInfo(nickname, model);
@@ -119,6 +130,16 @@ public class MemberController {
 	@RequestMapping("info/myQna")
 	public String myQna(String nickname, int page, int pageSize, Model model) {
 		return memberService.myQna(nickname, page, pageSize, model);
+	}
+	
+	@RequestMapping("info/qnaKeywordSearch")
+	public String qnaKeywordSearch(String nickname, String keyword, int page, int pageSize, Model model) {
+		return memberService.qnaKeywordSearch(nickname, keyword, page, pageSize, model);
+	}
+	
+	@RequestMapping("info/replyKeywordSearch")
+	public String replyKeywordSearch(String nickname, String keyword, int page, int pageSize, Model model) {
+		return memberService.replyKeywordSearch(nickname, keyword, page, pageSize, model);
 	}
 	
 	@RequestMapping("info/myReply")

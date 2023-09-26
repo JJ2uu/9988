@@ -29,5 +29,9 @@
 	<select id="userReplyList" resultType="qnaReply">
 		select * from qna_reply where member_no = #{memberNo} order by date desc
 	</select>
+	
+	<select id="keywordSearch" resultType="qnaReply">
+		select * from qna_reply where match (content) against(#{keyword} in natural language mode) and member_no = #{memberNo} order by date DESC;
+	</select>
 
 </mapper>

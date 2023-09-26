@@ -1,11 +1,13 @@
 package com.tripleJ.gg88.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.tripleJ.gg88.domain.Qna;
 import com.tripleJ.gg88.domain.QnaReply;
 
 @Repository
@@ -36,6 +38,10 @@ public class QnaReplyRepositoryImpl implements QnaReplyRepository{
 	
 	public List<QnaReply> userReplyList(int memberNo) {
 		return my.selectList("qnaReply.userReplyList", memberNo);
+	}
+	
+	public List<QnaReply> userReplyKeywordSearch(Map<String, Object> userDataMap) {
+		return my.selectList("qnaReply.keywordSearch", userDataMap);
 	}
 
 }
