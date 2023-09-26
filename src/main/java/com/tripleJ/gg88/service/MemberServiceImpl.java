@@ -40,7 +40,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	BcryptService bcrypt;
-
+	
 	public String agreement() {
 		return "account/agreement";
 	}
@@ -165,6 +165,7 @@ public class MemberServiceImpl implements MemberService {
 					Date sessionLimit = new Date(expiredDate);
 					keepLogin(id, request.getSession().getId(), sessionLimit);
 				}
+				request.getSession().setAttribute("memberNo", result.getMemberNo());
 				request.getSession().setAttribute("userId", result.getId());
 				request.getSession().setAttribute("userNick", result.getNickname());
 				return "success";
