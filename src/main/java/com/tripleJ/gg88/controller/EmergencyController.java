@@ -1,19 +1,26 @@
 package com.tripleJ.gg88.controller;
 
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tripleJ.gg88.service.EmergencyService;
+import com.tripleJ.gg88.service.MemberService;
 import com.tripleJ.gg88.domain.Emergency;
 import com.tripleJ.gg88.model.PagingDto;
 
@@ -21,17 +28,18 @@ import com.tripleJ.gg88.model.PagingDto;
 @RequestMapping("emergency/*")
 public class EmergencyController {
 	private EmergencyService service;
-	
+
 	@Autowired
 	public EmergencyController(EmergencyService service) {
 		this.service = service;
 	}
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public void emergencyPath(@RequestParam(defaultValue = "1") int currentNum, Model model) {
-		PagingDto page = service.paganation(currentNum);
-		List<Emergency> emergency = service.getList(page);
-		model.addAttribute("emergencyList", emergency);
+	public void emergencyPath(Model model, HttpServletRequest request) {
+		String userId = String.valueOf(request.getSession().getAttribute("userId"));
+		
+		model.addAttribute("emergencyList", service.getList(0, 12));
+		model.addAttribute("userId", userId);
 	}
 	
 	@RequestMapping(value = "/createBoard", method = RequestMethod.GET)
@@ -39,18 +47,9 @@ public class EmergencyController {
 	}
 	
 	@RequestMapping(value = "/saveBoard", method = RequestMethod.POST)
-	public String saveBoard(Emergency emergency, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String memberId = String.valueOf(session.getAttribute(""));
-		service.saveBoard(emergency, 1);
+	public String saveBoard(Emergency emergency, HttpServletRequest request, MultipartFile file) throws Exception {
+		service.saveBoard(emergency, (int) request.getSession().getAttribute("memberNo"));
 		return "redirect:/emergency/main";
-	}
-	
-	@RequestMapping(value = "/temporarySave", method = RequestMethod.GET)
-	public void temporarySave(Emergency emergency, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String memberId = String.valueOf(session.getAttribute(""));
-		service.temporarySave(emergency, 1);
 	}
 	
 	@RequestMapping(value = "/board", method = RequestMethod.GET)
@@ -61,8 +60,44 @@ public class EmergencyController {
 	
 	@RequestMapping(value = "/getPage", method = RequestMethod.POST)
 	@ResponseBody
-	public PagingDto getPage(@RequestParam(defaultValue = "1") int currentNum, Model model) {
+	public PagingDto getPage(@RequestParam int currentNum) {
 		return service.paganation(currentNum);
+	}
+	
+	@RequestMapping(value = "/updateBoard", method = RequestMethod.GET)
+	public void updatePath(int emergencyId, Model model) {
+		model.addAttribute("emergency", service.findById(emergencyId));
+	}
+	
+	@RequestMapping(value = "/updateBoard", method = RequestMethod.POST)
+	public String updateBoard(Emergency emergency, HttpServletRequest request) {
+		service.updateBoard(emergency, request);
+		return "redirect:/emergency/main";
+		
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String deleteBoard(int emergencyId) {
+		service.deleteBoard(emergencyId);
+		return "redirect:/emergency/main";
+	}
+	
+	@RequestMapping(value = "/getList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Emergency> getList(@RequestParam int firstRecordIndex, @RequestParam int lastRecordIndex) {
+		return service.getList(firstRecordIndex, lastRecordIndex);
+	}
+	
+	@RequestMapping(value = "/saveImg", method = RequestMethod.POST)
+	@ResponseBody
+	public void saveImg(@RequestParam String imgFile, HttpServletResponse response) throws Exception {
+		System.out.println(imgFile);
+		response.addHeader(
+				"Content-disposition","attachment;fileName="+imgFile); //파일을 다운받고, 브라우저로 표현하고, 다운될 파일이름
+			    File file = new File(service.IMAGE_REPO+"/"+imgFile);
+			    FileInputStream in = new FileInputStream(file);
+			    FileCopyUtils.copy(in, response.getOutputStream());
+			    in.close();
 	}
 	
 }
