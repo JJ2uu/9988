@@ -4,22 +4,21 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tripleJ.gg88.domain.Emergency;
 import com.tripleJ.gg88.model.PagingDto;
 
 public interface EmergencyService {
+	public static final String IMAGE_REPO="C:/spring/image_repo";
 
 	int saveBoard(Emergency emergency, int memberNo);
-
-	int temporarySave(Emergency emergency, int memberNo);
 
 	Emergency findById(int emergencyId);
 
 	List<Emergency> findAllBoard();
 
-	int updateBoard(Emergency emergency);
+	int updateBoard(Emergency emergency, HttpServletRequest request);
 
 	int incrementCommendCount(int emergencyId);
 
@@ -29,5 +28,7 @@ public interface EmergencyService {
 	
 	PagingDto paganation(int currentNum);
 	
-	public List<Emergency> getList(PagingDto pagingDto);
+	public List<Emergency> getList(int first, int last);
+	
+	public int getMemberNo(String userId);
 }

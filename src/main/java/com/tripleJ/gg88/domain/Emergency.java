@@ -5,13 +5,13 @@ import java.util.Date;
 public class Emergency {
 
 	private int emergencyId;
-	private int memberNo; //멤버 아이디
+	private int memberNo; 
 	private String title; //게시판 제목
 	private String content; //내용
 	private int commendCount; //추천수
 	private Date regdate; //작성일자
 	private Date updatedate; //수정일자
-	private int isYn; //임시저장 여부
+	private String imgFile;
 	
 	public int getEmergencyId() {
 		return emergencyId;
@@ -69,19 +69,19 @@ public class Emergency {
 		this.updatedate = updatedate;
 	}
 	
-	public int getIsYn() {
-		return isYn;
+	public String getImgFile() {
+		return imgFile;
 	}
-	
-	public void setIsYn(int isYn) {
-		this.isYn = isYn;
+
+	public void setImgFile(String imgFile) {
+		this.imgFile = imgFile;
 	}
 
 	@Override
 	public String toString() {
 		return "Emergency [emergencyId=" + emergencyId + ", memberNo=" + memberNo + ", title=" + title + ", content="
 				+ content + ", commendCount=" + commendCount + ", regdate=" + regdate + ", updatedate=" + updatedate
-				+ ", isYn=" + isYn + "]";
+				+ ", imgFile=" + imgFile + "]";
 	}
-	
+
 }
