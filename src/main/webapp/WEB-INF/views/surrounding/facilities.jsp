@@ -97,7 +97,7 @@
 	width:33px; 
 	height:32px;
 	margin: 10px 5px 0px 1px;
-	background: url("${pageContext.request.contextPath}/resources/img/call.png") no-repeat;
+	background: url("${pageContext.request.contextPath}/resources/img/call.svg") no-repeat;
 }
 
 .frm_btn{
@@ -187,7 +187,7 @@
 						<div class="on_click" id="hospital_div">
 						<button class="frm_btn" value="hospital" type="button" onclick="btnSubmit(this.value);">
 							<div id="frm_div" style="display: flex; justify-content: space-around; align-items: center;">
-								<img src="${pageContext.request.contextPath}/resources/img/hospital.png" width="14px;">
+								<img src="${pageContext.request.contextPath}/resources/img/hospital.svg" width="14px;">
 								<span>병원</span>
 							</div>
 						</button>
@@ -195,7 +195,7 @@
 						<div class="no_click" id="health_div">
 						<button class="frm_btn" value="health" type="button" onclick="btnSubmit(this.value);">
 							<div id="frm_div" style="display: flex; justify-content: space-around; align-items: flex-end;">
-								<img src="${pageContext.request.contextPath}/resources/img/running.png" width="14px;">
+								<img src="${pageContext.request.contextPath}/resources/img/running.svg" width="14px;">
 								<span>헬스장</span>
 							</div>
 						</button>
