@@ -18,7 +18,7 @@
 		
 			$(function() {
 				/* 댓글 개수 */
-				const span = document.getElementById("reply"+${list.qnaId})
+				const span = document.getElementById("reply"+${list.rowNum})
 				let count = ${list.replyCount}
 				if (count == 0) {
 					span.style.display ="none";
@@ -31,7 +31,7 @@
 				let dateDifference = currentDate - date;
 				let dateDisplay = '';
 				
-				const dateEle = document.getElementById("dateDisplay"+${list.qnaId})
+				const dateEle = document.getElementById("dateDisplay"+${list.rowNum})
 				
 				if (dateDifference < 60000) {
 					dateDisplay = '방금';
@@ -58,16 +58,16 @@
 			
 		</script>
 		<tr>
-			<td class="num">${list.qnaId}</td>
+			<td class="num">${list.rowNum}</td>
 			<td class="article_title">
 				<a href="../qna/qnaPost.jsp?qnaId=${list.qnaId}">
 					<span class="category">[${list.category}]</span>
 					<span class="title">${list.title}</span>
-					<span class="reply" id="reply${list.qnaId}">[${list.replyCount}]</span>
+					<span class="reply" id="reply${list.rowNum}">[${list.replyCount}]</span>
 				</a>
 			</td>
 			<td class="writer">${userNick}</td>
-			<td id="dateDisplay${list.qnaId}"></td>
+			<td id="dateDisplay${list.rowNum}"></td>
 			<td>${list.view}</td>
 		</tr>
 	</c:forEach>

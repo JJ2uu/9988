@@ -41,7 +41,7 @@
 	</update>
 	
 	<select id="userQnaList" resultType="qna">
-		select * from qna where member_no = #{memberNo} order by date desc
+		select @rownum:=@rownum+1 as row_num, q.* FROM qna q WHERE (@rownum:=0)=0 and member_no = #{memberNo} order by date DESC;
 	</select>
 	
 	<select id="searchAll" parameterType="String" resultType="qna">

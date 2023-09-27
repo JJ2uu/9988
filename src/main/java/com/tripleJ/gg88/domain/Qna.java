@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class Qna {
 
 	private int qnaId;
+	private int rowNum;
 	private int memberNo;
 	private String title;
 	private String content;
@@ -29,6 +30,15 @@ public class Qna {
 		this.qnaId = qnaId;
 	}
 	
+	
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
+
 	public int getMemberNo() {
 		return memberNo;
 	}

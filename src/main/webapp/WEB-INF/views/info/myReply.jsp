@@ -23,7 +23,7 @@
 				let dateDifference = currentDate - date;
 				let dateDisplay = '';
 				
-				const dateEle = document.getElementById("dateDisplay"+${list.replyId})
+				const dateEle = document.getElementById("dateDisplay"+${list.rowNum})
 				
 				if (dateDifference < 60000) {
 					dateDisplay = '방금';
@@ -50,7 +50,7 @@
 			
 		</script>
 		<tr>
-			<td class="num">${list.replyId}</td>
+			<td class="num">${list.rowNum}</td>
 			<td class="article_title">
 				<a href="../qna/qnaPost.jsp?qnaId=${list.qnaId}">
 					<span id="qnaId" style="display: none;">[${list.qnaId}]</span>
@@ -58,7 +58,7 @@
 				</a>
 			</td>
 			<td class="writer">${userNick}</td>
-			<td id="dateDisplay${list.replyId}"></td>
+			<td id="dateDisplay${list.rowNum}"></td>
 		</tr>
 	</c:forEach>
 </tbody>

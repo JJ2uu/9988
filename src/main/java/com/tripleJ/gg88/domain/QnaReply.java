@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class QnaReply {
 
 	private int replyId;
+	private int rowNum;
 	private int memberNo;
 	private int qnaId;
 	private String content;
@@ -52,6 +53,14 @@ public class QnaReply {
 		this.qnaId = qnaId;
 	}
 	
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
+
 	public String getContent() {
 		return content;
 	}
