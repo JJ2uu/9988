@@ -30,10 +30,4 @@ public class AmazonS3Controller {
 		return amazonService.boardFileUpload(multiRequest, request);
 	}
 	
-	@RequestMapping(value = "/getImg", method = RequestMethod.POST)
-	@ResponseBody
-	public String getImg(MultipartHttpServletRequest multiRequest, HttpServletRequest request) {
-		return amazonService.boardFileUpload(multiRequest, request);
-	}
-	
 }
