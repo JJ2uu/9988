@@ -57,7 +57,7 @@ public class MainController {
 	
 	@RequestMapping("main/main_daily")
 	public void mainDaily(@RequestParam(defaultValue = "1") int page, Model model) {
-		dailyService.articleList(page, model);
+		dailyService.mainArticle(page, model);
 	}
 	
 	@RequestMapping("main/main_emergency")

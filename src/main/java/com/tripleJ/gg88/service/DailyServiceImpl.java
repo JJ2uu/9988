@@ -47,7 +47,8 @@ public class DailyServiceImpl implements DailyService{
 		}
 	}
 
-	public void articleList(int page, Model model) {
+	public List<Daily> articleList(int page, Model model) {
+		List<Daily> currentPageNews = new ArrayList<Daily>();
 		try {
 			Date currentDate = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -57,8 +58,6 @@ public class DailyServiceImpl implements DailyService{
 			
 			Document doc = Jsoup.connect(url+page).get();
 			Elements newsLinks = doc.select(".list_body ul li");
-			
-			List<Daily> currentPageNews = new ArrayList<Daily>();
 			int index = 0;
 			for (Element link : newsLinks) {
 				Element titleElement = link.select("dt a").first();
@@ -89,8 +88,10 @@ public class DailyServiceImpl implements DailyService{
 				index++;
 			}
 			model.addAttribute("newsList", currentPageNews);
+			return currentPageNews;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return currentPageNews;
 		}
 	}
 	
@@ -128,5 +129,16 @@ public class DailyServiceImpl implements DailyService{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void mainArticle(int page, Model model) {
+		List<Daily> news = articleList(page, model);
+		for (Daily list : news) {
+			String imgUrl = list.getImgUrl();
+			int idx = imgUrl.indexOf("?");
+			String thumbUrl = imgUrl.substring(0, idx);
+			list.setImgUrl(thumbUrl);
+		}
+		model.addAttribute("mainNews", news);
 	}
 }

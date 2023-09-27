@@ -12,11 +12,11 @@
 		})
 	})
 </script>
-<c:forEach begin="1" end="4" items="${newsList}" var="list">
+<c:forEach begin="1" end="4" items="${mainNews}" var="list">
 	<div class="article" data-newsurl="${list.newsUrl}">
 		<c:if test="${not empty list.imgUrl}">
 			<div class="articleImage">
-				<img src="${list.imgUrl}" width="230px" style="border-radius: 5px">
+				<img src="${list.imgUrl}" width="230px" style="border-radius: 5px" class="newsThumbnail">
 			</div>
 		</c:if>
 		<div class="articleCompany">${list.writing}</div>
