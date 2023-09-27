@@ -24,15 +24,15 @@
 
 #placesList{
 	list-style-type: none;
-	width: 100%;
+	width: 80%;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .item{
 	width: 40%;
-    margin: 10px auto;
 }
 
 .paging button{
@@ -205,7 +205,7 @@
 			</div>
 			</div>
 			<div id="menu_wrap" class="bg_white" style="width: 90%; margin: auto;">
-        		<ul id="placesList" style="margin: 22px 0"></ul>
+        		<ul id="placesList" style="margin: 22px auto"></ul>
         		<div id="pagination" class="paging"></div>
    			</div>
 		</div>

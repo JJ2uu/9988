@@ -68,10 +68,10 @@
 </style>
 <script type="text/javascript">
 $(function() {
-	$("#imageFile").change(function() {
+	$("#img").change(function() {
 	
 	var formData = new FormData();
-	formData.append("file", $("#imageFile")[0].files[0]);
+	formData.append("file", $("#img")[0].files[0]);
 	console.log(formData)
 	
 	$.ajax({
@@ -124,7 +124,8 @@ $(function() {
 				</div>
 				<div class="form-group" style="height: 150px; width: 200px;">
 					<span style="padding-right: 0px;">이미지 파일 첨부</span>
-		            <input id="imageFile" type="file" name="imgFile">
+		            <input id="img" type="file" name="img">
+		            <input id="imageFile" type="hidden" name="imgFile">
 					<img id="preview" src="#" width=200 height=150 alt="선택된 이미지가 없습니다" style="align-content: flex-end; ">
 				</div>
 				<div class="complete_btn">
