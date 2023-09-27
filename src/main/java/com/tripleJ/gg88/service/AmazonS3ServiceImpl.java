@@ -99,7 +99,6 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 	
 	public String boardFileUpload(MultipartHttpServletRequest multiRequest, HttpServletRequest request) {
 		MultipartFile mf = multiRequest.getFile("file");
-		System.out.println(mf);
 		if (mf != null) {
 			String originalFilename = mf.getOriginalFilename();
 			try {
@@ -117,5 +116,5 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 			return "fail";
 		}
 	}
-
+	
 }
