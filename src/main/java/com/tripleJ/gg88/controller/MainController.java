@@ -2,17 +2,17 @@ package com.tripleJ.gg88.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tripleJ.gg88.domain.Emergency;
 import com.tripleJ.gg88.domain.Exercise;
 import com.tripleJ.gg88.domain.Food;
 import com.tripleJ.gg88.domain.Page;
-import com.tripleJ.gg88.model.PagingDto;
 import com.tripleJ.gg88.service.DailyService;
 import com.tripleJ.gg88.service.EmergencyService;
 import com.tripleJ.gg88.service.ExerciseService;
@@ -50,9 +50,8 @@ public class MainController {
 	}
 	
 	@RequestMapping("main/main_exercise")
-	public void mainExercise(@RequestParam(defaultValue = "1", name = "seq") int currentNum, Model model) throws Exception{
-		PagingDto page = exerciseService.paganation(currentNum, "운동");
-		List<Exercise> exercise = exerciseService.search("운동", page);
+	public void mainExercise(Model model) throws Throwable{
+		List<Exercise> exercise = exerciseService.search("운동");
 		model.addAttribute("exercise", exercise);
 	}
 	
@@ -62,10 +61,11 @@ public class MainController {
 	}
 	
 	@RequestMapping("main/main_emergency")
-	public void mainEmergency(@RequestParam(defaultValue = "1") int currentNum, Model model) {
-		PagingDto page = emergencyService.paganation(currentNum);
-		List<Emergency> emergency = emergencyService.getList(page);
-		model.addAttribute("emergencyList", emergency);
+	public void mainEmergency(Model model, HttpServletRequest request) {
+		String userId = String.valueOf(request.getSession().getAttribute("userId"));
+		
+		model.addAttribute("emergencyList", emergencyService.getList(0, 12));
+		model.addAttribute("userId", userId);
 	}
 	
 	

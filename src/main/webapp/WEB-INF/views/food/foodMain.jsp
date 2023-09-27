@@ -53,7 +53,7 @@ $(function() {
 			<div id="content">
 				<div id="foodMain">
 					<div class="subheading" style="margin-bottom: 20px;">
-						<span style="font-size: 24px; font-weight: bolder; margin-bottom: 30px">뭐 먹을까요?</span>
+						<span style="font-size: 24px; font-weight: bolder; margin-bottom: 30px">뭐 먹을까요? <img alt="!" src="${pageContext.request.contextPath}/resources/img/food.svg" width="30px"></span>
 					</div>
 					<div class="search">
 						<input id="foodSearchTitle" type="text" placeholder="식재료, 가지고 있는 질병, 예방하고 싶은 질병 등으로 검색">
@@ -63,14 +63,14 @@ $(function() {
 						<c:forEach var="i" begin="1" end="${fn:length(foodList)}">
 							<a href="${foodList[i-1].url}" class="food">
 							    <img class="foodImage" src="${foodList[i-1].thumbnail}">
-							    <div class="textContainer">
-							        <div class="userWrap">
-							            <div class="foodText" style="color: #407FBA;">${foodList[i-1].blogName}</div>
-							            <div class="foodText" style="font-weight: 300; color: #407FBA;">${foodList[i-1].job}</div>
-							        </div>
-							        <div class="foodText" style="font-size: 18px;">${foodList[i-1].title}</div>
-							        <div class="foodText" style="font-weight: 300; overflow-wrap: break-word;">${foodList[i-1].simpleContent}</div>
-							    </div>
+							    <span class="textContainer">
+							        <span class="userWrap">
+							            <span class="foodText" style="color: #407FBA;">${foodList[i-1].blogName}</span>
+							            <span class="foodText" style="font-weight: 300; color: #407FBA;">${foodList[i-1].job}</span>
+							        </span>
+							        <span class="foodText" style="font-size: 18px;">${foodList[i-1].title}</span>
+							        <span class="foodText" style="font-weight: 300; overflow-wrap: break-word;">${foodList[i-1].simpleContent}</span>
+							    </span>
 							</a>
 						</c:forEach>
 					</div>
