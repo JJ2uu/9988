@@ -31,7 +31,8 @@
 <div class="slideshow-container">
     <c:forEach var="emergencyList" items="${emergencyList}" begin="1" end="4">
     	<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
-			<img width="400px" height="250px" alt="응급상황 사진" align="left" src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+			<img alt="응급상황 사진" align="left" src="${emergencyList.imgFile}"> 
+			<span>${emergencyList.title}</span>
 		</a>
     </c:forEach>
 	<span class="material-symbols-outlined prev">arrow_back_ios</span>
