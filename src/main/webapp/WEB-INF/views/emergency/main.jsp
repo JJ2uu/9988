@@ -50,7 +50,6 @@ $(function(){
 		        	contentType : "application/text; charset:UTF-8",
 		        	success: function(nickname) {
 		        		console.log(nickName);
-		    			userNick = nickname;
 					}
 		        })
 		        break;
@@ -142,8 +141,6 @@ function doAction(seq){
 }
 
 function getList(first, last){
-	console.log('성공')
-	
 	var f = first;
 	var l = last;
 	
@@ -170,6 +167,23 @@ function getList(first, last){
 	})
 }
 
+/* function getMemberNo(userNickName){
+	console.log('호출');
+	
+	$.ajax({
+		type: 'post',
+		url: '${pageContext.request.contextPath}/emergency/getMemberNo',
+		data: {
+			userNickName: userNickName
+		}, 
+		success: function(data){
+			console.log(data);
+		}, 
+		error: function(e){
+			console.log('Error', e);
+		}
+	})
+} */
 </script>
 <title>99팔팔</title>
 </head>
@@ -206,7 +220,7 @@ function getList(first, last){
 					<c:forEach var="emergencyList" items="${emergencyList}">
 						<div class="img_box">
 						<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
-							<img alt="응급상황 사진" align="left" src="${emergencyList.imgFile}"> 
+							<img alt="응급상황 사진" align="left" src="${emergencyList.imgFile}" width="240px;" height="180px;"> 
 							<span>${emergencyList.title}</span>
 						</a>
 						</div>
