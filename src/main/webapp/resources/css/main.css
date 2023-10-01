@@ -68,7 +68,6 @@ th, td{
 }
 
 .slideshow-container img {
-    display: none;
     width: 100%;
     height: auto;
     border-radius: 10px;
