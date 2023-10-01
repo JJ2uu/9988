@@ -31,6 +31,33 @@
 }
 </style>
 <script type="text/javascript">
+$(function(){
+	let userNick = '<%= session.getAttribute("userNick") %>';
+	if (userNick == 'null') {
+		let cookieName = "loginCookie";
+		let cookieString = document.cookie;
+		let cookieArray = cookieString.split(';');
+		
+		for (var i = 0; i < cookieArray.length; i++) {
+		    var cookie = cookieArray[i].trim();
+		    if (cookie.indexOf(cookieName + '=') === 0) {
+		        let cookieValue = cookie.substring(cookieName.length + 1);
+		        $.ajax({
+		        	url: '${pageContext.request.contextPath}/member/autoSignIn',
+		        	data: {
+		        		sessionId : cookieValue
+		        	},
+		        	contentType : "application/text; charset:UTF-8",
+		        	success: function(nickname) {
+		        		console.log(nickName);
+					}
+		        })
+		        break;
+		    }
+		}
+	}
+})
+
 $(document).ready(function(){
 	$.ajax({
 		type : 'POST',
@@ -65,6 +92,7 @@ $(document).ready(function(){
 			console.error('Error:', error);
 		} 
 	})//ajax
+	
 }) 
 	
 function doAction(seq){
@@ -113,8 +141,6 @@ function doAction(seq){
 }
 
 function getList(first, last){
-	console.log('성공')
-	
 	var f = first;
 	var l = last;
 	
@@ -131,7 +157,7 @@ function getList(first, last){
 			$.each(data, function(index, item) { // 데이터 =item
 				$("#contents").append(
 						'<div class="img_box"><a href="${pageContext.request.contextPath}/emergency/board?emergencyId=' + item.emergencyId + '">'
-								+'<img alt="응급상황 사진" align="left" src="${pageContext.request.contextPath}/resources/img/test_img.png"><span>'
+								+'<img alt="응급상황 사진" align="left" src="' + item.imgFile + '"><span>'
 						+ item.title + '</span></a></div>'); // index가 끝날때까지 
 			});
 		}, 
@@ -141,6 +167,23 @@ function getList(first, last){
 	})
 }
 
+/* function getMemberNo(userNickName){
+	console.log('호출');
+	
+	$.ajax({
+		type: 'post',
+		url: '${pageContext.request.contextPath}/emergency/getMemberNo',
+		data: {
+			userNickName: userNickName
+		}, 
+		success: function(data){
+			console.log(data);
+		}, 
+		error: function(e){
+			console.log('Error', e);
+		}
+	})
+} */
 </script>
 <title>99팔팔</title>
 </head>
@@ -166,7 +209,7 @@ function getList(first, last){
 				</div>
 
 				<div id="plus_content" style="display: flex; justify-content: flex-end;">
-					<c:if test="${memberNo != 0}">
+					<c:if test="${not empty memberNo}">
 						<form action="createBoard">
 							<button type="submit" class="contetn_btn">응급상황 추가하기</button>
 						</form>
@@ -177,7 +220,7 @@ function getList(first, last){
 					<c:forEach var="emergencyList" items="${emergencyList}">
 						<div class="img_box">
 						<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
-							<img alt="응급상황 사진" align="left" src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+							<img alt="응급상황 사진" align="left" src="${emergencyList.imgFile}" width="240px;" height="180px;"> 
 							<span>${emergencyList.title}</span>
 						</a>
 						</div>

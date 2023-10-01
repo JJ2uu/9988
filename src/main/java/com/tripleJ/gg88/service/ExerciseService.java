@@ -18,18 +18,11 @@ import com.tripleJ.gg88.repository.ExerciseRepository;
 
 @Service
 public class ExerciseService {
-	private final ExerciseRepository repository;
-	
-	@Autowired
-	public ExerciseService(ExerciseRepository repository) {
-		super();
-		this.repository = repository;
-	}
 
 	public List<Exercise> search(String search) throws Exception {
 		String apiurl = "https://www.googleapis.com/youtube/v3/search";
 		apiurl += "?key=AIzaSyD1oh2pUIox-pNVm652OsV4Q-cImdiVpQg";
-		apiurl += "&part=snippet&type=video&maxResults=20&videoEmbeddable=true";
+		apiurl += "&part=snippet&type=video&maxResults=21&videoEmbeddable=true";
 		apiurl += "&q="+URLEncoder.encode(search,"UTF-8");
 		
 		URL url = new URL(apiurl);

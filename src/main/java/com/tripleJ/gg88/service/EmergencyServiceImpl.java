@@ -23,6 +23,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public int saveBoard(Emergency emergency, int memberNo) {
 		emergency.setMemberNo(memberNo);
+		String imgFilePath = "http://zdvkzxzhpbmk19765281.cdn.ntruss.com/" + emergency.getImgFile() + "?type=f&w=240&h=180&ttype=jpg";
+		emergency.setImgFile(imgFilePath);
 		return repository.save(emergency);
 	}
 	
@@ -125,8 +127,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 	}
 	
 	@Override
-	public int getMemberNo(String userId) {
-		return repository.getMemberNo(userId);
+	public int getMemberNo(String userNickName) {
+		return repository.getMemberNo(userNickName);
 	}
 
 }
