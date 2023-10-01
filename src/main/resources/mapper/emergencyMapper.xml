@@ -53,7 +53,7 @@
 	</select>
 	
 	<select id="getMemberNo" parameterType="String" resultType="integer">
-		select member_no from gg88.member where id = #{userId}
+		select member_no from gg88.member where nickname = #{userNickName}
 	</select>
 	
 </mapper>

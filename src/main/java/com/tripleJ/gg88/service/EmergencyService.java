@@ -28,5 +28,5 @@ public interface EmergencyService {
 	
 	public List<Emergency> getList(int first, int last);
 	
-	public int getMemberNo(String userId);
+	public int getMemberNo(String userNickName);
 }

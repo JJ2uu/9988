@@ -58,8 +58,8 @@ public class EmergencyRepositoryImpl implements EmergencyRepository{
 	}
 
 	@Override
-	public int getMemberNo(String userId) {
-		return sql.selectOne(namespace + "getMemberNo", userId);
+	public int getMemberNo(String userNickName) {
+		return sql.selectOne(namespace + "getMemberNo", userNickName);
 	}
 	
 }

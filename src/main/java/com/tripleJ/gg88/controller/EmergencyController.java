@@ -8,11 +8,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,16 +90,11 @@ public class EmergencyController {
 		return service.getList(firstRecordIndex, lastRecordIndex);
 	}
 	
-	@RequestMapping(value = "/saveImg", method = RequestMethod.POST)
+	@RequestMapping(value="getMemberNo", method = RequestMethod.POST)
 	@ResponseBody
-	public void saveImg(@RequestParam String imgFile, HttpServletResponse response) throws Exception {
-		System.out.println(imgFile);
-		response.addHeader(
-				"Content-disposition","attachment;fileName="+imgFile); //파일을 다운받고, 브라우저로 표현하고, 다운될 파일이름
-			    File file = new File(service.IMAGE_REPO+"/"+imgFile);
-			    FileInputStream in = new FileInputStream(file);
-			    FileCopyUtils.copy(in, response.getOutputStream());
-			    in.close();
+	public Object getMemberNo(@RequestParam String userNickName, HttpSession session) {
+		int memberNo = service.getMemberNo(userNickName);
+		session.setAttribute("memberNo", memberNo);
+		return session.getAttribute("memberNo");
 	}
-	
 }
