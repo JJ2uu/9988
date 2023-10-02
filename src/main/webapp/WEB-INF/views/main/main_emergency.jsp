@@ -33,8 +33,8 @@
     <c:forEach var="emergency" items="${emergencyList}" varStatus="status">
         <div class="slide">
             <a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergency.emergencyId}">
-                <img alt="응급상황 사진" align="left" src="${pageContext.request.contextPath}/resources/img/person2.svg">
-                <span>${emergency.title}</span>
+                <img alt="응급상황 사진" align="left" src="http://zdvkzxzhpbmk19765281.cdn.ntruss.com/070b44a0-d59e-483c-ba7c-10ec07b3026b_test_newsImg.jpg?type=f&w=480&h=200">
+                <span class="emergencyTitle">${emergency.title}</span>
             </a>
         </div>
     </c:forEach>

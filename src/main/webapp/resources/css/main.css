@@ -92,6 +92,14 @@ th, td{
 .next {
     right: 10px;
 }
+.emergencyTitle{
+	max-width: 400px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 20px;
+}
 /* 뭐먹을까요 */
 .food {
     position: relative;
