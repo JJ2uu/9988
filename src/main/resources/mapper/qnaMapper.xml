@@ -9,7 +9,7 @@
 	</insert>
 	
 	<select id="qnaList" resultType="qna">
-		select * from qna order by `date` desc 
+		select @rownum:=@rownum+1 as row_num, q.* FROM qna q WHERE (@rownum:=0)=0 order by `date` desc 
 	</select>
 	
 	<select id="qnaDetail" resultType="qna" parameterType="Integer" >
@@ -45,16 +45,14 @@
 	</select>
 	
 	<select id="searchAll" parameterType="String" resultType="qna">
-		select * from qna 
-		where content like concat('%',#{search},'%') 
+		select @rownum:=@rownum+1 as row_num, q.* FROM qna q WHERE (@rownum:=0)=0 and content like concat('%',#{search},'%') 
 		or title like concat('%',#{search},'%') 
 		order by `date` desc
 	</select>
 	
 	<select id="categorySearch" parameterType="Map" resultType="qna">
-		select * from qna 
-		where category = #{category} 
-		and (content like concat('%',#{search},'%') 
+		select @rownum:=@rownum+1 as row_num, q.* FROM qna q WHERE (@rownum:=0)=0 and category = #{category} 
+		and (content like=oncat('%',#{search},'%') 
 		or title like concat('%',#{search},'%')) 
 		order by `date` desc
 	</select>

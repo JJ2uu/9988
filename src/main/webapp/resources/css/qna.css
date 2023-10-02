@@ -176,7 +176,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     height: 30px;
     padding: 5px 10px;
     border-radius: 5px;
-    cursor: pointer;
     font-size: 14px;
 }
 .reReplyInput{
@@ -186,7 +185,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     height: 30px;
     padding: 5px 10px;
     border-radius: 5px;
-    cursor: pointer;
     font-size: 14px;
 }
 .enter{

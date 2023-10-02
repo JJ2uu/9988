@@ -228,9 +228,10 @@ $(function() {
 	<div style="display: flex; align-items: center; justify-content: space-between;">
 		<div id="qnaWriter">
 			<div>
-				<img alt="작성자 프로필 사진"
-					src="${pageContext.request.contextPath}/resources/img/person2.svg"
-					width="50px" style="border-radius: 100px;">
+				<img alt="작성자 프로필 사진" 
+				src="https://figveoefijyo19505068.cdn.ntruss.com/${profile}?type=f&w=50&h=50&ttype=jpg" 
+				style="border-radius: 100px;" 
+				onerror="this.src='https://figveoefijyo19505068.cdn.ntruss.com/default_profile.jpg?type=f&w=50&h=50&ttype=jpg';">
 			</div>
 			<div style="font-weight: 600;">${writer}</div>
 		</div>

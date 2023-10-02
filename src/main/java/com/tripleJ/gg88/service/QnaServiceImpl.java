@@ -83,7 +83,8 @@ public class QnaServiceImpl implements QnaService {
 		List<String> replyWriterList = new ArrayList<>();
 		int memberNo = qnaVO.getMemberNo();
         String writer = qnaRepo.NoToNick(memberNo);
-        
+        Member memberVO = memberRepo.searchNick(writer);
+        String profile = memberVO.getProfile();
         for (QnaReply qnaReply : qnaReplyList) {
         	int replyMemberNo = qnaReply.getMemberNo();
 			String replyWriter = qnaRepo.NoToNick(replyMemberNo);
@@ -92,6 +93,7 @@ public class QnaServiceImpl implements QnaService {
         String formattedDate = formattedDate(qnaVO.getDate());
         model.addAttribute("formattedDate", formattedDate);
         model.addAttribute("writer", writer);
+        model.addAttribute("profile", profile);
         model.addAttribute("replyWriterList", replyWriterList);
 		model.addAttribute("qnaVO", qnaVO);
 		model.addAttribute("qnaReplyList", qnaReplyList);
@@ -155,13 +157,33 @@ public class QnaServiceImpl implements QnaService {
 	}
 	
 	public String formattedDate(Timestamp originalDate) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(originalDate);
-		calendar.add(Calendar.HOUR, -9);
-		Date adjustedDate = calendar.getTime();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy. MM. dd");
-		String formattedDate = format.format(adjustedDate);
-		return formattedDate;
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(originalDate);
+	    calendar.add(Calendar.HOUR, -9);
+	    Date originalDateTime = calendar.getTime();
+	    
+	    long timeDifferenceMillis = System.currentTimeMillis() - originalDateTime.getTime();
+	    
+	    // 1분 이내일 경우
+	    if (timeDifferenceMillis < 60000) {
+	        return "방금";
+	    }
+	    
+	    // 1시간 이내일 경우
+	    if (timeDifferenceMillis < 3600000) {
+	        long minutes = timeDifferenceMillis / 60000;
+	        return minutes + "분 전";
+	    }
+	    
+	    // 하루 이내일 경우
+	    if (timeDifferenceMillis < 86400000) {
+	        long hours = timeDifferenceMillis / 3600000;
+	        return hours + "시간 전";
+	    }
+	    
+	    // 그 외의 경우
+	    SimpleDateFormat format = new SimpleDateFormat("yyyy. MM. dd");
+	    return format.format(originalDateTime);
 	}
 	
 	public void searchAllPage(int page, int pageSize, String search, Model model) {

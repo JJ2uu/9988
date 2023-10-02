@@ -58,6 +58,10 @@ th, td{
 }
 .title{
 	cursor: pointer;
+	max-width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 /* 응급이에요 */
 .slideshow-container {
@@ -68,7 +72,6 @@ th, td{
 }
 
 .slideshow-container img {
-    display: none;
     width: 100%;
     height: auto;
     border-radius: 10px;
@@ -89,6 +92,14 @@ th, td{
 .next {
     right: 10px;
 }
+.emergencyTitle{
+	max-width: 400px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 20px;
+}
 /* 뭐먹을까요 */
 .food {
     position: relative;
@@ -101,7 +112,6 @@ th, td{
 }
 
 .foodImage {
-    width: 250px;
     height: 180px;
     border-radius: 5px;
 }
@@ -119,6 +129,7 @@ th, td{
     text-align: center;
     pointer-events: none; /* 이벤트를 요소에 적용하지 않도록 설정 */
     display: none; /* 초기에는 표시하지 않음 */
+   	width: 95%;
 }
 .food:hover .textContainer {
     display: block; /* 호버 시 텍스트를 표시 */
@@ -142,32 +153,13 @@ th, td{
     text-align: center;
     display: block;
 }
-.bigSizeText{
-	max-width: 500px; /* 원하는 최대 너비 설정 */
-    white-space: nowrap; /* 글자 줄바꿈 방지 */
-    overflow: hidden; /* 넘치는 내용 감춤 */
-    text-overflow: ellipsis; /* 생략 부호 표시 */
-    font-weight: bold;
-    text-align: center;
-    font-size: 18px;
-    display: block;
-}
 .exerciseImage{
 	border-radius: 5px;
 }
-.exerciseContainer{
-    display: flex;
+#mainExerciseWrap{
+	display: flex;
     justify-content: space-around;
-    gap: 50px;
+    gap: 20px;
     align-items: center;
-}
-.bigContainer{
-    margin-left: 20px;
-}
-.smallContainer{
-    display: flex;
     flex-wrap: wrap;
-    gap: 30px;
-    justify-content: space-around;
-    width: 500px;
 }

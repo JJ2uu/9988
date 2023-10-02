@@ -53,7 +53,7 @@ $(function() {
 			<div id="content">
 				<div id="foodMain">
 					<div class="subheading" style="margin-bottom: 20px;">
-						<span style="font-size: 24px; font-weight: bolder; margin-bottom: 30px">뭐 먹을까요? <img alt="!" src="${pageContext.request.contextPath}/resources/img/food.svg" width="30px"></span>
+						<span style="font-size: 24px; font-weight: bolder; margin-bottom: 30px">뭐 먹을까요? <img alt="!" src="${pageContext.request.contextPath}/resources/img/food.svg" width="24px"></span>
 					</div>
 					<div class="search">
 						<input id="foodSearchTitle" type="text" placeholder="식재료, 가지고 있는 질병, 예방하고 싶은 질병 등으로 검색">

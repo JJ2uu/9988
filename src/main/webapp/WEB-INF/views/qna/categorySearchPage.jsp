@@ -32,7 +32,7 @@ $(".reply").each(function() {
     <tr style="display: none;"><th id="categorySearchListCount">${listCount}</th></tr>
     <c:forEach items="${pageData}" var="list" varStatus="status">
         <tr>
-            <td class="num">${(status.index + 1) + ((currentPage - 1) * pageSize)}</td>
+            <td class="num">${list.rowNum}</td>
             <td class="title">
                 <a> <span class="category" style="color: #717A84">[${list.category}]</span>
                         <span class="qnaContent">${list.title}</span> 
