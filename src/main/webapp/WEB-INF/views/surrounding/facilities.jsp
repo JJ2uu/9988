@@ -24,33 +24,15 @@
 
 #placesList{
 	list-style-type: none;
-	width: 100%;
+	width: 80%;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .item{
 	width: 40%;
-    margin: 10px auto;
-}
-
-.paging button{
-	width: 40px;
-	height: 40px;
-	margin: 0px 5px;
-}
-
-.uncheck_btn{
-	background-color: white; 
-	color: #000000;
-	border: 1px solid;
-}
-
-.check_btn{
-	background-color: #407FBA; 
-	color: #fff; 
-	border-style: none
 }
 
 #info_title{
@@ -68,17 +50,20 @@
 
 #page_a{
 	display:block;
-    width:40px;
-    line-height:40px;
+    width:30px;
+    line-height:30px;
     text-align:center;
-    background-color: white;
-    color:#000000;
+    background-color: #fff;
+    color: #717A84;
     margin: 0 5px;
-    border: 1px solid;
+    border: 1px solid #B5C2CF;
+    font-weight: 400;
+    font-size: 12px;
 }
 
 #page_a a{
 	text-decoration: none;
+    font-weight: 400;
 }
 
 .tel{
@@ -153,7 +138,7 @@
 #placesList .item .marker_13 {background-position: 0 -562px;}
 #placesList .item .marker_14 {background-position: 0 -608px;}
 #placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination .on {background-color: #407FBA; color: #fff; border-style: none;}
+#pagination .on {background-color: #407FBA; color: #fff; border: 1px solid #407FBA;}
 </style>
 <title>99팔팔</title>
 </head>
@@ -205,7 +190,7 @@
 			</div>
 			</div>
 			<div id="menu_wrap" class="bg_white" style="width: 90%; margin: auto;">
-        		<ul id="placesList" style="margin: 22px 0"></ul>
+        		<ul id="placesList" style="margin: 22px auto"></ul>
         		<div id="pagination" class="paging"></div>
    			</div>
 		</div>

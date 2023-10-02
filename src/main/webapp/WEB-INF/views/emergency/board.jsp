@@ -99,29 +99,6 @@ $(document).ready(function(){
 		} 
 	}) //ajax
 	
-	var img = "${emergency.imgFile}";
-	var formData = new FormData();
-	formData.append("file", img);
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath}/amazonS3/getImg',
-		type: 'post',
-		data: formData,
-		contentType: false,
-	    processData: false,
-		enctype: 'multipart/form-data',
-		success: function(response) {
-			console.log(response)
-			if (response != "fail") {
-				let srcPath = "http://figveoefijyo19505068.cdn.ntruss.com/" + response + "?type=f&w=150&h=150";
-				$("#preview").attr("src", srcPath);
-			} else {
-				console.log("fail")
-			} 
-		}, error: function(e){
-			console.log(e)
-		}
-	})
 })
 
 function register(){
@@ -165,7 +142,7 @@ function deleteBoard(){
 				</div>
 					<hr>
 				<div style="width: 80%; display: flex; margin: auto; flex-direction: column;">
-					<img id="imgFile" alt="응급상황 사진" style="display: block; width: 350px; height: 240px; border-radius: 10px; overflow: hidden;" align="left"> 
+					<img id="imgFile" src="${emergency.imgFile}" alt="응급상황 사진" style="display: block; width: 240px; height: 240px; border-radius: 10px; overflow: hidden;" align="left"> 
 					<span style="text-align: left; margin: 10px 15px">
 						${emergency.content}
 					</span>

@@ -13,24 +13,53 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <style type="text/css">
 .paging button{
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
 	margin: 0px 5px;
+	font-weight: 400;
 }
 
 .uncheck_btn{
-	background-color: white; 
-	color: #000000;
-	border: 1px solid;
+	background-color: #fff;
+	color: #717A84;
+	border: 1px solid #B5C2CF;
 }
 
 .check_btn{
 	background-color: #407FBA; 
 	color: #fff; 
-	border-style: none
+	border: 1px solid #407FBA;
 }
 </style>
 <script type="text/javascript">
+$(function(){
+	let userNick = '<%= session.getAttribute("userNick") %>';
+	if (userNick == 'null') {
+		let cookieName = "loginCookie";
+		let cookieString = document.cookie;
+		let cookieArray = cookieString.split(';');
+		
+		for (var i = 0; i < cookieArray.length; i++) {
+		    var cookie = cookieArray[i].trim();
+		    if (cookie.indexOf(cookieName + '=') === 0) {
+		        let cookieValue = cookie.substring(cookieName.length + 1);
+		        $.ajax({
+		        	url: '${pageContext.request.contextPath}/member/autoSignIn',
+		        	data: {
+		        		sessionId : cookieValue
+		        	},
+		        	contentType : "application/text; charset:UTF-8",
+		        	success: function(nickname) {
+		        		console.log(nickName);
+		        		getMemberNo(nickname);
+					}
+		        })
+		        break;
+		    }
+		}
+	}
+})
+
 $(document).ready(function(){
 	$.ajax({
 		type : 'POST',
@@ -65,6 +94,7 @@ $(document).ready(function(){
 			console.error('Error:', error);
 		} 
 	})//ajax
+	
 }) 
 	
 function doAction(seq){
@@ -113,8 +143,6 @@ function doAction(seq){
 }
 
 function getList(first, last){
-	console.log('성공')
-	
 	var f = first;
 	var l = last;
 	
@@ -131,7 +159,8 @@ function getList(first, last){
 			$.each(data, function(index, item) { // 데이터 =item
 				$("#contents").append(
 						'<div class="img_box"><a href="${pageContext.request.contextPath}/emergency/board?emergencyId=' + item.emergencyId + '">'
-								+'<img alt="응급상황 사진" align="left" src="${pageContext.request.contextPath}/resources/img/test_img.png"><span>'
+								+'<img id = "img_box_id" alt="응급상황 사진" align="left" src="' + item.imgFile 
+								+ '" onerror="noImg()"><span>'
 						+ item.title + '</span></a></div>'); // index가 끝날때까지 
 			});
 		}, 
@@ -141,6 +170,27 @@ function getList(first, last){
 	})
 }
 
+function noImg(){
+	$('#img_box_id').attr("src", "${pageContext.request.contextPath}/resources/img/logo.svg");
+}
+
+function getMemberNo(userNickName){
+	console.log('호출');
+	
+	$.ajax({
+		type: 'post',
+		url: '${pageContext.request.contextPath}/emergency/getMemberNo',
+		data: {
+			userNickName: userNickName
+		}, 
+		success: function(data){
+			console.log(data);
+		}, 
+		error: function(e){
+			console.log('Error', e);
+		}
+	})
+} 
 </script>
 <title>99팔팔</title>
 </head>
@@ -166,7 +216,7 @@ function getList(first, last){
 				</div>
 
 				<div id="plus_content" style="display: flex; justify-content: flex-end;">
-					<c:if test="${memberNo != 0}">
+					<c:if test="${not empty memberNo}">
 						<form action="createBoard">
 							<button type="submit" class="contetn_btn">응급상황 추가하기</button>
 						</form>
@@ -177,7 +227,7 @@ function getList(first, last){
 					<c:forEach var="emergencyList" items="${emergencyList}">
 						<div class="img_box">
 						<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
-							<img alt="응급상황 사진" align="left" src="${pageContext.request.contextPath}/resources/img/test_img.png"> 
+							<img alt="응급상황 사진" align="left" src="${emergencyList.imgFile}" width="240px;" height="180px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'"> 
 							<span>${emergencyList.title}</span>
 						</a>
 						</div>

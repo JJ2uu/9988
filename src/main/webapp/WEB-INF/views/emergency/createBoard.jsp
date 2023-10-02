@@ -10,6 +10,12 @@
 <link href="${pageContext.request.contextPath}/resources/css/default_sub.css" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/favicon.ico">
 <style type="text/css">
+.filebox{
+	width: 1000px;
+	display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
 .symptom {
 	width: 1001px;
 	height: 60px;
@@ -46,6 +52,7 @@
 	display: flex;
 	align-content: flex-start;
 }
+
 .complete_btn{
 	width: 904px;
 	height: 70px;
@@ -65,13 +72,40 @@
 	border-style: none;
 	cursor: pointer;
 }
+
+.filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 28px;
+    margin: 0px 10px;
+    margin-top: 60px;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
+}
+#preview{
+	border-radius: 10px;
+	border: 1px solid #000000;
+	padding: 5px;
+	width: 140px;
+	height: 140px;
+}
 </style>
 <script type="text/javascript">
 $(function() {
-	$("#imageFile").change(function() {
+	$("#img").change(function() {
 	
 	var formData = new FormData();
-	formData.append("file", $("#imageFile")[0].files[0]);
+	formData.append("file", $("#img")[0].files[0]);
 	console.log(formData)
 	
 	$.ajax({
@@ -84,7 +118,7 @@ $(function() {
 		success: function(response) {
 			console.log(response)
 			if (response != "fail") {
-				let srcPath = "http://figveoefijyo19505068.cdn.ntruss.com/" + response + "?type=f&w=150&h=150";
+				let srcPath = "http://figveoefijyo19505068.cdn.ntruss.com/" + response + "?type=f&w=240&h=180&ttype=jpg";
 				$("#imageFile").attr("value", response);
 				$("#preview").attr("src", srcPath);
 			} else {
@@ -96,6 +130,18 @@ $(function() {
 	})
 	})
 })
+
+function complete_write(){
+	var title = document.getElementById('frm_title').value;
+	var content = document.getElementById('frm_content').value;
+	var imgFile = document.getElementById('frm_imgFile').value;
+	
+	if(title == "" || content == "" || imgFile == ""){
+		alert('입력 칸에 내용을 전부 입력해 주세요.')
+	} else {
+		document.getElementById('upload_frm').submit();
+	}
+}
 </script>
 <title>99팔팔</title>
 </head>
@@ -116,20 +162,22 @@ $(function() {
 				<form id="upload_frm" action="${pageContext.request.contextPath}/emergency/saveBoard" method="post">
 				<div class="symptom">
 					<span style="margin-left: 15px;">증상</span>
-					<input placeholder="응급상황을 적어주세요." name="title">
+					<input placeholder="응급상황을 적어주세요." name="title" id="frm_title">
 				</div>
 				<div class="solution">
 					<span style="padding-right: 0px;">대처방안</span>
-					<input placeholder="응급 상황 시 대처방안을 적어주세요." name="content">
+					<input id="frm_content" placeholder="응급 상황 시 대처방안을 적어주세요." name="content">
 				</div>
-				<div class="form-group" style="height: 150px; width: 200px;">
-					<span style="padding-right: 0px;">이미지 파일 첨부</span>
-		            <input id="imageFile" type="file" name="imgFile">
-					<img id="preview" src="#" width=200 height=150 alt="선택된 이미지가 없습니다" style="align-content: flex-end; ">
+				<div class="filebox">
+					<span style="margin: 20px 15px; vertical-align: middle; line-height: 100px;">예시 사진</span>
+		            <input id="img" type="file" name="img">
+		            <input id="frm_imgFile" type="hidden" name="imgFile">
+					<img id="preview" src="#" alt="선택된 이미지가 없습니다" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'">
+					<label for="img">파일찾기</label> 
 				</div>
 				<div class="complete_btn">
 					<button type="button" style="background-color: #E0E6EC; color: #2C343D;" onClick="history.go(-1)">글 작성 취소</button>
-					<button id="sava" type="submit">글 작성 완료</button>
+					<button id="sava" type="button" onclick="complete_write();">글 작성 완료</button>
 				</div>
 				</form>
 			</div>
