@@ -58,6 +58,10 @@ th, td{
 }
 .title{
 	cursor: pointer;
+	max-width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 /* 응급이에요 */
 .slideshow-container {
