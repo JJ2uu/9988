@@ -14,7 +14,7 @@
 	width: 1000px;
 	display: flex;
     justify-content: flex-start;
-    flex-direction: row;
+    align-items: center;
 }
 .symptom {
 	width: 1001px;
@@ -62,27 +62,24 @@
 
 .complete_btn button{
 	width: 120px;
-	height: 100%;
+	height: 80%;
 	background-color: #407FBA;
 	color: #FFFFFF;
 	border-radius: 5px;
 	font-size: 18px;
-	margin-left: 20px;
-	margin-right: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
 	border-style: none;
 	cursor: pointer;
 }
 
 .filebox label {
-    display: inline-block;
     padding: 10px 20px;
     color: #fff;
     vertical-align: middle;
     background-color: #999999;
     cursor: pointer;
-    height: 28px;
-    margin: 0px 10px;
-    margin-top: 60px;
+    margin: 60px 0 0 10px;
 }
 
 .filebox input[type="file"] {
@@ -96,8 +93,8 @@
 	border-radius: 10px;
 	border: 1px solid #000000;
 	padding: 5px;
-	width: 140px;
-	height: 140px;
+	width: 120px;
+	min-height: 90px;
 }
 </style>
 <script type="text/javascript">
@@ -106,7 +103,6 @@ $(function() {
 	
 	var formData = new FormData();
 	formData.append("file", $("#img")[0].files[0]);
-	console.log(formData)
 	
 	$.ajax({
 		url: '${pageContext.request.contextPath}/amazonS3/boardUpload',
@@ -116,10 +112,10 @@ $(function() {
 	    processData: false,
 		enctype: 'multipart/form-data',
 		success: function(response) {
-			console.log(response)
 			if (response != "fail") {
-				let srcPath = "http://figveoefijyo19505068.cdn.ntruss.com/" + response + "?type=f&w=240&h=180&ttype=jpg";
-				$("#imageFile").attr("value", response);
+				let encodedResponse = encodeURIComponent(response);
+				let srcPath = "http://zdvkzxzhpbmk19765281.cdn.ntruss.com/" + encodedResponse + "?type=f&w=240&h=180&ttype=jpg";
+				$("#frm_imgFile").attr("value", encodedResponse);
 				$("#preview").attr("src", srcPath);
 			} else {
 				console.log("fail")
@@ -154,7 +150,6 @@ function complete_write(){
 		</div>
 		<div id="content_wrap">
 			<div id="content">
-				<!-- 이 content div 안에서  작업 시작-->
 				<div class="subheading" style="margin-bottom: 10px;">
 				<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
 				</div>
@@ -169,7 +164,7 @@ function complete_write(){
 					<input id="frm_content" placeholder="응급 상황 시 대처방안을 적어주세요." name="content">
 				</div>
 				<div class="filebox">
-					<span style="margin: 20px 15px; vertical-align: middle; line-height: 100px;">예시 사진</span>
+					<span style="margin: 20px 15px;">예시 사진</span>
 		            <input id="img" type="file" name="img">
 		            <input id="frm_imgFile" type="hidden" name="imgFile">
 					<img id="preview" src="#" alt="선택된 이미지가 없습니다" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'">

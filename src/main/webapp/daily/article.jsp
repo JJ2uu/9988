@@ -68,7 +68,10 @@
 		<div id="content_wrap">
 			<div id="content">
 				<div id="article_wrap">
-					<span style="font-size: 24px; font-weight: 700; margin-bottom: 20px;">오늘 떴어요</span>
+					<div class="subheading" style="margin-bottom: 20px; display: flex; gap: 5px; align-items: center; justify-content: center;">
+						<span style="font-size: 24px; font-weight: 700; ">오늘 떴어요</span>
+						<img src="${pageContext.request.contextPath}/resources/img/news.svg" width="30px" id="map_icon"> 
+					</div>
 					<div id="article_list"></div>
 					<div id="paging_wrap"></div>
 				</div>

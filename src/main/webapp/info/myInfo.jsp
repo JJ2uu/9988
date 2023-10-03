@@ -65,7 +65,8 @@
 				nickname: userNick
 			},
 			success: function(response) {
-				let profile = "http://figveoefijyo19505068.cdn.ntruss.com/" + response + "?type=f&w=150&h=150";
+				let encodedResponse = encodeURIComponent(response);
+				let profile = "http://figveoefijyo19505068.cdn.ntruss.com/" + encodedResponse + "?type=f&w=150&h=150";
 				$("#img").attr("src", profile);
 				
 				const profileNick = document.getElementById("profile_nick");
@@ -348,7 +349,8 @@
 				enctype: 'multipart/form-data',
 				success: function(response) {
 					if (response != "fail") {
-						let profile = "http://figveoefijyo19505068.cdn.ntruss.com/" + response + "?type=f&w=150&h=150";
+						let encodedResponse = encodeURIComponent(response);
+						let profile = "http://figveoefijyo19505068.cdn.ntruss.com/" + encodedResponse + "?type=f&w=150&h=150";
 						$("#img").attr("src", profile);
 					} else {
 						console.log("fail")

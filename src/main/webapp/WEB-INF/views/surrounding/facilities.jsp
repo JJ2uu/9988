@@ -24,15 +24,27 @@
 
 #placesList{
 	list-style-type: none;
-	width: 80%;
+	width: 90%;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .item{
-	width: 40%;
+	width: 45%;
+}
+
+.info {
+	display: flex;
+	flex-flow: column;
+	gap: 10px;
+}
+
+.info_section {
+	display: flex;
+	align-items: center;
 }
 
 #info_title{
@@ -40,7 +52,7 @@
     text-align: left;
     font-weight: 600;
     font-size: 22px;
-    margin-bottom: 8px;
+    margin: 0;
 }
 
 #pagination{
@@ -66,6 +78,13 @@
     font-weight: 400;
 }
 
+.tel_section {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding-left: 38px;
+}
+
 .tel{
 	float: left;
     margin: 10px 0;
@@ -79,9 +98,8 @@
 
 .tell_img{
 	float:left;
-	width:33px; 
-	height:32px;
-	margin: 10px 5px 0px 1px;
+	width:20px; 
+	height:20px;
 	background: url("${pageContext.request.contextPath}/resources/img/call.svg") no-repeat;
 }
 
@@ -117,12 +135,12 @@
 	filter: invert(91%) sepia(61%) saturate(4%) hue-rotate(229deg) brightness(124%) contrast(100%);
 }
 
-.on_clikc span{
-	color: white;
+.on_click span{
+	color: #fff;
 }
 </style>
 <style>
-#placesList .item .markerbg {float:left;width:36px; height:37px;margin:0px 0 0 0px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList .item .markerbg {float:left;width:45px; height:37px;margin:0px 0 0 0px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
 #placesList .item .marker_1 {background-position: 0 -10px;}
 #placesList .item .marker_2 {background-position: 0 -56px;}
 #placesList .item .marker_3 {background-position: 0 -102px}
@@ -151,7 +169,6 @@
 		</div>
 		<div id="content_wrap">
 			<div id="content">
-				<!-- 이 content div 안에서  작업 시작-->
 				<div class="subheading" style="margin-bottom: 20px; display: flex; gap: 5px; align-content: center; justify-content: center;">
 					<img src="${pageContext.request.contextPath}/resources/img/icon_map.svg" width="24px" id="map_icon"> 
 					<span style="font-size: 24px; font-weight: 500; ">내 주변 시설</span>
@@ -190,7 +207,7 @@
 			</div>
 			</div>
 			<div id="menu_wrap" class="bg_white" style="width: 90%; margin: auto;">
-        		<ul id="placesList" style="margin: 22px auto"></ul>
+        		<ul id="placesList" style="margin: 30px auto"></ul>
         		<div id="pagination" class="paging"></div>
    			</div>
 		</div>
@@ -341,19 +358,21 @@ function getListItem(index, places) {
 
     var el = document.createElement('li'),
     itemStr = 	'<div class="info">' +
+    			'<div class="info_section">' +
                 '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '   <h3 id="info_title">' + places.place_name + '</h3>';
+                '<h3 id="info_title">' + places.place_name + '</h3></div>';
 
     if (places.road_address_name) {
         itemStr += '<div id="info_location">'
-        			+'<span style="text-align: left; float: left;">' + places.road_address_name + '</span>' +
-                    '   <span class="jibun gray">' +  places.address_name  + '</span></div>';
+        			+'<span style="text-align: left; float: left;">' + places.road_address_name + '</span>'
+        			+'<span class="jibun gray">' +  places.address_name  + '</span></div>';
     } else {
-        itemStr += '    <span>' +  places.address_name  + '</span>'; 
+        itemStr += '<span style="text-align: left; margin-left: 38px;">' +  places.address_name  + '</span>'; 
     }
                  
-      itemStr += '<span class="tell_img"></span><span class="tel">' + places.phone  + '</span>' +
-                '</div>';           
+      itemStr += '<div class="tel_section"><span class="tell_img"></span><span class="tel">'
+      				+ places.phone
+      				+ '</span></div></div>';           
 
     el.innerHTML = itemStr;
     el.className = 'item';
