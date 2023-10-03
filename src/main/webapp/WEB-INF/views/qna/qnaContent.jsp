@@ -66,9 +66,6 @@ function formatRelativeDate(timestamp) {
     const currentDate = new Date();
     const date = new Date(timestamp);
 
-    // 보정: 9시간을 빼기
-    date.setHours(date.getHours() - 9);
-
     const elapsed = currentDate - date;
     
     const seconds = Math.floor(elapsed / 1000);

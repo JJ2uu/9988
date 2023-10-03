@@ -293,7 +293,9 @@
 									emailError.innerHTML = "이미 가입된 아이디가 존재합니다."
 									emailError.style.display = "block";
 								} else {
-									emailError.style.display = "none";
+									emailError.innerHTML = "가입 가능한 이메일입니다."
+									emailError.style.color = "green";
+									emailError.style.display = "block";
 									emailCheck = true;
 								}
 							}

@@ -85,7 +85,7 @@ function searchWithKeyword() {
 				<!-- 이 content div 안에서  작업 시작-->
 				<div class="subheading" style="margin-bottom: 20px;">
 					<span style="font-size: 24px; font-weight: bolder; margin-bottom: 20px">운동해요</span>
-					<img src="${pageContext.request.contextPath}/resources/img/stretching.png" width="16px" style="cursor:pointer;">
+					<img src="${pageContext.request.contextPath}/resources/img/stretching.svg" width="20px" style="cursor:pointer;">
 				</div>
 				<form action="exercise/search" id="search_frm" method="get">
 				<div class="search" style="margin: auto; margin-bottom: 40px;">

@@ -203,9 +203,9 @@ function getMemberNo(userNickName){
 		</div>
 		<div id="content_wrap">
 			<div id="content" style="width: 1000px; display: flex; flex-direction: column; align-items: center;">
-				<!-- 이 content div 안에서  작업 시작-->
-				<div class="subheading" style="margin-bottom: 20px;">
-				<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
+				<div class="subheading" style="margin-bottom: 20px; display: flex; align-items: center; gap: 5px;">
+					<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
+					<img src="${pageContext.request.contextPath}/resources/img/siren.svg" width="24px" id="map_icon">
 				</div>
 				<div class="search"
 					style="">
@@ -216,11 +216,9 @@ function getMemberNo(userNickName){
 				</div>
 
 				<div id="plus_content" style="display: flex; justify-content: flex-end;">
-					<c:if test="${not empty memberNo}">
-						<form action="createBoard">
-							<button type="submit" class="contetn_btn">응급상황 추가하기</button>
-						</form>
-					</c:if>
+					<form action="createBoard">
+						<button type="submit" class="contetn_btn">응급상황 추가하기</button>
+					</form>
 				</div>
 				
 				<div id="contents" style="width: 880px; display: flex; gap: 10px; flex-wrap: wrap;">
@@ -235,7 +233,7 @@ function getMemberNo(userNickName){
 				</div>
 			<div class="paging" id="paganation" style="margin: 20px;">
 			</div>
-		</div><!-- content div -->
+		</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true" />
 	</div>
