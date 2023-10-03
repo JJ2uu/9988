@@ -10,6 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.jsoup.select.Evaluator.IsEmpty;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -133,12 +134,17 @@ public class DailyServiceImpl implements DailyService{
 	
 	public void mainArticle(int page, Model model) {
 		List<Daily> news = articleList(page, model);
+		List<Daily> mainNews = new ArrayList<Daily>();
 		for (Daily list : news) {
-			String imgUrl = list.getImgUrl();
-			int idx = imgUrl.indexOf("?");
-			String thumbUrl = imgUrl.substring(0, idx);
-			list.setImgUrl(thumbUrl);
+			if (list.getImgUrl()!= "") {
+				System.out.println(list.getImgUrl());
+				String imgUrl = list.getImgUrl();
+				int idx = imgUrl.indexOf("?");
+				String thumbUrl = imgUrl.substring(0, idx);
+				list.setImgUrl(thumbUrl);
+				mainNews.add(list);
+			}
 		}
-		model.addAttribute("mainNews", news);
+		model.addAttribute("mainNews", mainNews);
 	}
 }
