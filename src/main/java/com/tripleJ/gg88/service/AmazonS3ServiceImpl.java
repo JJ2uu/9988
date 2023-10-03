@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -52,11 +53,12 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 		return s3Client.putObject(putObjectRequest);
 	}
 	
-	public String profileUpload(MultipartHttpServletRequest multiRequest, HttpServletRequest request) {
+	public String profileUpload(@RequestParam("file") MultipartFile file , HttpServletRequest request) {
 		
-        MultipartFile mf = multiRequest.getFile("file");
-        if (mf != null) {
-        	String originalFilename = mf.getOriginalFilename();
+        System.out.println(file.getName());
+        if (!file.isEmpty()) {
+        	String originalFilename = file.getOriginalFilename();
+        	System.out.println(originalFilename);
 			try {
 				String encodedFilename = URLEncoder.encode(originalFilename, "UTF-8");
 				String uuidFilename = getUuidFileName(encodedFilename);
@@ -81,7 +83,7 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 	    		userDataMap.put("id", userId);
 	    		userDataMap.put("profile", uuidFilename);
 	    		memberRepo.profileUpload(userDataMap);
-        		upload(mf, uuidFilename, profile);
+        		upload(file, uuidFilename, profile);
         		return uuidFilename;
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -348,7 +348,9 @@
 			    processData: false,
 				enctype: 'multipart/form-data',
 				success: function(response) {
+					console.log(response)
 					if (response != "fail") {
+						console.log(response)
 						let encodedResponse = encodeURIComponent(response);
 						let profile = "http://figveoefijyo19505068.cdn.ntruss.com/" + encodedResponse + "?type=f&w=150&h=150";
 						$("#img").attr("src", profile);
