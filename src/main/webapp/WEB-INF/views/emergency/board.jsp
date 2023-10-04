@@ -142,7 +142,7 @@ function deleteBoard(){
 				</div>
 					<hr>
 				<div style="width: 80%; display: flex; margin: auto; flex-direction: column;">
-					<img id="imgFile" src="${emergency.imgFile}" alt="응급상황 사진" style="display: block; width: 240px; height: 240px; border-radius: 10px; overflow: hidden;" align="left"> 
+					<img id="imgFile" src="${emergency.imgFile}" alt="응급상황 사진" style="display: block; width: 240px; height: 180px; border-radius: 10px; overflow: hidden;" align="left" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'"> 
 					<span style="text-align: left; margin: 10px 15px">
 						${emergency.content}
 					</span>

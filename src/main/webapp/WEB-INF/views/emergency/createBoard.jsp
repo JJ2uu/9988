@@ -20,6 +20,9 @@
 	width: 1001px;
 	height: 60px;
 	margin-top: 30px;
+	display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .symptom input {
@@ -34,23 +37,24 @@
 
 .solution {
 	width: 1001px;
-	height: 400px;
-	margin-top: 35px;
-	margin-bottom: 30px;
+	margin: 20px 0px;
+	display: flex;
+    justify-content: flex-start;
 }
 
-.solution input {
-	width: 850px;
+.solution textarea {
+	width: 830px;
 	height: 100%;
 	border-radius: 10px;
 	border: 1px solid #000000;
-	padding-left: 20px;
+	padding: 20px;
 }
 
-.solution input::placeholder{
+.solution textarea::placeholder{
 	text-align: left;
 	display: flex;
 	align-content: flex-start;
+	color: #E0E6EC;
 }
 
 .complete_btn{
@@ -156,12 +160,12 @@ function complete_write(){
 				<!-- form태그는 컨트롤러랑 연결 -->
 				<form id="upload_frm" action="${pageContext.request.contextPath}/emergency/saveBoard" method="post">
 				<div class="symptom">
-					<span style="margin-left: 15px;">증상</span>
+					<span style="margin: 0px 25px;">증상</span>
 					<input placeholder="응급상황을 적어주세요." name="title" id="frm_title">
 				</div>
 				<div class="solution">
-					<span style="padding-right: 0px;">대처방안</span>
-					<input id="frm_content" placeholder="응급 상황 시 대처방안을 적어주세요." name="content">
+					<span style="margin: 18px 18px;">대처방안</span>
+					<textarea id="frm_content" rows="18" cols="120" placeholder="응급 상황 시 대처방안을 적어주세요." name="content"></textarea>
 				</div>
 				<div class="filebox">
 					<span style="margin: 20px 15px;">예시 사진</span>

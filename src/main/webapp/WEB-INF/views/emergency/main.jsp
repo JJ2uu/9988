@@ -191,6 +191,20 @@ function getMemberNo(userNickName){
 		}
 	})
 } 
+
+function checkUser(){
+	var form = document.getElementById("create_frm");
+	var memberNo = ${memberNo}
+	console.log(memberNo)
+	
+	if(memberNo == undefined || memberNo == null || memberNo == 0){
+		alert('로그인이 필요한 작업입니다.')
+		location.href="${pageContext.request.contextPath}/account/login.jsp";
+	} else{
+		form.action = "${pageContext.request.contextPath}/emergency/createBoard";
+		form.submit();
+	} 
+}
 </script>
 <title>99팔팔</title>
 </head>
@@ -216,8 +230,8 @@ function getMemberNo(userNickName){
 				</div>
 
 				<div id="plus_content" style="display: flex; justify-content: flex-end;">
-					<form action="createBoard">
-						<button type="submit" class="contetn_btn">응급상황 추가하기</button>
+					<form id="create_frm" action="createBoard">
+						<button type="button" class="contetn_btn" onclick="checkUser();">응급상황 추가하기</button>
 					</form>
 				</div>
 				
