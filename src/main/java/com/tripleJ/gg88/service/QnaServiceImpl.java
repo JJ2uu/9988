@@ -81,6 +81,7 @@ public class QnaServiceImpl implements QnaService {
 		Qna qnaVO = qnaRepo.qnaDetail(qnaId);
 		List<QnaReply> qnaReplyList = replyRepo.qnaReplyList(qnaId);
 		List<String> replyWriterList = new ArrayList<>();
+		List<String> replyDates = new ArrayList<>();
 		int memberNo = qnaVO.getMemberNo();
         String writer = qnaRepo.NoToNick(memberNo);
         Member memberVO = memberRepo.searchNick(writer);
@@ -89,9 +90,12 @@ public class QnaServiceImpl implements QnaService {
         	int replyMemberNo = qnaReply.getMemberNo();
 			String replyWriter = qnaRepo.NoToNick(replyMemberNo);
 			replyWriterList.add(replyWriter);
+			String replyDate = formattedDate(qnaReply.getDate());
+			replyDates.add(replyDate);
 		}
         String formattedDate = formattedDate(qnaVO.getDate());
         model.addAttribute("formattedDate", formattedDate);
+        model.addAttribute("replyDates", replyDates);
         model.addAttribute("writer", writer);
         model.addAttribute("profile", profile);
         model.addAttribute("replyWriterList", replyWriterList);

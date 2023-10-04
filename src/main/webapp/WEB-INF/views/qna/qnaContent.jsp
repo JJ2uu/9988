@@ -62,27 +62,6 @@ function submitReReply(reReplyContent, groupId) {
 	});
 }
 
-function formatRelativeDate(timestamp) {
-    const currentDate = new Date();
-    const date = new Date(timestamp);
-
-    const elapsed = currentDate - date;
-    
-    const seconds = Math.floor(elapsed / 1000);
-    
-    if (seconds < 60) {
-        return "방금";
-    } else if (seconds < 3600) {
-        const minutes = Math.floor(seconds / 60);
-        return minutes + "분 전";
-    } else if (seconds < 86400) {
-        const hours = Math.floor(seconds / 3600);
-        return hours + "시간 전";
-    } else {
-        return timestamp;
-    }
-}
-
 //댓글 작성 시 작성자를 표시하는 함수
 function displayWriter(replyWriter) {
 	var writer = '${writer}'; // 작성자 정보
@@ -108,12 +87,7 @@ $(function() {
         $("#qnaDelete").hide();
         $("#qnaUpdate").hide();
     }
-	
-	$(".replyDate").each(function() {
-        const timestamp = $(this).text();
-        const formattedDate = formatRelativeDate(timestamp);
-        $(this).text(formattedDate);
-    });
+    
 	/*대댓글 불러오기*/
 	$(".replySpace").each(function() {
 		var $this = $(this);
@@ -246,7 +220,7 @@ $(function() {
 		<div style="display: flex; flex-direction: column;">
 			<div style="display: flex; justify-content: space-between; width: 910px;">
 				<div style="max-width: 870px; text-align: left;">${qnaReplyList[i-1].content}
-					<span class="replyDate">${qnaReplyList[i-1].date}</span>
+					<span class="replyDate">${replyDates[i-1]}</span>
 					<span class="replyId" style="display: none;">${qnaReplyList[i-1].replyId}</span> 
 				</div>
 				<div class="reReply">댓글</div>
