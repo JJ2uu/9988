@@ -137,7 +137,6 @@ public class DailyServiceImpl implements DailyService{
 		List<Daily> mainNews = new ArrayList<Daily>();
 		for (Daily list : news) {
 			if (list.getImgUrl()!= "") {
-				System.out.println(list.getImgUrl());
 				String imgUrl = list.getImgUrl();
 				int idx = imgUrl.indexOf("?");
 				String thumbUrl = imgUrl.substring(0, idx);
