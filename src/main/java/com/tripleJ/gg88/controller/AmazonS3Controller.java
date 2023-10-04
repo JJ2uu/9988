@@ -21,7 +21,6 @@ public class AmazonS3Controller {
 	AmazonS3Service amazonService;
 	
 	@RequestMapping("profileUpload")
-	@ResponseBody
 	public String profileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		return amazonService.profileUpload(file, request);
 	}

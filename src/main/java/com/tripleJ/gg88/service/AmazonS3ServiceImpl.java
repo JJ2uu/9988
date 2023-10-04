@@ -84,7 +84,7 @@ public class AmazonS3ServiceImpl implements AmazonS3Service {
 	    		userDataMap.put("profile", uuidFilename);
 	    		memberRepo.profileUpload(userDataMap);
         		upload(file, uuidFilename, profile);
-        		return uuidFilename;
+        		return "redirect:/info/myInfo.jsp";
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "fail";
