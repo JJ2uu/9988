@@ -335,7 +335,7 @@
 		}
 	    
 	    /* 마이페이지 - 프로필 사진 변경 */
-	    $("#file").change(function() {
+/* 	    $("#file").change(function() {
 	    	
 	    	var formData = new FormData();
 	    	formData.append("file", $("#file")[0].files[0]);
@@ -359,7 +359,7 @@
 					}
 				}
 			})
-		})
+		}) */
 		
 		/* 검색 엔터키 이벤트 테스트 */
 		$("#searchBar").keyup(function(event) {
@@ -470,7 +470,10 @@
 						<div id="profile_info">
 							<span style="font-size: 24px; font-weight: 500;" id="profile_nick"></span>
 							<div id="profile_upload">
-								<input type="file" name="file" id="file">
+								<form action="../amazonS3/profileUpload" method="POST" enctype="multipart/form-data">
+									<input type="file" name="file" id="file">
+									<button type="submit" value="Upload">등록</button>
+								</form>
 								<label for="file">
 								  <span class="btn-upload">프로필 사진 수정</span>
 								</label>
