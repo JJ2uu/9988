@@ -9,19 +9,20 @@ $(".title").click(function() {
 });
 </script>
 <table>
-	<tr>
+	<tr style="border-top: 1px solid #2C343D;">
 	    <th>카테고리</th>
 	    <th id="title">제목</th>
 	  	<th>작성일</th>
 	</tr>
 	<c:forEach var="i" begin="1" end="5">
-		<tr>
+		<tr style="font-size: 14px;">
 		    <td style="color: #717A84">[${qnaList[i-1].category}]</td>
 		    <td class="title">
-				<a> 
-					<span style="font-weight: 400">${qnaList[i-1].title}</span> 
+				<a class="qnaTitle"> 
+					<span style="font-weight: 400">${qnaList[i-1].title} <span style="color: red;">[${qnaList[i-1].replyCount}]</span></span> 
 					<span class="qnaId" style="display: none;">${qnaList[i-1].qnaId}</span> 
-				</a></td>
+				</a>
+			</td>
 		  	<td>${formattedDates[i-1]}</td>
 	  	</tr>
 	</c:forEach>

@@ -68,20 +68,31 @@ $(function() {
 			<img src="${pageContext.request.contextPath}/resources/img/health.png" width="400px">
 		</div>
 		<div id="content_wrap">
-			<div id="content" style="display: flex; gap: 80px; flex-direction: column;">
-				<div id="main_daily"><div class="menu">오늘떴어요 <img alt="!" src="${pageContext.request.contextPath}/resources/img/news.svg" width="30px"></div>
-					<div>
-						<div id="mainDailyWrap" style="display: flex; justify-content: space-between;"></div></div></div>
+			<div id="content" style="display: flex; gap: 100px; flex-direction: column;">
+				<div id="main_daily">
+					<div class="menu">오늘떴어요 <img alt="!" src="${pageContext.request.contextPath}/resources/img/news.svg" width="30px"></div>
+					<div id="mainDailyWrap" style="display: flex; justify-content: space-between;"></div>
+				</div>
 				<div style="display: flex; justify-content: space-around;">
-					<div id="main_qna"><div class="menu">질문있어요 <img alt="!" src="${pageContext.request.contextPath}/resources/img/speech.svg" width="22px"></div>
-					<div id="mainQnaWrap"></div></div>
-					<div id="main_emergency"><div class="menu">응급이에요 <img alt="!" src="${pageContext.request.contextPath}/resources/img/siren.svg" width="24px"></div>
-					<div><div id="mainEmergencyWrap"></div></div></div></div>
-				<div id="main_food"><div class="menu">뭐먹을까요? <img alt="!" src="${pageContext.request.contextPath}/resources/img/food.svg" width="22px"></div>
+					<div id="main_qna">
+						<div class="menu">질문있어요 <img alt="!" src="${pageContext.request.contextPath}/resources/img/speech.svg" width="22px"></div>
+						<div id="mainQnaWrap"></div>
+					</div>
+					<div id="main_emergency">
+						<div class="menu">응급이에요 <img alt="!" src="${pageContext.request.contextPath}/resources/img/siren.svg" width="24px"></div>
+						<div id="mainEmergencyWrap"></div>
+					</div>
+				</div>
+				<div id="main_food">
+					<div class="menu">뭐먹을까요? <img alt="!" src="${pageContext.request.contextPath}/resources/img/food.svg" width="22px"></div>
 					<div style="display: flex; justify-content: space-around;">
-						<div id="mainFoodWrap"></div></div></div>
-				<div id="main_exercise"><div class="menu">운동해요 <img alt="!" src="${pageContext.request.contextPath}/resources/img/stretching.svg" width="22px"></div>
-				<div><div id="mainExerciseWrap"></div></div></div>
+						<div id="mainFoodWrap"></div>
+					</div>
+				</div>
+				<div id="main_exercise">
+					<div class="menu">운동해요 <img alt="!" src="${pageContext.request.contextPath}/resources/img/stretching.svg" width="22px"></div>
+					<div id="mainExerciseWrap"></div>
+				</div>
 				
 			</div>
 		</div>

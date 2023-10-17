@@ -36,7 +36,8 @@
 #profile_upload {
 	display: flex;
 	gap: 10px;
-	align-items: center;
+	align-items: flex-start;
+	flex-flow: column;
 }
 
 .btn-upload {
@@ -52,7 +53,20 @@
 }
 
 #file {
-  display: none;
+	display: none;
+}
+
+#profileSubmit {
+	width: 80px;
+	background: #717A84;
+	color: #fff;
+	border-style: none;
+	border-radius: 5px;
+}
+
+#profileSubmit.current {
+	background: #407FBA;
+	cursor: pointer;
 }
 
 /* 마이페이지 탭 메뉴 */

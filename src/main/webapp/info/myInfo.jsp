@@ -335,12 +335,12 @@
 		}
 	    
 	    /* 마이페이지 - 프로필 사진 변경 */
-/* 	    $("#file").change(function() {
+		$("#file").change(function() {
 	    	
-	    	var formData = new FormData();
-	    	formData.append("file", $("#file")[0].files[0]);
+			$("#profileSubmit").removeAttr("disabled");
+			$("#profileSubmit").addClass("current");
 	    	
-			$.ajax({
+			/* $.ajax({
 				url: '../amazonS3/profileUpload',
 				type: 'post',
 				data: formData,
@@ -358,8 +358,8 @@
 						console.log("fail")
 					}
 				}
-			})
-		}) */
+			}) */
+		})
 		
 		/* 검색 엔터키 이벤트 테스트 */
 		$("#searchBar").keyup(function(event) {
@@ -470,13 +470,13 @@
 						<div id="profile_info">
 							<span style="font-size: 24px; font-weight: 500;" id="profile_nick"></span>
 							<div id="profile_upload">
-								<form action="../amazonS3/profileUpload" method="POST" enctype="multipart/form-data">
+								<form action="../amazonS3/profileUpload" method="POST" enctype="multipart/form-data" style="display: flex; gap: 10px;">
 									<input type="file" name="file" id="file">
-									<button type="submit" value="Upload">등록</button>
+									<label for="file">
+									  <span class="btn-upload">사진 업로드</span>
+									</label>
+									<button type="submit" value="Upload" id="profileSubmit" disabled>등록</button>
 								</form>
-								<label for="file">
-								  <span class="btn-upload">프로필 사진 수정</span>
-								</label>
 								<span>JPEG, JPG, PNG 형식이어야 합니다.</span>
 							</div>
 						</div>
