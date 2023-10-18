@@ -21,12 +21,11 @@ public class FoodController {
 		model.addAttribute("foodList",foodList);
 		return "food/foodMain";
 	}
+	
 	@RequestMapping("food/crawling")
 	public void crawling(String Search, Model model) throws Exception {
 		List<Food> foodList = service.crawling(Search, model);
 		model.addAttribute("foodList",foodList);
 	}
-	
-	
 	
 }

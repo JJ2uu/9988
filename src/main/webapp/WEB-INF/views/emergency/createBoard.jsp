@@ -155,29 +155,28 @@ function complete_write(){
 		<div id="content_wrap">
 			<div id="content">
 				<div class="subheading" style="margin-bottom: 10px;">
-				<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
+					<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
 				</div>
-				<!-- form태그는 컨트롤러랑 연결 -->
 				<form id="upload_frm" action="${pageContext.request.contextPath}/emergency/saveBoard" method="post">
-				<div class="symptom">
-					<span style="margin: 0px 25px;">증상</span>
-					<input placeholder="응급상황을 적어주세요." name="title" id="frm_title">
-				</div>
-				<div class="solution">
-					<span style="margin: 18px 18px;">대처방안</span>
-					<textarea id="frm_content" rows="18" cols="120" placeholder="응급 상황 시 대처방안을 적어주세요." name="content"></textarea>
-				</div>
-				<div class="filebox">
-					<span style="margin: 20px 15px;">예시 사진</span>
-		            <input id="img" type="file" name="img">
-		            <input id="frm_imgFile" type="hidden" name="imgFile">
-					<img id="preview" src="#" alt="선택된 이미지가 없습니다" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'">
-					<label for="img">파일찾기</label> 
-				</div>
-				<div class="complete_btn">
-					<button type="button" style="background-color: #E0E6EC; color: #2C343D;" onClick="history.go(-1)">글 작성 취소</button>
-					<button id="sava" type="button" onclick="complete_write();">글 작성 완료</button>
-				</div>
+					<div class="symptom">
+						<span style="margin: 0px 25px;">증상</span>
+						<input placeholder="응급상황을 적어주세요." name="title" id="frm_title">
+					</div>
+					<div class="solution">
+						<span style="margin: 18px 18px;">대처방안</span>
+						<textarea id="frm_content" rows="18" cols="120" placeholder="응급 상황 시 대처방안을 적어주세요." name="content"></textarea>
+					</div>
+					<div class="filebox">
+						<span style="margin: 20px 15px;">예시 사진</span>
+			            <input id="img" type="file" name="img">
+			            <input id="frm_imgFile" type="hidden" name="imgFile">
+						<img id="preview" src="#" alt="선택된 이미지가 없습니다" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'">
+						<label for="img">파일찾기</label> 
+					</div>
+					<div class="complete_btn">
+						<button type="button" style="background-color: #E0E6EC; color: #2C343D;" onClick="history.go(-1)">글 작성 취소</button>
+						<button id="sava" type="button" onclick="complete_write();">글 작성 완료</button>
+					</div>
 				</form>
 			</div>
 		</div>

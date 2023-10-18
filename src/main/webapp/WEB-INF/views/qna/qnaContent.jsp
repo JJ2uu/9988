@@ -215,27 +215,29 @@ $(function() {
 	</div>
 	<hr>
 	<c:forEach var="i" begin="1" end="${fn:length(qnaReplyList)}">
-	<div class="replySpace">
-		<div><div style="font-weight: 600;" class="replyWriter">${replyWriterList[i-1]}</div></div>
-		<div style="display: flex; flex-direction: column;">
-			<div style="display: flex; justify-content: space-between; width: 910px;">
-				<div style="max-width: 870px; text-align: left;">${qnaReplyList[i-1].content}
-					<span class="replyDate">${replyDates[i-1]}</span>
-					<span class="replyId" style="display: none;">${qnaReplyList[i-1].replyId}</span> 
-				</div>
-				<div class="reReply">댓글</div>
+		<div class="replySpace">
+			<div>
+				<div style="font-weight: 600;" class="replyWriter">${replyWriterList[i-1]}</div>
 			</div>
-			<div class="reReplySpace"></div>
-			<div class="reReplyWrite toggle">
-				<div>댓글달기</div>
-				<div style="position: relative;">
-					<input class="reReplyInput">
-					<div class="reReplyEnter enter">등록</div>
+			<div style="display: flex; flex-direction: column;">
+				<div style="display: flex; justify-content: space-between; width: 910px;">
+					<div style="max-width: 870px; text-align: left;">${qnaReplyList[i-1].content}
+						<span class="replyDate">${replyDates[i-1]}</span>
+						<span class="replyId" style="display: none;">${qnaReplyList[i-1].replyId}</span> 
+					</div>
+					<div class="reReply">댓글</div>
 				</div>
+				<div class="reReplySpace"></div>
+				<div class="reReplyWrite toggle">
+					<div>댓글달기</div>
+					<div style="position: relative;">
+						<input class="reReplyInput">
+						<div class="reReplyEnter enter">등록</div>
+					</div>
+				</div>
+				
 			</div>
-			
 		</div>
-	</div>
 	</c:forEach>	
 	<div id="replyWrite">
 		<div>댓글달기</div>

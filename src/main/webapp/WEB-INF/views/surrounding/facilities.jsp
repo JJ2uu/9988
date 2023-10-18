@@ -174,43 +174,42 @@
 					<span style="font-size: 24px; font-weight: 500; ">내 주변 시설</span>
 				</div>
                 <form onsubmit="searchPlaces(); return false;" id="search_frm">
-				<div class="search">
-					<input type="text" value="서울 병원" id="keyword" placeholder="키워드와 검색할 장소를 함께 입력해 주세요. "> 
-					<a href="javascript:void(0);" onclick="searchSubmit();"> 
-					<img alt="돋보기 아이콘" src="${pageContext.request.contextPath}/resources/img/Vector.png">
-					</a>
-				</div>
-                </form>
-
-			<div id="map" style="margin: auto; margin-top: 40px;">
-			<div style="z-index: 2; position: absolute; right: 10px; top: 10px;">
-                <form onsubmit="searchPlacesWithButton(); return false;" id="btn_frm">
-					<div style="width: 180px; height: 40px; background-color: white; padding: 2px; border-radius: 30px; overflow: hidden;display: flex; justify-content: space-around;">
-						<div class="on_click" id="hospital_div">
-						<button class="frm_btn" value="hospital" type="button" onclick="btnSubmit(this.value);">
-							<div id="frm_div" style="display: flex; justify-content: space-around; align-items: center;">
-								<img src="${pageContext.request.contextPath}/resources/img/hospital.svg" width="14px;">
-								<span>병원</span>
-							</div>
-						</button>
-						</div>
-						<div class="no_click" id="health_div">
-						<button class="frm_btn" value="health" type="button" onclick="btnSubmit(this.value);">
-							<div id="frm_div" style="display: flex; justify-content: space-around; align-items: flex-end;">
-								<img src="${pageContext.request.contextPath}/resources/img/running.svg" width="14px;">
-								<span>헬스장</span>
-							</div>
-						</button>
-						</div>
+					<div class="search">
+						<input type="text" value="서울 병원" id="keyword" placeholder="키워드와 검색할 장소를 함께 입력해 주세요. "> 
+						<a href="javascript:void(0);" onclick="searchSubmit();"> 
+							<img alt="돋보기 아이콘" src="${pageContext.request.contextPath}/resources/img/Vector.png">
+						</a>
 					</div>
                 </form>
+				<div id="map" style="margin: auto; margin-top: 40px;">
+					<div style="z-index: 2; position: absolute; right: 10px; top: 10px;">
+		                <form onsubmit="searchPlacesWithButton(); return false;" id="btn_frm">
+							<div style="width: 180px; height: 40px; background-color: white; padding: 2px; border-radius: 30px; overflow: hidden;display: flex; justify-content: space-around;">
+								<div class="on_click" id="hospital_div">
+									<button class="frm_btn" value="hospital" type="button" onclick="btnSubmit(this.value);">
+										<div id="frm_div" style="display: flex; justify-content: space-around; align-items: center;">
+											<img src="${pageContext.request.contextPath}/resources/img/hospital.svg" width="14px;">
+											<span>병원</span>
+										</div>
+									</button>
+								</div>
+								<div class="no_click" id="health_div">
+									<button class="frm_btn" value="health" type="button" onclick="btnSubmit(this.value);">
+										<div id="frm_div" style="display: flex; justify-content: space-around; align-items: flex-end;">
+											<img src="${pageContext.request.contextPath}/resources/img/running.svg" width="14px;">
+											<span>헬스장</span>
+										</div>
+									</button>
+								</div>
+							</div>
+		                </form>
+					</div>
+				</div>
+				<div id="menu_wrap" class="bg_white" style="width: 90%; margin: auto;">
+	        		<ul id="placesList" style="margin: 30px auto"></ul>
+	        		<div id="pagination" class="paging"></div>
+	   			</div>
 			</div>
-			</div>
-			<div id="menu_wrap" class="bg_white" style="width: 90%; margin: auto;">
-        		<ul id="placesList" style="margin: 30px auto"></ul>
-        		<div id="pagination" class="paging"></div>
-   			</div>
-		</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true" />
 	</div>

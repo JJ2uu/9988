@@ -336,29 +336,8 @@
 	    
 	    /* 마이페이지 - 프로필 사진 변경 */
 		$("#file").change(function() {
-	    	
 			$("#profileSubmit").removeAttr("disabled");
 			$("#profileSubmit").addClass("current");
-	    	
-			/* $.ajax({
-				url: '../amazonS3/profileUpload',
-				type: 'post',
-				data: formData,
-				contentType: false,
-			    processData: false,
-				enctype: 'multipart/form-data',
-				success: function(response) {
-					console.log(response)
-					if (response != "fail") {
-						console.log(response)
-						let encodedResponse = encodeURIComponent(response);
-						let profile = "http://figveoefijyo19505068.cdn.ntruss.com/" + encodedResponse + "?type=f&w=150&h=150";
-						$("#img").attr("src", profile);
-					} else {
-						console.log("fail")
-					}
-				}
-			}) */
 		})
 		
 		/* 검색 엔터키 이벤트 테스트 */

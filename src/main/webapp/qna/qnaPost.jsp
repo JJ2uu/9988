@@ -60,9 +60,7 @@ $(function() {
 		</div>
 		<div id="content_wrap">
 			<div id="content">
-				<div id="qnaContent_wrap" style="width: 1000px;">
-				
-				</div>	
+				<div id="qnaContent_wrap" style="width: 1000px;"></div>	
 			</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true" />

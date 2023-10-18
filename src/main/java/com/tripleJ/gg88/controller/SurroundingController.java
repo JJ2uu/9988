@@ -11,4 +11,5 @@ public class SurroundingController {
 	@RequestMapping(value = "/facilities", method = RequestMethod.GET)
 	public void mainPath() {
 	}
+	
 }

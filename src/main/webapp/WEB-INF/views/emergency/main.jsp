@@ -221,33 +221,27 @@ function checkUser(){
 					<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
 					<img src="${pageContext.request.contextPath}/resources/img/siren.svg" width="24px" id="map_icon">
 				</div>
-				<div class="search"
-					style="">
+				<div class="search">
 					<input type="text" placeholder="증상에 대한 검색어를 입력하세요."> 
-					<a href="#"> <img alt="돋보기 아이콘"
-						src="${pageContext.request.contextPath}/resources/img/Vector.png">
-					</a>
+					<img alt="돋보기 아이콘" src="${pageContext.request.contextPath}/resources/img/Vector.png">
 				</div>
-
 				<div id="plus_content" style="display: flex; justify-content: flex-end;">
 					<form id="create_frm" action="createBoard">
 						<button type="button" class="contetn_btn" onclick="checkUser();">응급상황 추가하기</button>
 					</form>
 				</div>
-				
 				<div id="contents" style="width: 880px; display: flex; gap: 10px; flex-wrap: wrap;">
 					<c:forEach var="emergencyList" items="${emergencyList}">
 						<div class="img_box">
-						<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
-							<img alt="응급상황 사진" align="left" src="${emergencyList.imgFile}" width="240px;" height="180px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'"> 
-							<span>${emergencyList.title}</span>
-						</a>
+							<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
+								<img alt="응급상황 사진" align="left" src="${emergencyList.imgFile}" width="240px;" height="180px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'"> 
+								<span>${emergencyList.title}</span>
+							</a>
 						</div>
 					</c:forEach>
 				</div>
-			<div class="paging" id="paganation" style="margin: 20px;">
+				<div class="paging" id="paganation" style="margin: 20px;"></div>
 			</div>
-		</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true" />
 	</div>

@@ -46,6 +46,7 @@ hr {
 	border: none;
 	font-size: 14px; 
 	font-weight: 600;
+	cursor: pointer;
 }
 .board_btn{
 	width: 904px;
@@ -89,9 +90,9 @@ $(document).ready(function(){
 		},
 		success : function(data) {
 			$.each(data, function(index, item) { // 데이터 =item
-					$("#comments").append('<span id="cmt"><span style="font-weight: 700;">' + item.nickName + '&emsp;<span>'
-							+ item.content + '</span><span style="float: right;">' + item.regdate + '</span>'); // index가 끝날때까지 
-				});
+				$("#comments").append('<span id="cmt"><span style="font-weight: 700;">' + item.nickName + '&emsp;<span>'
+				+ item.content + '</span><span style="float: right;">' + item.regdate + '</span>'); // index가 끝날때까지 
+			});
 			 
 		},
 		error : function(error) {
@@ -135,40 +136,36 @@ function deleteBoard(){
 		</div>
 		<div id="content_wrap">
 			<div id="content">
-				<!-- 이 content div 안에서  작업 시작-->
 				<div style="width: 1000px">
-				<div style="width: 80%; display: flex; margin: auto;">
-					<p style="font-weight: 700; font-size: 24px; padding-bottom: 10px;">${emergency.title}</p>&emsp;<p style="color: #A1A4A8; font-size: 24px; padding-bottom: 10px; font-weight: 500;">이렇게 대처하세요!</p>
-				</div>
+					<div style="width: 80%; display: flex; margin: auto;">
+						<p style="font-weight: 700; font-size: 24px; padding-bottom: 10px;">${emergency.title}</p>&emsp;<p style="color: #A1A4A8; font-size: 24px; padding-bottom: 10px; font-weight: 500;">이렇게 대처하세요!</p>
+					</div>
 					<hr>
-				<div style="width: 80%; display: flex; margin: auto; flex-direction: column;">
-					<img id="imgFile" src="${emergency.imgFile}" alt="응급상황 사진" style="display: block; width: 240px; height: 180px; border-radius: 10px; overflow: hidden;" align="left" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'"> 
-					<span style="text-align: left; margin: 10px 15px">
-						${emergency.content}
-					</span>
-				</div>
+					<div style="width: 80%; display: flex; margin: auto; flex-direction: column;">
+						<img id="imgFile" src="${emergency.imgFile}" alt="응급상황 사진" style="display: block; width: 240px; height: 180px; border-radius: 10px; overflow: hidden;" align="left" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'"> 
+						<span style="text-align: left; margin: 10px 15px">${emergency.content}</span>
+					</div>
 					<hr>
 					<div id="comment_main">
-					<div id="comments">
-					</div>
-					<div id="comment_regist">
-						<span>댓글 달기</span>&emsp;
-						<div id="comment_div" style="margin-top: 20px;">
-							<form action="${pageContext.request.contextPath}/emergency/reply/regist" method="post" id="comment_frm">
-								<input type="hidden" value="${emergency.emergencyId}" name="emergencyId" id="emergencyId">
-								<input type="hidden" value="${memberNo}" name="memberNo" id="memberNo">
-								<input type="hidden" value="${userId}" name="userId" id="userId">
-								<input type="text" class="comment" name="comment" id="comment">
-								<input type="button" onclick="register()" value="등록" class="send_btn" name="">
-							</form>
+						<div id="comments"></div>
+						<div id="comment_regist">
+							<span>댓글 달기</span>&emsp;
+							<div id="comment_div" style="margin-top: 20px;">
+								<form action="${pageContext.request.contextPath}/emergency/reply/regist" method="post" id="comment_frm">
+									<input type="hidden" value="${emergency.emergencyId}" name="emergencyId" id="emergencyId">
+									<input type="hidden" value="${memberNo}" name="memberNo" id="memberNo">
+									<input type="hidden" value="${userId}" name="userId" id="userId">
+									<input type="text" class="comment" name="comment" id="comment">
+									<input type="button" onclick="register()" value="등록" class="send_btn" name="">
+								</form>
+							</div>
 						</div>
 					</div>
-					</div>
 					<c:if test="${memberNo == emergency.memberNo}"> 
-					<div class="board_btn">
-						<button onclick = "location.href='${pageContext.request.contextPath}/emergency/updateBoard?emergencyId=${emergency.emergencyId}';" id="temSave" type="button" style="background-color: #E0E6EC; color: #2C343D;">수정하기</button>
-						<button onclick = "deleteBoard()" id="delete" type="button" style="background-color: #E0E6EC; color: #2C343D;">삭제하기</button>
-					</div>
+						<div class="board_btn">
+							<button onclick = "location.href='${pageContext.request.contextPath}/emergency/updateBoard?emergencyId=${emergency.emergencyId}';" id="temSave" type="button" style="background-color: #E0E6EC; color: #2C343D;">수정하기</button>
+							<button onclick = "deleteBoard()" id="delete" type="button" style="background-color: #E0E6EC; color: #2C343D;">삭제하기</button>
+						</div>
 					</c:if> 
 				</div>
 			</div>

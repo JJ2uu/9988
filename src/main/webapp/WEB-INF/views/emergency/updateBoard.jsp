@@ -75,25 +75,23 @@
 		</div>
 		<div id="content_wrap">
 			<div id="content">
-				<!-- 이 content div 안에서  작업 시작-->
 				<div class="subheading" style="margin-bottom: 10px;">
-				<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
+					<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
 				</div>
-				<!-- form태그는 컨트롤러랑 연결 -->
 				<form action="${pageContext.request.contextPath}/emergency/updateBoard" method="post">
-				<input type="hidden" value="${emergency.emergencyId}" name="emergencyId">
-				<div class="symptom">
-					<span style="margin-left: 15px;">증상</span>
-					<input placeholder="응급상황을 적어주세요." value="${emergency.title}" name="title">
-				</div>
-				<div class="solution">
-					<span style="padding-right: 0px;">대처방안</span>
-					<input placeholder="응급 상황 시 대처방안을 적어주세요." value="${emergency.content}" name="content">
-				</div>
-				<div class="complete_btn">
-					<button type="button" style="background-color: #E0E6EC; color: #2C343D;" onClick="history.go(-1)">수정 취소</button>
-					<button id="sava" type="submit">수정 완료</button>
-				</div>
+					<input type="hidden" value="${emergency.emergencyId}" name="emergencyId">
+					<div class="symptom">
+						<span style="margin-left: 15px;">증상</span>
+						<input placeholder="응급상황을 적어주세요." value="${emergency.title}" name="title">
+					</div>
+					<div class="solution">
+						<span style="padding-right: 0px;">대처방안</span>
+						<input placeholder="응급 상황 시 대처방안을 적어주세요." value="${emergency.content}" name="content">
+					</div>
+					<div class="complete_btn">
+						<button type="button" style="background-color: #E0E6EC; color: #2C343D;" onClick="history.go(-1)">수정 취소</button>
+						<button id="sava" type="submit">수정 완료</button>
+					</div>
 				</form>
 			</div>
 		</div>
