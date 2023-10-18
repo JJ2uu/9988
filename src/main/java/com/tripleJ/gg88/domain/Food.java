@@ -6,7 +6,7 @@ public class Food {
     private int foodId;
     private String title;
     private String blogName;
-    private String job; // 새로운 필드 job 추가
+    private String job;
     private String simpleContent;
     private Timestamp date;
     private String url;
@@ -36,11 +36,11 @@ public class Food {
         this.blogName = blogName;
     }
 
-    public String getJob() { // job 필드의 getter 추가
+    public String getJob() {
         return job;
     }
 
-    public void setJob(String job) { // job 필드의 setter 추가
+    public void setJob(String job) {
         this.job = job;
     }
 
@@ -76,12 +76,11 @@ public class Food {
         this.thumbnail = thumbnail;
     }
 
-    // Builder 클래스 업데이트
     public static class Builder {
         private int foodId;
         private String title;
         private String blogName;
-        private String job; // Builder 클래스에도 job 필드 추가
+        private String job; 
         private String simpleContent;
         private Timestamp date;
         private String url;
@@ -102,7 +101,7 @@ public class Food {
             return this;
         }
 
-        public Builder job(String job) { // Builder 클래스에 job 설정 메서드 추가
+        public Builder job(String job) {
             this.job = job;
             return this;
         }
@@ -132,7 +131,7 @@ public class Food {
             food.setFoodId(this.foodId);
             food.setTitle(this.title);
             food.setBlogName(this.blogName);
-            food.setJob(this.job); // job 설정 추가
+            food.setJob(this.job);
             food.setSimpleContent(this.simpleContent);
             food.setDate(this.date);
             food.setUrl(this.url);
