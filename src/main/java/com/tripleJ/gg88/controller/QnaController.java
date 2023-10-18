@@ -90,5 +90,4 @@ public class QnaController {
 		qnaService.categorySearchPage(page, pageSize, search, category, model);
 	}
 	
-	
 }

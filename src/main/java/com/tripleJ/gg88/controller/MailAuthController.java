@@ -19,4 +19,5 @@ public class MailAuthController {
 	public String joinEmail(String email, String type) {
 		return authService.joinEmail(email, type);
 	}
+	
 }

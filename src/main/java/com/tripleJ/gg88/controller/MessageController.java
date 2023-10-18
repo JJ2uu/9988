@@ -19,4 +19,5 @@ public class MessageController {
 	public String sendTo(String phoneNumber) {
 		return messageService.sendTo(phoneNumber);
 	}
+	
 }

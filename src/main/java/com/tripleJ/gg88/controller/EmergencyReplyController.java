@@ -17,8 +17,8 @@ import com.tripleJ.gg88.service.EmergencyReplyServiceImpl;
 @Controller
 @RequestMapping("emergency/reply/*")
 public class EmergencyReplyController {
-	//좋아요 db 파티셔닝 필요
-	private final EmergencyReplyServiceImpl service; //현재 리포지토리 연결 서비스로 변경해야 함
+	
+	private final EmergencyReplyServiceImpl service;
 	@Autowired
 	public EmergencyReplyController(EmergencyReplyServiceImpl service) {
 		this.service = service;
