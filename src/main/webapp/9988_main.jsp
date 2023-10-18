@@ -93,7 +93,6 @@ $(function() {
 					<div class="menu">운동해요 <img alt="!" src="${pageContext.request.contextPath}/resources/img/stretching.svg" width="22px"></div>
 					<div id="mainExerciseWrap"></div>
 				</div>
-				
 			</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true"/>

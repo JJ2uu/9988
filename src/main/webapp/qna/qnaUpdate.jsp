@@ -41,8 +41,7 @@ $(function() {
 		</div>
 		<div id="content_wrap">
 			<div id="content">
-				<div id="qnaCreate_wrap">
-				</div>
+				<div id="qnaCreate_wrap"></div>
 			</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true" />

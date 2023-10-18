@@ -36,7 +36,7 @@ function searchWithKeyword() {
 	 			$.each(data, function(index, item) { // 데이터 =item
 					$("#main_div").append(
 							'<div id="separate_div" style="width: 320px; margin-bottom: 20px;">' 
-							+ '<a href="https://www.youtube.com/watch?v=' + item.videoId + '><img src="' + item.url + '" width="' + item.width + '" heigth="' + item.height 
+							+ '<a href="https://www.youtube.com/watch?v=' + item.videoId + '"><img src="'+ item.url +'" width="' + item.width + '" heigth="' + item.height 
 							+ '"><span style="width: 323px; margin: auto;">' 
 							+ item.title + '</span></a></div>'); 
 				});
@@ -82,7 +82,6 @@ function searchWithKeyword() {
 		</div>
 		<div id="content_wrap">
 			<div id="content">
-				<!-- 이 content div 안에서  작업 시작-->
 				<div class="subheading" style="margin-bottom: 20px;">
 					<span style="font-size: 24px; font-weight: bolder; margin-bottom: 20px">운동해요</span>
 					<img src="${pageContext.request.contextPath}/resources/img/stretching.svg" width="20px" style="cursor:pointer;">

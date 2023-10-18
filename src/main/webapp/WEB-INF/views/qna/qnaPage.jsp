@@ -33,11 +33,13 @@ $(".reply").each(function() {
         <tr>
             <td class="num">${list.rowNum}</td>
             <td class="title">
-                <a> <span class="category" style="color: #717A84">[${list.category}]</span>
-                        <span class="qnaContent">${list.title}</span> 
-                        <span class="qnaId" style="display: none;">${list.qnaId}</span> 
-                        <span class="reply" style="color: #FF0000; font-size: smaller;">[${list.replyCount}]</span>
-                </a></td>
+                <a>
+                	<span class="category" style="color: #717A84">[${list.category}]</span>
+                	<span class="qnaContent">${list.title}</span> 
+                	<span class="qnaId" style="display: none;">${list.qnaId}</span> 
+                	<span class="reply" style="color: #FF0000; font-size: smaller;">[${list.replyCount}]</span>
+                </a>
+            </td>
             <td class="writer">${writerList[status.index]}</td>
             <td>${formattedDates[status.index]}</td>
             <td>${list.view}</td>

@@ -9,10 +9,10 @@
 	    <span class="textContainer">
 	        <span class="userWrap">
 	            <span class="foodText" style="color: #407FBA;">${foodList[i-1].blogName}</span>
-	            <span class="foodText" style="font-weight: 300; color: #407FBA;">${foodList[i-1].job}</span>
+	            <span class="foodText" style="font-weight: 400; color: #407FBA;">${foodList[i-1].job}</span>
 	        </span>
 	        <span class="foodText" style="font-size: 18px;">${foodList[i-1].title}</span>
-	        <span class="foodText" style="font-weight: 300; overflow-wrap: break-word;">${foodList[i-1].simpleContent}</span>
+	        <span class="foodText" style="font-weight: 400; overflow-wrap: break-word;">${foodList[i-1].simpleContent}</span>
 	    </span>
 	</a>
 </c:forEach>
