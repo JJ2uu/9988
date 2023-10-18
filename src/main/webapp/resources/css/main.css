@@ -10,14 +10,24 @@
 .article{
 	align-content: center;
 	cursor: pointer;
+	font-size: 14px;
+}
+
+.article:hover .newsThumbnail {
+	transform: scale(1.05);
+	transition: 0.2s;
+}
+
+.article:hover .articleTitle {
+	text-decoration: underline;
 }
 
 .articleImage {
     width: 230px;
     height: 150px;
-    border-radius: 5px;
     overflow: hidden;
     margin: 0 auto;
+    border: 1px solid #e0e6ec;
 }
 .newsThumbnail {
     width: 100%;
@@ -63,6 +73,10 @@ th, td{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.qnaTitle:hover {
+	text-decoration: underline;
+}
 /* 응급이에요 */
 .slideshow-container {
     position: relative;
@@ -74,20 +88,18 @@ th, td{
 .slideshow-container img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
     overflow: hidden;
+    border: 1px solid #e0e6ec;
 }
 .material-symbols-outlined {
-	margin-top: 10px;
 	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
+	top: 87%;
 	cursor: pointer;
 	z-index: 1;
 }
 .prev {
-        left: 10px; 
-    }
+	left: 10px; 
+}
 
 .next {
     right: 10px;
@@ -98,7 +110,9 @@ th, td{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 28px;
 }
 /* 뭐먹을까요 */
 .food {
@@ -107,17 +121,18 @@ th, td{
     margin: 10px;
     cursor: pointer;
     background: #000;
-    border-radius: 5px;
     height: 180px;
+    overflow: hidden;
 }
 
 .foodImage {
     height: 180px;
-    border-radius: 5px;
 }
 
 .foodImage:hover {
     opacity: 30%;
+    transform: scale(1.05);
+    transition: 0.2s;
 }
 
 .textContainer {
@@ -126,7 +141,6 @@ th, td{
     left: 50%; /* 부모 요소의 중앙에 배치 */
     transform: translate(-50%, -50%); /* 요소의 중앙 정렬을 위한 이동 */
     padding: 10px;
-    text-align: center;
     pointer-events: none; /* 이벤트를 요소에 적용하지 않도록 설정 */
     display: none; /* 초기에는 표시하지 않음 */
    	width: 95%;
@@ -136,30 +150,45 @@ th, td{
 }
 .foodText {
     color: white;
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 200px;
 }
+
+.foodTitle {
+	font-size:16px;
+	font-weight: 700;
+}
+
 /* 운동해요 */
 .exerciseText {
-    max-width: 200px; /* 원하는 최대 너비 설정 */
+    width: 100%;
     white-space: nowrap; /* 글자 줄바꿈 방지 */
     overflow: hidden; /* 넘치는 내용 감춤 */
     text-overflow: ellipsis; /* 생략 부호 표시 */
-    font-weight: bold;
     text-align: center;
     display: block;
+    font-size: 14px;
 }
 .exerciseImage{
-	border-radius: 5px;
+	width: 100%;
 }
 #mainExerciseWrap{
 	display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 20px;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.exerciseLeft {
+	width: 250px;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+.exerciseImage:hover {
+	transform: scale(1.05);
+	transition: 0.2s;
 }

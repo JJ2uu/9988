@@ -4,7 +4,7 @@
 <c:forEach var="exercise" items="${exercise}" varStatus="loop" begin="0" end="7">
     <div class="exerciseLeft">
 	    <a href="https://www.youtube.com/watch?v=${exercise.videoId}">
-	        <img src="${exercise.url}" class="exerciseImage" src="${pageContext.request.contextPath}/resources/img/exerciseimg.png" width="230px">
+	        <img src="${exercise.url}" class="exerciseImage" src="${pageContext.request.contextPath}/resources/img/exerciseimg.png">
 	        <span class="exerciseText">${exercise.title}</span>
 	    </a>
     </div>

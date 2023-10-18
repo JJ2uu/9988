@@ -4,7 +4,7 @@
 	<a href="${foodList[i-1].url}"  class="food">
 		<img class="foodImage" src="${foodList[i-1].thumbnail}">
 		<div class="textContainer">
-			<div class="foodText">${foodList[i-1].blogName}</div>
+			<div class="foodText foodTitle">${foodList[i-1].blogName}</div>
 			<div class="foodText" style="font-weight: normal;">${foodList[i-1].title}</div>
 		</div>
 	</a>

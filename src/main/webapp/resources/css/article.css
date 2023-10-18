@@ -80,9 +80,9 @@
 
 .article_thumbnail {
 	overflow: hidden;
-	border-radius: 5px;
 	width: 106px;
     height: 72px;
+    border: 1px solid #e0e6ec;
 }
 
 .article_thumbnail > img {
