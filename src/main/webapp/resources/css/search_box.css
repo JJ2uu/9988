@@ -1,0 +1,26 @@
+@charset "UTF-8";
+.search{
+	position: relative; 
+	width: 500px; 
+	height: 50px;
+}
+
+.search input {
+	width: 100%;
+	height: 100%;
+	border: 1px solid #B5C2CF;
+	border-radius: 5px;
+	padding-left: 20px;
+}
+
+.search img {
+	position: absolute;
+	width: 21px;
+	top: 17px;
+	right: 0px;
+	margin: 0;
+}
+
+#foodSearch {
+	cursor: pointer;
+}

@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+#login_wrap {
+	width: 400px;
+	display: flex;
+	flex-flow: column;
+	margin: 40px auto 0 auto;
+}
+
+.login_input {
+	width: 100%;
+	height: 60px;
+	background: #F2F6FA;
+	border-style: none;
+	border-radius: 5px;
+	outline: none;
+	padding: 0 20px;
+	box-sizing: border-box;
+	cursor: auto;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.login_input:focus {
+	outline: none;
+	box-shadow: 0 0 0 1px #B5C2CF;
+}
+
+#input_id {
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+.checkbox {
+	cursor: pointer;
+}
+
+.check_wrap {
+	display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#login_save_wrap {
+	margin: 20px 0 30px 0;
+	display: flex;
+	gap: 20px;
+}
+
+input[id="id_save"] {
+	display: none;
+}
+
+input[id="id_save"] + label {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: #F2F6FA;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.check_wrap input[type="checkbox"]:checked + .on {
+	background: #407FBA;
+}
+
+.on:after {
+	content: "";
+	position: absolute;
+}
+
+.check_wrap input[type="checkbox"]:checked + .on:after {
+	display: block;
+}
+
+.on:after {
+	width: 6px;
+	height: 12px;
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	position: absolute;
+}
+
+input[id="login_keep"] {
+	display: none;
+}
+
+input[id="login_keep"] + label {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: #F2F6FA;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+input[id="login_keep"]:checked + label {
+	background-color: #407FBA;
+}
+
+#btn_login {
+	width: 100%;
+	height: 60px;
+	border-style: none;
+	border-radius: 5px;
+	background: #407FBA;
+	color: #fff;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: 500;
+}
+
+#login_text_wrap {
+	margin: 30px 0;
+}
+
+#login_text_wrap span {
+	margin: 0 10px;
+}
+
+#btn_signUp {
+	font-weight: 400;
+	color: #407FBA;
+	text-decoration: underline;
+	text-underline-offset : 5px;
+}
+
+.error_message {
+	color: red;
+    font-size: 14px;
+    padding-left: 20px;
+    padding-top: 5px;
+    text-align: left;
+}

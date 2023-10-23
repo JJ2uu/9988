@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="emergency">
+	<!-- 게시판 글 작성 -->
+	<insert id="saveBoard" parameterType="emergency"> 
+		insert into 
+		gg88.emergency(member_no, title, content, commend_count, regdate, imgFile) 
+		values (#{memberNo}, #{title}, #{content}, 0, NOW(), #{imgFile})
+	</insert>
+	
+	<!-- 작성자 글 조회 -->
+	<select id="findById" parameterType="int" resultType="emergency">
+		select * from gg88.emergency 
+		where emergency_id = #{emergencyId}
+	</select>
+
+	<!-- 전체 글 조회 -->
+	<select id="findAllBoard" parameterType="emergency" resultType="emergency">
+		select * from gg88.emergency
+	</select>
+	
+	<!-- 글 수정 -->
+	<update id="updateBoard"  parameterType="emergency">
+		update gg88.emergency set 
+			title = #{title}, 
+			content = #{content},
+			updatedate = NOW()
+		where emergency_id = #{emergencyId}
+	</update>
+	
+	<!-- 추천수 증가 -->
+	<update id="incrementCommendCount" parameterType="int">
+        update gg88.emergency set 
+        commend_count = commend_count + 1
+        where emergency_id = #{emergencyId}
+    </update>
+    
+    <!-- 게시판 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM gg88.emergency
+		WHERE emergency_id = #{emergencyId}
+	</delete>
+	
+	<!-- 페이징 관련 -->
+	<select id="getTotalCount" resultType="int">
+		select count(*) from gg88.emergency 
+	</select>
+	
+	<select id="getList" parameterType="pageDto" resultType="emergency">
+		select * from gg88.emergency 
+		order by emergency_id desc 
+		limit #{firstRecordIndex}, #{lastRecordIndex}
+	</select>
+	
+	<select id="getMemberNo" parameterType="String" resultType="integer">
+		select member_no from gg88.member where id = #{userId}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="callSettersOnNulls" value="true"/>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+   <typeAliases>
+      <typeAlias type="com.tripleJ.gg88.domain.Daily" alias="daily"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.EmergencyCategory" alias="emergencyCategory"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.EmergencyReply" alias="emergencyReply"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.Emergency" alias="emergency"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.Food" alias="food"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.Map" alias="DomainMap"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.Member" alias="member"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.Page" alias="page"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.QnaReply" alias="qnaReply"></typeAlias>
+      <typeAlias type="com.tripleJ.gg88.domain.Qna" alias="qna"></typeAlias>
+   </typeAliases>
+   <mappers>
+      <mapper resource="mapper/dailyMapper.xml"/>
+      <mapper resource="mapper/emergencyCategoryMapper.xml"/>
+      <mapper resource="mapper/emergencyReplyMapper.xml"/>
+      <mapper resource="mapper/emergencyMapper.xml"/>
+      <mapper resource="mapper/foodMapper.xml"/>
+      <mapper resource="mapper/mapMapper.xml"/>
+      <mapper resource="mapper/memberMapper.xml"/>
+      <mapper resource="mapper/qnaReplyMapper.xml"/>
+      <mapper resource="mapper/qnaMapper.xml"/>
+   </mappers>
+</configuration>

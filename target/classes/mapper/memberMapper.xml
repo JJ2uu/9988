@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<select id="searchId" parameterType="String" resultType="member">
+		select * from member where id = #{id}
+	</select>
+	
+	<select id="searchNick" parameterType="String" resultType="member">
+		select * from member where nickname = #{nickname}
+	</select>
+	
+	<insert id="signUp" parameterType="member">
+		insert into member values (null, #{id}, #{pw}, #{name}, #{birth}, #{gender}, #{email}, #{tel}, #{nickname}, null, current_timestamp, 1, 'none', #{sessionLimit})
+	</insert>
+	
+	<select id="signIn" parameterType="member" resultType="member">
+		select * from member where id = #{id} and pw = #{pw}
+	</select>
+	
+	<update id="keepLogin">
+		update member set session_id = #{sessionId}, session_limit = #{sessionLimit} where id = #{id}
+	</update>
+	
+	<select id="checkSession" resultType="member">
+		select * from member where session_id = #{sessionId}
+	</select>
+	
+	<select id="searchEmail" parameterType="String" resultType="member">
+		select * from member where email = #{email}
+	</select>
+	
+	<select id="checkEmail" resultType="member">
+		select * from member where id = #{userId} and email = #{email}
+	</select>
+	
+	<update id="updatePw">
+		update member set pw = #{pw} where email = #{email}
+	</update>
+	
+	<update id="profileUpload">
+		update member set profile = #{profile} where id = #{id}
+	</update>
+	
+	<update id="updateNick">
+		update member set nickname = #{newNickname} where nickname = #{nickname}
+	</update>
+	
+	<select id="noToNick" parameterType="integer" resultType="member">
+		select * from member where member_no = #{memberNo}
+	</select>
+	
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="emergencyReply">
+	<!-- 댓글 작성 -->
+	<insert id="insertComment" parameterType="emergencyReply"> 
+		insert into 
+		gg88.emergency_reply(member_no, emergency_id, content, regdate) 
+		values (#{memberNo}, #{emergencyId}, #{content}, NOW())
+	</insert>
+	
+	<!-- 전체 댓글 조회 -->
+	<select id="findAllReply" parameterType="int" resultType="emergencyReply">
+		SELECT er.reply_id, er.emergency_id, er.content , er.regdate , m.id, m.nickname 
+		FROM emergency_reply er LEFT JOIN member m 
+		ON (m.member_no = er.member_no) WHERE er.emergency_id = #{emergencyId}
+	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateReply"  parameterType="emergencyReply">
+		update gg88.emergency_reply set 
+			content = #{content}
+		where member_no = #{memberNo} and reply_id = #{replyId}
+	</update>
+	
+    <!-- 게시판 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM gg88.emergency_reply
+		WHERE emergency_id = #{emergencyId}
+	</delete>
+	
+	<!-- 추천수 검색  -->
+	<select id="searchComment" resultType="int">
+		SELECT commend_count FROM gg88.emergency_reply
+		WHERE reply_id = #{replyId}
+	</select>
+	
+	<!-- 추천수 증가 -->
+	<update id="createCommendCount" parameterType="int">
+        update gg88.emergency_reply set 
+        commend_count = commend_count + 1
+        where reply_id = #{replyId}
+    </update>
+	
+	<!-- 추천수 삭제  --> 
+	<delete id="deleteCommend">
+		DELETE FROM gg88.emergency_reply
+		WHERE commend_count = #{commend_count} AND member_no = #{memberNo}	
+	</delete>
+	
+	<!-- 내가 누른 추천수 검색  -->
+	<select id="searchCommendByMember" resultType="int">
+		SELECT * FROM gg88.emergency_reply
+		WHERE commend_count = #{commend_count} AND member_no = #{memberNo}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

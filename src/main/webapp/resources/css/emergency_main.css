@@ -1,0 +1,33 @@
+@charset "UTF-8";
+#plus_content{
+	width: 156px;
+	height: 32px;
+	margin-top: 40px;
+	margin-bottom: 56px;
+}
+
+#plus_content .contetn_btn{
+	width: 160px;
+	height: 40px;
+	background-color: #407FBA;
+	border-radius: 5px;
+	color: #fff;
+	border-style: none;
+	cursor: pointer;
+}
+
+.img_box {
+	width: 210px;
+	margin-bottom: 10px;
+}
+
+.img_box img {
+	width: 210px;
+	height: 180px;
+	border-radius: 10px;
+}
+
+.img_box p {
+	width: 220px;
+	height: 36px;
+}

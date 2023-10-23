@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qnaReply">
+
+	<insert id="qnaReplyInsert" parameterType="qnaReply">
+		insert into qna_reply
+		(member_no, qna_id, content)
+		values(#{memberNo}, #{qnaId}, #{content});
+	</insert>
+	
+	<select id="qnaReplyList" resultType="qnaReply" parameterType="Integer">
+		select * from qna_reply where qna_id = #{qnaId} and reply_class = 0 order by `date`
+	</select>
+	
+	<insert id="reReplyInsert" parameterType="qnaReply">
+		insert into qna_reply
+		(member_no, qna_id, content, reply_class, group_id)
+		values(#{memberNo}, #{qnaId}, #{content}, 1, #{groupId});
+	</insert>
+	
+	<select id="reReplyList" resultType="qnaReply" parameterType="Integer">
+		select * from qna_reply where group_id = #{groupId} order by `date`
+	</select>
+	
+	<delete id="qnaDeleteReply" parameterType="qnaReply">
+		delete from qna_reply where qna_id = #{qnaId}
+	</delete>
+	
+	<select id="userReplyList" resultType="qnaReply">
+		select * from qna_reply where member_no = #{memberNo} order by date desc
+	</select>
+
+</mapper>
