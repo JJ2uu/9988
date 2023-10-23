@@ -205,6 +205,54 @@ function checkUser(){
 		form.submit();
 	} 
 }
+
+function searchWithKeyword(searchKeyword) {
+	
+	if(searchKeyword){
+		var keyword = searchKeyword;
+	} else{
+	 	var keyword = document.getElementById("keyword").value;		
+	}
+ 	
+ 	if(keyword){
+	 	$.ajax({
+	 		type: 'post', 
+	 		url: '${pageContext.request.contextPath}/emergency/search',
+	 		data: {
+	 			keyword: keyword
+	 		},
+	 		success: function(data){
+	 			if(data.length == 0) {
+	 				alert('검색 결과가 없습니다.')
+	 			} else{
+	 				$('#contents').empty();
+	 			}
+	 			
+			 	$.each(data, function(index, item) { // 데이터 =item
+					$("#contents").append(
+							'<div class="img_box"><a href="${pageContext.request.contextPath}/emergency/board?emergencyId=' + item.emergencyId + '">'
+									+'<img id = "img_box_id" alt="응급상황 사진" align="left" src="' + item.imgFile 
+									+ '" onerror="noImg()"><span>'
+							+ item.title + '</span></a></div>'); // index가 끝날때까지 
+				});
+	 		},
+	 		error: function(e){
+	 			console.error('Error', e)
+	 		}
+	 	})
+ 	} else {
+ 		alert("검색어를 입력해 주세요.");
+ 	}
+}
+
+function show_name(){
+	if(window.event.keyCode == 13){
+		window.event.preventDefault();
+		
+		var searchKeyword = document.getElementById("keyword").value;
+		searchWithKeyword(searchKeyword);
+    }
+ }
 </script>
 <title>99팔팔</title>
 </head>
@@ -221,27 +269,33 @@ function checkUser(){
 					<span style="font-size: 24px; font-weight: bolder;">응급이에요</span>
 					<img src="${pageContext.request.contextPath}/resources/img/siren.svg" width="24px" id="map_icon">
 				</div>
-				<div class="search">
-					<input type="text" placeholder="증상에 대한 검색어를 입력하세요."> 
-					<img alt="돋보기 아이콘" src="${pageContext.request.contextPath}/resources/img/Vector.png">
+				<div class="search"
+					style="">
+					<input type="text" id="keyword" placeholder="증상에 대한 검색어를 입력하세요." onkeypress="show_name();"> 
+					<a href="javascript:void(0);" id="searchA" onclick="searchWithKeyword();"> 
+						<img alt="돋보기 아이콘" src="${pageContext.request.contextPath}/resources/img/Vector.png">
+					</a>
 				</div>
+
 				<div id="plus_content" style="display: flex; justify-content: flex-end;">
 					<form id="create_frm" action="createBoard">
 						<button type="button" class="contetn_btn" onclick="checkUser();">응급상황 추가하기</button>
 					</form>
 				</div>
+				
 				<div id="contents" style="width: 880px; display: flex; gap: 10px; flex-wrap: wrap;">
 					<c:forEach var="emergencyList" items="${emergencyList}">
 						<div class="img_box">
-							<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
-								<img alt="응급상황 사진" align="left" src="${emergencyList.imgFile}" width="240px;" height="180px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'"> 
-								<span>${emergencyList.title}</span>
-							</a>
+						<a href="${pageContext.request.contextPath}/emergency/board?emergencyId=${emergencyList.emergencyId}">
+							<img alt="응급상황 사진" align="left" src="${emergencyList.imgFile}" width="240px;" height="180px;" onerror="this.src='${pageContext.request.contextPath}/resources/img/logo.svg'"> 
+							<span>${emergencyList.title}</span>
+						</a>
 						</div>
 					</c:forEach>
 				</div>
-				<div class="paging" id="paganation" style="margin: 20px;"></div>
+			<div class="paging" id="paganation" style="margin: 20px;">
 			</div>
+		</div>
 		</div>
 		<jsp:include page="/default/footer.jsp" flush="true" />
 	</div>

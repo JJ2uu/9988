@@ -32,7 +32,7 @@ public class ExerciseController {
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Exercise> search(@RequestParam String keyword, Model model) throws Throwable{
+	public List<Exercise> search(@RequestParam String keyword) throws Throwable{
 		return service.search(keyword);
 	}
 	
