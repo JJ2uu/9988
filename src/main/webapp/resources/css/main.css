@@ -121,12 +121,13 @@ th, td{
     margin: 10px;
     cursor: pointer;
     background: #000;
-    height: 180px;
     overflow: hidden;
+    height: 150px;
 }
 
 .foodImage {
-    height: 180px;
+	max-width: 200px;
+	object-fit: cover;
 }
 
 .foodImage:hover {
