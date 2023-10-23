@@ -28,14 +28,14 @@ public class FoodServiceImpl implements FoodService{
 		
 		List<Food> foodList = new ArrayList<>();
 		for (Element element : ele) {
-	        String title = element.select("a.name_link").text();
+	        String title = element.select("a.title_link").text();
 	        String blogName = element.select("a.name span.txt").text();
-	        String job = element.select("span.etc.highlight").text();	        
-	        String simpleContent = element.select("p.dsc").text();
-	        String urlValue = element.select("a.name_link").attr("href");
-	        String imageUrl = element.select("img.bg_nimg").attr("src");
+	        String job = element.select("span.etc").text();	        
+	        String simpleContent = element.select("a.dsc_link").text();
+	        String urlValue = element.select("a.title_link").attr("href");
+	        String imageUrl = element.select("a img.bg_nimg").attr("src");
 	        if (imageUrl.contains("data:image/gif")) {
-				String thumbnail = element.select("div.detail_box div").first().select("a").first().html();
+				String thumbnail = element.select("div.detail_box").html();
 				imageUrl = extractImageUrl(thumbnail);
 	        }
 	        
@@ -65,14 +65,14 @@ public class FoodServiceImpl implements FoodService{
 		
 		List<Food> foodList = new ArrayList<>();
 		for (Element element : ele) {
-	        String title = element.select("a.name_link").text();
+	        String title = element.select("a.title_link").text();
 	        String blogName = element.select("a.name span.txt").text();
-	        String job = element.select("span.etc.highlight").text();	        
-	        String simpleContent = element.select("p.dsc").text();
-	        String urlValue = element.select("a.name_link").attr("href");
-	        String imageUrl = element.select("img.bg_nimg").attr("src");
+	        String job = element.select("span.etc").text();	        
+	        String simpleContent = element.select("a.dsc_link").text();
+	        String urlValue = element.select("a.title_link").attr("href");
+	        String imageUrl = element.select("a img.bg_nimg").attr("src");
 	        if (imageUrl.contains("data:image/gif")) {
-				String thumbnail = element.select("div.detail_box div").first().select("a").first().html();
+				String thumbnail = element.select("div.detail_box").html();
 				imageUrl = extractImageUrl(thumbnail);
 	        }
 	        

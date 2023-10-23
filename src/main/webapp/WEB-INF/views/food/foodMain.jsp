@@ -61,7 +61,7 @@ $(function() {
 					</div>
 					<div style="margin-top: 50px;" id="contentWrap">
 						<c:forEach var="i" begin="1" end="${fn:length(foodList)}">
-							<a href="${foodList[i-1].url}" class="food">
+							<a href="${foodList[i-1].url}" class="food" target="_blank">
 							    <img class="foodImage" src="${foodList[i-1].thumbnail}">
 							    <span class="textContainer">
 							        <span class="userWrap">
