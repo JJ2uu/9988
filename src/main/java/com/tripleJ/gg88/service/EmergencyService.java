@@ -29,4 +29,6 @@ public interface EmergencyService {
 	public List<Emergency> getList(int first, int last);
 	
 	public int getMemberNo(String userNickName);
+	
+	public List<Emergency> search(String keyword);
 }

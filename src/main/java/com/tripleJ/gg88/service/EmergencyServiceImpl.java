@@ -1,5 +1,6 @@
 package com.tripleJ.gg88.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -129,6 +130,19 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public int getMemberNo(String userNickName) {
 		return repository.getMemberNo(userNickName);
+	}
+	
+	@Override
+	public List<Emergency> search(String keyword) {
+		List<Emergency> emergencys = repository.findAll();
+		List<Emergency> result = new ArrayList<>();
+		for(Emergency emergency : emergencys) {
+			if(emergency.getTitle().contains(keyword)) {
+				result.add(emergency);
+			}
+		}
+		
+		return result;
 	}
 
 }
